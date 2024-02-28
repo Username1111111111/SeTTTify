@@ -1,4 +1,3 @@
-// import Image from "next/image";
 import styles from "./page.module.css";
 
 // Test
@@ -10,8 +9,8 @@ if (process.env.NODE_ENV === 'dev') {
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <div>
       This is main
-    </main>
+    </div>
   );
 }

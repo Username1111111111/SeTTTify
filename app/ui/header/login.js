@@ -1,3 +1,3 @@
 export default function Login() {
-    return (<div>Login</div>);
+    return (<button className="btn btn-secondary">Login</button>);
 }
