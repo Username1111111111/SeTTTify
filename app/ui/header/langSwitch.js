@@ -2,30 +2,27 @@ import { BsTranslate } from "react-icons/bs";
 
 export default function LangSwitch() {
     return (
-        <div className="d-flex flex-row justify-content-center align-content-center">
-            {" "}
-            <div class="dropdown">
+            <div className="dropdown p-0">
                 <button
-                    class="btn btn-secondary dropdown-toggle"
+                    className="btn dropdown-toggle p-0"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                 >
-                    <BsTranslate /> Language
+                    <BsTranslate size="2.2em"/>
                 </button>
-                <ul class="dropdown-menu">
+                <ul className="dropdown-menu">
                     <li>
-                        <a class="dropdown-item" href="#">
-                            English
+                        <a className="dropdown-item" href="">
+                            Georgian
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
-                            Georgian
+                        <a className="dropdown-item" href="">
+                            English
                         </a>
                     </li>
                 </ul>
             </div>
-        </div>
     );
 }

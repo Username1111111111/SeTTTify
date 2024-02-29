@@ -4,7 +4,7 @@ import User from "./user";
 
 export default function Auth() {
     return (
-        <div className="d-flex flex-row">
+        <div className="d-flex flex-row m-1">
             <Login />
             <Signup/>
             <User/>

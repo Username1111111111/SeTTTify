@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="en" data-bs-theme="light">
             <Body>{ children }</Body>
             <BootstrapClient />
         </html>

@@ -1,7 +1,7 @@
-import styles from "./page.module.css";
+// import styles from "./page.module.css";
 
 // Test
-if (process.env.NODE_ENV === 'dev') {
+if (process.env.CUSTOM_ENV === 'dev') {
   console.log('dev mode');
 } else {
   console.log('prod mode');

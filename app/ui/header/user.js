@@ -1,3 +1,3 @@
 export default function User() {
-    return (<div className="d-none">User</div>);
+    return (<div className="d-none m-1">User</div>);
 }
