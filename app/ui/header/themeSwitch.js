@@ -9,6 +9,7 @@ export default function ThemeSwitch() {
     }
 
     useEffect(() => {
+        // https://getbootstrap.com/docs/5.3/customize/color-modes/
         document.documentElement.setAttribute('data-bs-theme', theme);
     }, [theme]);
 

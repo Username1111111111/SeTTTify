@@ -5,5 +5,6 @@
 @media (max-width: 832px) {
     .logo {
         display: none !important;
+        /* padding-right: 0!important; */
     }
 }

@@ -1,0 +1,9 @@
+/* Define default color for light mode */
+:root {
+    --icon-color: #212529; /* Default color for light mode */
+}
+
+/* Define color for dark mode */
+[data-bs-theme="dark"] {
+    --icon-color: rgb(242, 242, 242); /* Color for dark mode */
+}

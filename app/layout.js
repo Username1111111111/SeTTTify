@@ -1,6 +1,6 @@
-import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapClient from "./lib/bootstrapClient";
+import "./globals.css";
 import Body from "./ui/body";
 
 // const inter = Inter({ subsets: ["latin"] });
