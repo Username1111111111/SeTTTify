@@ -3,6 +3,7 @@ import SearchBar from "./searchBar";
 import LangSwitch from "./langSwitch";
 import ThemeSwitch from "./themeSwitch";
 import Auth from "./auth";
+// import DynamicThemeSwitch from "@/app/lib/dynamicThemeSwitch";
 
 export default function Header() {
     return (
@@ -14,6 +15,7 @@ export default function Header() {
                 <div className="col-12 col-md-7 d-flex flex-wrap justify-content-center justify-content-md-end align-items-center">
                     <SearchBar />
                     <ThemeSwitch />
+                    {/* <DynamicThemeSwitch /> */}
                     <LangSwitch />
                     <Auth />
                 </div>

@@ -1,22 +1,41 @@
+"use client";
 import { BsSun, BsMoonFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 
 export default function ThemeSwitch() {
-    const [theme, setTheme] = useState("light");
+    const getSavedTheme = () => {
+        const storedTheme = localStorage.getItem("theme");
+        return storedTheme || "light";
+    };
 
-    function handleClick() {
-        setTheme(theme === "light" ? "dark" : "light");
-    }
-
+    const [theme, setTheme] = useState(getSavedTheme());
+    
     useEffect(() => {
-        // https://getbootstrap.com/docs/5.3/customize/color-modes/
-        document.documentElement.setAttribute('data-bs-theme', theme);
+        const storedTheme = localStorage.getItem("theme");
+        const initialTheme = storedTheme || "light";
+        setTheme(initialTheme);
+        document.documentElement.setAttribute("data-bs-theme", initialTheme);
+    }, []);
+
+    // Handling change of theme
+    useEffect(() => {
+        document.documentElement.setAttribute("data-bs-theme", theme);
+        localStorage.setItem("theme", theme);
     }, [theme]);
 
-    return (<button
-        className="btn d-flex justify-content-center align-items-center p-2"
-        onClick={handleClick} // Add the click handler to toggle the theme
-    >
-        {theme === "light" ? <BsMoonFill size="2.2em" /> : <BsSun size="2.2em"/>}
-    </button>);
+    function handleClick() {
+        const newTheme = theme === "light" ? "dark" : "light";
+        setTheme(newTheme);
+    }
+
+    console.log(`Current theme ====> ${theme}`);
+
+    return (
+        <button
+            className="btn d-flex justify-content-center align-items-center p-2"
+            onClick={handleClick}
+        >
+            {theme === "light" ? <BsMoonFill size="2.2em" /> : <BsSun size="2.2em" />}
+        </button>
+    );
 }
