@@ -8,10 +8,10 @@ export default function Body({ children }) {
             <body className="container-fluid">
                 <Header />
                 <div className="row">
-                    <div className="col-12 col-md-2">
+                    <div className="col-12 col-md-3">
                         <Sidebar />
                     </div>
-                    <main className="col-12 col-md-10">{children}</main>
+                    <main className="col-12 col-md-9">{children}</main>
                 </div>
             </body>
         </>

@@ -2,7 +2,7 @@
     display: flex !important;
 }
 
-@media (max-width: 832px) {
+@media (max-width: 894px) {
     .logo {
         display: none !important;
     }

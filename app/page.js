@@ -1,4 +1,5 @@
 // import styles from "./page.module.css";
+import ItemList from "./ui/items/itemList";
 
 // Test
 if (process.env.CUSTOM_ENV === 'dev') {
@@ -9,8 +10,6 @@ if (process.env.CUSTOM_ENV === 'dev') {
 
 export default function Home() {
   return (
-    <div>
-      This is main
-    </div>
+      <ItemList/>
   );
 }

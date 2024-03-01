@@ -1,3 +1,19 @@
+import CollectionItem from "./collectionItem";
+
+function createCollectionItems() {
+    const colCount = 20;
+    const allCollections = [];
+    for (let i = 0; i < colCount; i++) {
+        allCollections.push(<CollectionItem key={i} className="dropdown-item">{i}</CollectionItem>);
+    }
+    return <ul>{allCollections}</ul>;
+}
+
 export default function CollectionList() {
-    return (<div>CollectionList</div>);
+    return (
+        <div className="row">
+            <p className="text-center mb-0 fs-5">Your collections:</p>
+            {createCollectionItems()}
+        </div>
+    );
 }

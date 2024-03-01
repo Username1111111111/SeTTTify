@@ -1,5 +1,5 @@
 "use client";
-import { BsSun, BsMoonFill } from "react-icons/bs";
+import { BsSun, BsMoon } from "react-icons/bs";
 import { useEffect, useState } from "react";
 
 export default function ThemeSwitch() {
@@ -35,7 +35,7 @@ export default function ThemeSwitch() {
             className="btn d-flex justify-content-center align-items-center p-2"
             onClick={handleClick}
         >
-            {theme === "light" ? <BsMoonFill size="2.0em" /> : <BsSun size="2.0em" />}
+            {theme === "light" ? <BsMoon size="2.0em" /> : <BsSun size="2.0em" />}
         </button>
     );
 }
