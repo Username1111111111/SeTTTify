@@ -11,7 +11,7 @@ function createCollectionItems() {
 
 export default function CollectionList() {
     return (
-        <div className="row">
+        <div className="row w-100">
             <p className="text-center mb-0 fs-5">Your collections:</p>
             {createCollectionItems()}
         </div>

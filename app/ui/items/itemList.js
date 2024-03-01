@@ -6,7 +6,7 @@ function createItemCards() {
     for (let i = 0; i < itemCount; i++) {
         allItems.push(<ItemCard key={i}>{i}</ItemCard>);
     }
-    return <ul className="row w-100 pt-2 d-flex">{allItems}</ul>;
+    return <ul className="row d-flex w-100 p-0 m-0 pt-2">{allItems}</ul>;
 }
 
 export default function ItemList() {

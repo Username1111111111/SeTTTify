@@ -1,11 +1,13 @@
 import { BiSolidEditAlt } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
+import Image from "next/image";
 
 export default function ItemCard({ children }) {
     return (
-        <li className="col-12 col-md-4 d-flex flex-column ml-4">
+        <li className="col-12 col-md-4 d-flex flex-column justify-content-between">
             <div className="d-flex flex-row justify-content-between align-items-center mt-2 mb-1">
                 <div className="text-center">#id {children}</div>
+                {/* if authorized */}
                 <div className="d-flex flex-row justify-content-between align-items-center">
                     <button
                         type="button"
@@ -25,97 +27,99 @@ export default function ItemCard({ children }) {
             </div>
 
             <div className="mb-1">Tags</div>
-            <div className="mb-1">Image</div>
-            <div className="mb-1">
-                <label htmlFor="exampleFormControlInput1" className="form-label">
-                    Name
-                </label>
+            <Image width="200" height="100" src="/300.jpg" className="mb-1" alt="hello"/>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">Name: </p>
+                <p className="p-0 m-0">Name from server</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">Description: </p>
+                <p className="p-0 m-0">Description with MD</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">Topic: </p>
+                <p className="p-0 m-0">Topic from server</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">Number: </p>
+                <p className="p-0 m-0">3 integer inputs</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">Number: </p>
+                <p className="p-0 m-0">3 integer inputs</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">Number: </p>
+                <p className="p-0 m-0">3 integer inputs</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">String: </p>
+                <p className="p-0 m-0">3 string inputs</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">String: </p>
+                <p className="p-0 m-0">3 string inputs</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">String: </p>
+                <p className="p-0 m-0">3 string inputs</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">Textarea: </p>
+                <p className="p-0 m-0">3 textareas</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">Textarea: </p>
+                <p className="p-0 m-0">3 textareas</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">Textarea: </p>
+                <p className="p-0 m-0">3 textareas</p>
+            </div>
+            <div className="d-flex flex-row justify-content-between align-items-center mb-1">
+                <p className="p-0 m-0 me-1">3 Checkboxes: </p>
                 <input
-                    type="email"
-                    className="form-control"
-                    id="exampleFormControlInput1"
-                    placeholder="Name of item"
-                />
-            </div>
-            <div className="d-flex flex-row justify-content-between align-items-center mb-1">
-                <label htmlFor="story">Description:</label>
-                <textarea
-                    id="story"
-                    name="story"
-                    rows="2"
-                    cols="30"
-                    defaultValue="Textarea"
-                />
-            </div>
-            <div className="d-flex flex-row justify-content-between align-items-center mb-1">
-                <label htmlFor="topic">Topic:</label>
-                <select
-                    id="topic"
-                    className="form-select"
-                    a
-                    aria-label="Default select example"
-                >
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div className="d-flex flex-row justify-content-between align-items-center mb-1">
-                <input className="form-control" type="file" id="formFile" />
-            </div>
-            <div className="d-flex flex-row justify-content-between align-items-center mb-1">
-                <label htmlFor="exampleFormControlInput1" className="form-label">
-                    3 integer inputs
-                </label>
-                <input
-                    type="number"
-                    className="form-control"
-                    id="exampleFormControlInput1"
-                    placeholder="Numbers"
-                />
-            </div>
-            <div className="d-flex flex-row justify-content-between align-items-center mb-1">
-                <label htmlFor="exampleFormControlInput1" className="form-label">
-                    3 string inputs
-                </label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="exampleFormControlInput1"
-                    placeholder="Text"
-                />
-            </div>
-            <div className="d-flex flex-row justify-content-between align-items-center mb-1">
-                <label htmlFor="opt">3 optional textareas</label>
-                <textarea
-                    id="opt"
-                    name="opt"
-                    rows="2"
-                    cols="30"
-                    defaultValue="Textarea"
-                ></textarea>
-            </div>
-            <div className="d-flex flex-row justify-content-between align-items-center mb-1">
-                <label className="form-check-label" htmlFor="flexCheckDefault">
-                    3 optional checkboxes
-                </label>
-                <input
-                    className="form-check-input"
+                    className="form-check-input m-0 p-0 me-2"
                     type="checkbox"
                     value=""
                     id="flexCheckDefault"
+                    checked
+                    disabled
                 />
             </div>
             <div className="d-flex flex-row justify-content-between align-items-center mb-1">
-                <label htmlFor="exampleFormControlInput1" className="form-label">
-                    3 date inputs
-                </label>
+                <p className="p-0 m-0 me-1">3 Checkboxes: </p>
                 <input
-                    type="date"
-                    className="form-control"
-                    id="exampleFormControlInput1"
-                    placeholder="Numbers"
+                    className="form-check-input m-0 p-0 me-2"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                    checked
+                    disabled
                 />
+            </div>
+            <div className="d-flex flex-row justify-content-between align-items-center mb-1">
+                <p className="p-0 m-0 me-1">3 Checkboxes: </p>
+                <input
+                    className="form-check-input m-0 p-0 me-2"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                    checked
+                    disabled
+                />
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">3 dates: </p>
+                <p className="p-0 m-0">Dates</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">3 dates: </p>
+                <p className="p-0 m-0">Dates</p>
+            </div>
+            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
+                <p className="p-0 m-0 me-1">3 dates: </p>
+                <p className="p-0 m-0">Dates</p>
             </div>
         </li>
     );
