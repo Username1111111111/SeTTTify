@@ -28,14 +28,14 @@ export default function ThemeSwitch() {
         setTheme(newTheme);
     }
 
-    console.log(`Current theme ====> ${theme}`);
+    // console.log(`Current theme ====> ${theme}`);
 
     return (
         <button
             className="btn d-flex justify-content-center align-items-center p-2"
             onClick={handleClick}
         >
-            {theme === "light" ? <BsMoonFill size="2.2em" /> : <BsSun size="2.2em" />}
+            {theme === "light" ? <BsMoonFill size="2.0em" /> : <BsSun size="2.0em" />}
         </button>
     );
 }

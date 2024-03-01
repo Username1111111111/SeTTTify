@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 :root {
   --bs-body-bg: rgb(242, 242, 242); /* Set the desired grey color */
 }
@@ -11,6 +13,7 @@
     padding: 0;
     margin: 0;
     border: 1px solid black;
+    font-family: 'Roboto', sans-serif;
 }
 
 html,
