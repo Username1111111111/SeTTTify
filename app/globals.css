@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 :root {
-  --bs-body-bg: rgb(242, 242, 242); /* Set the desired grey color */
+  --bs-body-bg: rgb(242, 242, 242);
 }
 
 [data-bs-theme="dark"] {
-  --bs-body-bg: #212529; /* Set the desired grey color for dark theme */
+  --bs-body-bg: #212529;
 }
 
 * {
@@ -31,6 +31,5 @@ a {
 ul,
 li,
 ol {
-    text-decoration: none;
     list-style: none;
 }

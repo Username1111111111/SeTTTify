@@ -9,7 +9,7 @@ export default function LangSwitch() {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                 >
-                    <BsTranslate size="2.2em"/>
+                    <BsTranslate size="2.0em"/>
                 </button>
                 <ul className="dropdown-menu">
                     <li>

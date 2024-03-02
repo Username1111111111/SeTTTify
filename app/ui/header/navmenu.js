@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function NavMenu() {
     return (
-        <nav className="row align-items-center justify-content-center w-100">
+        <nav className="row align-items-center justify-content-center w-100 ps-2">
             <Image
                 src="/settify.svg"
                 alt="Settify Logo"
