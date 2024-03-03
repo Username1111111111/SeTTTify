@@ -1,5 +1,6 @@
 // import styles from "./page.module.css";
 import ItemList from "./ui/items/itemList";
+import ItemCardEdit from "./ui/items/itemCardEdit";
 
 // Test
 // if (process.env.CUSTOM_ENV === 'dev') {
@@ -11,5 +12,6 @@ import ItemList from "./ui/items/itemList";
 export default function Home() {
   return (
       <ItemList/>
+      // <ItemCardEdit/>
   );
 }

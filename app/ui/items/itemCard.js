@@ -1,44 +1,42 @@
-import Image from "next/image";
 import DescriptionField from "./descriptionField";
 import TopicField from "./topicField";
-import NumberFieldOpt from "./numberFieldOpt";
-import StringFieldOpt from "./stringFieldOpt";
-import TextareaFieldOpt from "./textareaFieldOpt";
-import CheckboxFieldOpt from "./checkboxFieldOpt";
-import DateFieldOpt from "./dateFieldOpt";
 import NameField from "./nameField";
 import TaglistField from "./taglistField";
 import ButtonGroup from "../buttonGroup";
 import IdField from "./idField";
+import ImageField from "./imageField";
+import OptField from "./optField";
 
-export default function ItemCard({ children }) {
+export default function ItemCard({ id }) {
     return (
-        <li className="col-12 col-md-6 d-flex flex-column justify-content-between">
-            <div className="d-flex flex-row justify-content-between align-items-center mt-2 mb-1">
-                <IdField id={children}/>
-                {/* if authorized */}
-                <ButtonGroup/>
+        <li className="col-12 col-md-6 p-0 m-0">
+            <div className="border border-secondary rounded m-2 p-1">
+                <div className="d-flex flex-row justify-content-between align-items-center mt-2 mb-1">
+                    <IdField id={id} />
+                    {/* if authorized */}
+                    <ButtonGroup />
+                </div>
+                <TaglistField />
+                <ImageField src="/300.jpg"/>
+                <NameField />
+                <DescriptionField />
+                <TopicField />
+                <OptField type={'number'}/>
+                <OptField type={'number'}/>
+                <OptField type={'number'}/>
+                <OptField type={'string'}/>
+                <OptField type={'string'}/>
+                <OptField type={'string'}/>
+                <OptField type={'textarea'}/>
+                <OptField type={'textarea'}/>
+                <OptField type={'textarea'}/>
+                <OptField type={'checkbox'}/>
+                <OptField type={'checkbox'}/>
+                <OptField type={'checkbox'}/>
+                <OptField type={'date'}/>
+                <OptField type={'date'}/>
+                <OptField type={'date'}/>
             </div>
-            <TaglistField/>
-            <Image width="200" height="100" src="/300.jpg" className="mb-1" alt="hello"/>
-            <NameField/>
-            <DescriptionField/>
-            <TopicField/>
-            <NumberFieldOpt/>
-            <NumberFieldOpt/>
-            <NumberFieldOpt/>
-            <StringFieldOpt/>
-            <StringFieldOpt/>
-            <StringFieldOpt/>
-            <TextareaFieldOpt/>
-            <TextareaFieldOpt/>
-            <TextareaFieldOpt/>
-            <CheckboxFieldOpt/>
-            <CheckboxFieldOpt/>
-            <CheckboxFieldOpt/>
-            <DateFieldOpt/>
-            <DateFieldOpt/>
-            <DateFieldOpt/>
         </li>
     );
 }

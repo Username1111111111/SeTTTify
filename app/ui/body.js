@@ -13,7 +13,7 @@ export default function Body({ children }) {
                 <div className="col-12 col-md-3 border border-secondary border-top-0 p-0">
                     <Sidebar />
                 </div>
-                <main className="col-12 col-md-9 p-1">{children}</main>
+                <main className="col-12 col-md-9 p-1 d-flex justify-content-center align-items-center">{children}</main>
             </div>
         </body>
     );

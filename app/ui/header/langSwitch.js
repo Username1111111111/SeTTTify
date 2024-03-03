@@ -1,10 +1,11 @@
 import { BsTranslate } from "react-icons/bs";
+import styles from './langSwitch.module.css'
 
 export default function LangSwitch() {
     return (
-            <div className="dropdown p-0">
+            <div className={`p-0`}>
                 <button
-                    className="btn dropdown-toggle p-0"
+                    className={`btn border-0 p-0`}
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -14,12 +15,12 @@ export default function LangSwitch() {
                 <ul className="dropdown-menu">
                     <li>
                         <a className="dropdown-item" href="">
-                            Georgian
+                        🇬🇪 Georgian
                         </a>
                     </li>
                     <li>
                         <a className="dropdown-item" href="">
-                            English
+                        🇺🇸 English
                         </a>
                     </li>
                 </ul>

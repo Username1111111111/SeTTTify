@@ -1,6 +1,7 @@
 "use client";
 import { BsSun, BsMoon } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import styles from './themeSwitch.module.css'
 
 export default function ThemeSwitch() {
     const getSavedTheme = () => {
@@ -32,7 +33,7 @@ export default function ThemeSwitch() {
 
     return (
         <button
-            className="btn d-flex justify-content-center align-items-center p-2"
+            className={`btn border-0 d-flex justify-content-center align-items-center p-0 m-0 me-2 ms-2 ${styles.themeSwitchButton}`}
             onClick={handleClick}
         >
             {theme === "light" ? <BsMoon size="2.0em" /> : <BsSun size="2.0em" />}

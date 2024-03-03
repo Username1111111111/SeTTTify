@@ -6,7 +6,7 @@ function createCollectionItems() {
     for (let i = 0; i < colCount; i++) {
         allCollections.push(<CollectionItem key={i}>{i}</CollectionItem>);
     }
-    return <ul>{allCollections}</ul>;
+    return <ul className="row w-100 m-0 p-0">{allCollections}</ul>;
 }
 
 export default function CollectionList() {
