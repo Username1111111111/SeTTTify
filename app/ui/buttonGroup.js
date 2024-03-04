@@ -1,9 +1,9 @@
 import EditButton from "./editButton";
 import DeleteButton from "./deleteButton";
 
-export default function ButtonGroup({itemId}) {
+export default function ButtonGroup({itemId, colId}) {
     return (
-        <div className="d-flex flex-row justify-content-between align-items-center p-0 m-0">
+        <div className="d-flex justify-content-end align-items-center p-0 m-0">
             <EditButton />
             <DeleteButton />
         </div>

@@ -6,18 +6,17 @@ export default function OptField({ name, value, type, itemId }) {
         const randomString = Math.random().toString(36).substr(2, 5);
         return `${timestamp}${randomString}`;
     }
-    
 
     function Row(name, value) {
         return (
-            <div className="d-flex flex-row justify-content-start align-items-center mb-1">
-                <p scope="row" className="p-0 m-0 me-1">
+            <tr className="">
+                <td scope="row" className="">
                     {name}
-                </p>
-                <p scope="row" className="p-0 m-0">
+                </td>
+                <td scope="row" className="">
                     {value}
-                </p>
-            </div>
+                </td>
+            </tr>
         );
     }
 
@@ -30,17 +29,19 @@ export default function OptField({ name, value, type, itemId }) {
         optField = Row(name, value);
     } else if (type === "checkbox") {
         optField = (
-            <div className="d-flex flex-row justify-content-between align-items-center mb-1">
-                <p className="p-0 m-0 me-1">{name}</p>
+            <tr className="">
+                <td className="">{name}</td>
+                <td>
                     <input
-                        className="form-check-input m-0 p-0 me-2"
+                        className="form-check-input"
                         type="checkbox"
                         // value={value}
                         id={`checkboxDisplay-${itemId}-${generateUniqueId()}`}
                         checked
                         disabled
                     />
-            </div>
+                </td>
+            </tr>
         );
     }
     return optField;

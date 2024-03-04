@@ -1,5 +1,6 @@
 // import ItemCard from "./itemCard";
 import ItemCard from "./itemCard";
+import CollectionCard from "../collections/collectionCard";
 
 function createItemCards() {
     const itemCount = 20;
@@ -11,5 +12,10 @@ function createItemCards() {
 }
 
 export default function ItemList() {
-    return (<>{createItemCards()}</>);
+    return (
+        <div>
+            <div className="row w-100 p-0 m-0 d-flex flex-column justify-content-center align-items-center"><CollectionCard/></div>
+            {createItemCards()}
+        </div>
+    );
 }

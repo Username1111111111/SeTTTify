@@ -1,5 +1,5 @@
 import EditButtonGroup from "../editButtonGroup";
-import NameInput from "./nameInput";
+import NameInput from "./inputs/nameInput";
 
 export default function ItemCardEdit({itemId }) {
     return (

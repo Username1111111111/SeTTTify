@@ -1,6 +1,6 @@
 "use client";
 import Header from "./header/header";
-import Sidebar from "./sidebar/sidebar";
+import Sidebar from "./collections/sidebar";
 
 export default function Body({ children }) {
     return (
