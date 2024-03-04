@@ -1,5 +1,5 @@
-export default function IdField({id}) {
+export default function IdField({itemId}) {
     return (
-        <div className="text-center">#{id}</div>
+        <div className="text-center">#{itemId}</div>
     );
 }

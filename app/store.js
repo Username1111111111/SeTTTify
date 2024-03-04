@@ -5,3 +5,53 @@ const useStore = create((set, get) => ({
 }));
 
 export default useStore;
+
+
+const dataStructure = {
+    collection: {
+        id: "string",
+        name: "string",
+        description: "string",
+        topic: "string",
+        image: "string (optional)",
+        fields: {
+            fixed: ["id", "name", "tags"],
+            optional: {
+                integer: ["int1", "int2", "int3"],
+                string: ["string1", "string2", "string3"],
+                text: ["text1", "text2", "text3"],
+                boolean: ["bool1", "bool2", "bool3"],
+                date: ["date1", "date2", "date3"],
+            },
+        },
+        items: ["itemId", "itemId2", "itemId3"]
+    },
+    item: {
+        id: "string",
+        name: "string",
+        tags: ["tag1", "tag2", "tag3"],
+        customFields: {
+            integer: "int",
+            string: "string",
+            text: "text",
+            boolean: "bool",
+            date: "date",
+        },
+        comments: ["comment1", "comment2", "comment3"],
+        likes: "int",
+    },
+    user: {
+        id: "string",
+        email: "string",
+        password: "string",
+        blocked: "boolean",
+        singUpDate: "date",
+        lastLoginDate: "date",
+        authenticated: "boolean",
+        admin: "boolean",
+        personalPage: "string",
+        language: "string",
+        collections: ["collectionId1", "collectionId2", "collectionId3"],
+        items: ["itemId", "itemId2", "itemId3"]
+    },
+};
