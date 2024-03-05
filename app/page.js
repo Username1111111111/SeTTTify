@@ -1,7 +1,3 @@
-// import styles from "./page.module.css";
-import ItemList from "./ui/items/itemList";
-import ItemCardEdit from "./ui/items/itemCardEdit";
-
 // Test
 // if (process.env.CUSTOM_ENV === 'dev') {
 //   console.log('dev mode');
@@ -11,7 +7,6 @@ import ItemCardEdit from "./ui/items/itemCardEdit";
 
 export default function Home() {
   return (
-      <ItemList/>
-      // <ItemCardEdit/>
+      <div>Main page Top and recent items and collections</div>
   );
 }

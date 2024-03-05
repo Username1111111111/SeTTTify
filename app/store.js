@@ -42,16 +42,19 @@ const dataStructure = {
     },
     user: {
         id: "string",
+        name: "string",
         email: "string",
         password: "string",
-        blocked: "boolean",
-        singUpDate: "date",
-        lastLoginDate: "date",
+        signup_date: "date",
+        last_login_date: "date",
         authenticated: "boolean",
+        blocked: "boolean",
         admin: "boolean",
-        personalPage: "string",
+        personal_page: "string",
         language: "string",
         collections: ["collectionId1", "collectionId2", "collectionId3"],
-        items: ["itemId", "itemId2", "itemId3"]
+        items: ["itemId1", "itemId2", "itemId3"],
+        comments: ["commentId1", "commentId2", "commentId3"],
+        likes: ["likeId1", "likeId2", "likeId3"]
     },
 };

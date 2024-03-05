@@ -1,164 +1,171 @@
-// "use client";
-// import { useState, useEffect } from "react";
+"use client";
+import { useState, useEffect } from "react";
 // import { useSession, signOut } from "next-auth/react";
-// import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
+import UserTableHead from "./userTableHead";
+import UserTableBody from "./userTableBody";
+import UserBlockButton from "./userBlockButton";
+import UserDeleteButton from "./userDeleteButton";
+import UserUnblockButton from "./userUnblockButton";
 
-// const domain = process.env.baseUrl; // this is localhost
+const domain = process.env.baseUrl; // this is localhost
 
-// export default function Table({ users, refreshUsers }) {
-//     const { data: session, status } = useSession();
-//     const [selectedRows, setSelectedRows] = useState([]);
-//     const [currentUserId, setCurrentUserId] = useState(session?.user?._id);
+export default function Table({ users, refreshUsers }) {
+    // const { data: session, status } = useSession();
+    const [selectedRows, setSelectedRows] = useState([]);
+    // const [currentUserId, setCurrentUserId] = useState(session?.user?._id);
 
-//     // const isLoadingSession = status === "loading";
-//     // // const isLoadingSession = currentUserId === undefined;
+    // const isLoadingSession = status === "loading";
+    // // const isLoadingSession = currentUserId === undefined;
 
-//     // if (isLoadingSession) {
-//     //     return (
-//     //         <div class="d-flex justify-content-center">
-//     //             <div class="spinner-border" role="status">
-//     //                 <span class="sr-only"></span>
-//     //             </div>
-//     //         </div>
-//     //     );
-//     // }
+    users = [{id: 123 }, {id: 223 }];
 
-//     console.log(`currentUserId: -----> ${currentUserId}`);
+    // if (isLoadingSession) {
+    //     return (
+    //         <div class="d-flex justify-content-center">
+    //             <div class="spinner-border" role="status">
+    //                 <span class="sr-only"></span>
+    //             </div>
+    //         </div>
+    //     );
+    // }
 
-//     useEffect(() => {
-//         if(session) {
-//             setCurrentUserId(session?.user?._id);
-//         }
-//         if (!session) {
-//             signOutAndRedirect();
-//         }
-//     }, [session, currentUserId]);
+    // console.log(`currentUserId: -----> ${currentUserId}`);
 
-//     async function __deleteData(selectedRows) {
-//         const req = new Request(`${domain}/api/deleteData`, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(selectedRows),
-//         });
-//         await fetch(req);
-//     }
+    // useEffect(() => {
+    //     if(session) {
+    //         setCurrentUserId(session?.user?._id);
+    //     }
+    //     if (!session) {
+    //         signOutAndRedirect();
+    //     }
+    // }, [session, currentUserId]);
 
-//     async function __updateData(selectedRows, newStatus) {
-//         const requestBody = {
-//             ids: selectedRows,
-//             newStatus,
-//         };
+    async function __deleteData(selectedRows) {
+        const req = new Request(`${domain}/api/deleteData`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(selectedRows),
+        });
+        await fetch(req);
+    }
 
-//         const req = new Request(`${domain}/api/updateData`, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(requestBody),
-//         });
-//         await fetch(req);
-//     }
+    async function __updateData(selectedRows, newStatus) {
+        const requestBody = {
+            ids: selectedRows,
+            newStatus,
+        };
 
-//     function signOutAndRedirect() {
-//         // signOut({ callbackUrl: `${domain}/api/auth/signin`, redirect: false });
-//         signOut();
-//         redirect(`${domain}/api/auth/signin`);
-//     }
+        const req = new Request(`${domain}/api/updateData`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody),
+        });
+        await fetch(req);
+    }
 
-//     async function onToggleBlockButton() {
-//         if (selectedRows.length > 0) {
-//             const newStatus = "blocked";
-//             if (selectedRows.includes(currentUserId)) {
-//                 await __updateData(selectedRows, newStatus);
-//                 signOutAndRedirect();
-//             } else {
-//                 await __updateData(selectedRows, newStatus);
-//                 refreshUsers();
-//             }
-//         } else {
-//             console.log("No rows selected for deletion");
-//         }
-//     }
+    function signOutAndRedirect() {
+        // signOut({ callbackUrl: `${domain}/api/auth/signin`, redirect: false });
+        signOut();
+        redirect(`${domain}/api/auth/signin`);
+    }
 
-//     async function onToggleUnblockButton() {
-//         if (selectedRows.length > 0) {
-//             const newStatus = "active";
-//             if (session) {
-//                 await __updateData(selectedRows, newStatus);
-//                 refreshUsers();
-//             } else if (!session) {
-//                 signOutAndRedirect();
-//             }
-//         } else {
-//             console.log("No rows selected for deletion");
-//         }
-//     }
+    async function onToggleBlockButton() {
+        if (selectedRows.length > 0) {
+            const newStatus = "blocked";
+            if (selectedRows.includes(currentUserId)) {
+                await __updateData(selectedRows, newStatus);
+                signOutAndRedirect();
+            } else {
+                await __updateData(selectedRows, newStatus);
+                refreshUsers();
+            }
+        } else {
+            console.log("No rows selected for deletion");
+        }
+    }
 
-//     async function onToggleDeleteButton() {
-//         if (selectedRows.length > 0) {
-//             if (selectedRows.includes(currentUserId)) {
-//                 await __deleteData(selectedRows);
-//                 signOutAndRedirect();
-//             } else {
-//                 await __deleteData(selectedRows);
-//                 refreshUsers();
-//             }
-//         } else {
-//             console.log("No rows selected for deletion");
-//         }
-//     }
+    async function onToggleUnblockButton() {
+        if (selectedRows.length > 0) {
+            const newStatus = "active";
+            if (session) {
+                await __updateData(selectedRows, newStatus);
+                refreshUsers();
+            } else if (!session) {
+                signOutAndRedirect();
+            }
+        } else {
+            console.log("No rows selected for deletion");
+        }
+    }
 
-//     function selectAllRows() {
-//         const allRowIDs = users.map((user) => user._id);
-//         setSelectedRows(allRowIDs);
-//     }
+    async function onToggleDeleteButton() {
+        if (selectedRows.length > 0) {
+            if (selectedRows.includes(currentUserId)) {
+                await __deleteData(selectedRows);
+                signOutAndRedirect();
+            } else {
+                await __deleteData(selectedRows);
+                refreshUsers();
+            }
+        } else {
+            console.log("No rows selected for deletion");
+        }
+    }
 
-//     function deselectAllRows() {
-//         const allRowIDs = [];
-//         setSelectedRows(allRowIDs);
-//     }
+    function selectAllRows() {
+        const allRowIDs = users.map((user) => user._id);
+        setSelectedRows(allRowIDs);
+    }
 
-//     function selectRow(rowID) {
-//         setSelectedRows((selectedRows) => [...selectedRows, rowID]);
-//     }
+    function deselectAllRows() {
+        const allRowIDs = [];
+        setSelectedRows(allRowIDs);
+    }
 
-//     function deselectRow(rowID) {
-//         setSelectedRows((selectedRows) =>
-//             selectedRows.filter((id) => id !== rowID)
-//         );
-//     }
+    function selectRow(rowID) {
+        setSelectedRows((selectedRows) => [...selectedRows, rowID]);
+    }
 
-//     return (
-//         <>
-//             <div>
-//                 <BlockButton
-//                     selectedRows={selectedRows}
-//                     onClick={onToggleBlockButton}
-//                 ></BlockButton>
-//                 <UnblockButton
-//                     selectedRows={selectedRows}
-//                     onClick={onToggleUnblockButton}
-//                 ></UnblockButton>
-//                 <DeleteButton
-//                     selectedRows={selectedRows}
-//                     onClick={onToggleDeleteButton}
-//                 ></DeleteButton>
-//             </div>
-//             <table className="table">
-//                 <TableHead
-//                     selectedRows={selectedRows}
-//                     deselectAllRows={deselectAllRows}
-//                     selectAllRows={selectAllRows}
-//                 ></TableHead>
-//                 <TableBody
-//                     selectedRows={selectedRows}
-//                     selectRow={selectRow}
-//                     deselectRow={deselectRow}
-//                     users={users}
-//                 ></TableBody>
-//             </table>
-//         </>
-//     );
-// }
+    function deselectRow(rowID) {
+        setSelectedRows((selectedRows) =>
+            selectedRows.filter((id) => id !== rowID)
+        );
+    }
+
+    return (
+        <div className="d-flex flex-column justify-content-center w-100 p-0 m-0">
+            <div>
+                <UserBlockButton
+                    selectedRows={selectedRows}
+                    onClick={onToggleBlockButton}
+                ></UserBlockButton>
+                <UserUnblockButton
+                    selectedRows={selectedRows}
+                    onClick={onToggleUnblockButton}
+                ></UserUnblockButton>
+                <UserDeleteButton
+                    selectedRows={selectedRows}
+                    onClick={onToggleDeleteButton}
+                ></UserDeleteButton>
+            </div>
+            <table className="table">
+                <UserTableHead
+                    selectedRows={selectedRows}
+                    deselectAllRows={deselectAllRows}
+                    selectAllRows={selectAllRows}
+                ></UserTableHead>
+                <UserTableBody
+                    selectedRows={selectedRows}
+                    selectRow={selectRow}
+                    deselectRow={deselectRow}
+                    users={users}
+                ></UserTableBody>
+            </table>
+        </div>
+    );
+}

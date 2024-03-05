@@ -1,7 +1,7 @@
 import EditButtonGroup from "../editButtonGroup";
 import NameInput from "./inputs/nameInput";
 
-export default function ItemCardEdit({itemId }) {
+export default function ItemCardEdit({ itemId }) {
     return (
         <div className="col-12 col-md-6 p-0 m-0">
             <div className="border border-secondary rounded m-2 p-1">

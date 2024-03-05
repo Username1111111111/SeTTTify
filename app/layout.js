@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapClient from "./lib/bootstrapClient";
 import "./globals.css";
-import Body from "./ui/body";
+import Body from "./body";
 
 export const metadata = {
     title: "SeTTTify",
