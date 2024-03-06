@@ -1,6 +1,7 @@
 'use client';
 import { useState } from "react";
 import UserTableCheckbox from "./userTableCheckbox";
+import Link from "next/link";
 
 
 export default function UserTableRow({
@@ -11,12 +12,12 @@ export default function UserTableRow({
     last_login_date,
     blocked,
     admin,
-    personal_page,
-    language,
-    collections,
-    items,
-    comments,
-    likes,    
+    // personal_page,
+    // language,
+    // collections,
+    // items,
+    // comments,
+    // likes,    
     selectRow,
     deselectRow,
     selectedRows
@@ -38,19 +39,19 @@ export default function UserTableRow({
             <td scope="row">
                 <UserTableCheckbox checked={selectedRows.includes(id)} onChange={() => handleChange(id)}></UserTableCheckbox>
             </td>
-            <td scope="col">{id}</td>
+            <td scope="col"><Link href={`/user/${id}`}>{id}</Link></td>
             <td scope="col">{name}</td>
             <td scope="col">{email}</td>
             <td scope="col">{signup_date}</td>
             <td scope="col">{last_login_date}</td>
             <td scope="col">{blocked}</td>
             <td scope="col">{admin}</td>
-            <td scope="col">{personal_page}</td>
+            {/* <td scope="col">{personal_page}</td>
             <td scope="col">{language}</td>
             <td scope="col">{collections}</td>
             <td scope="col">{items}</td>
             <td scope="col">{comments}</td>
-            <td scope="col">{likes}</td>
+            <td scope="col">{likes}</td> */}
         </tr>
     );
 }

@@ -13,7 +13,7 @@ function createItemCards() {
 
 export default function ItemList() {
     return (
-        <div className="col-12 col-md-9">
+        <div className="">
             <div className="row w-100 p-0 m-0 d-flex flex-column justify-content-center align-items-center"><CollectionCard/></div>
             {createItemCards()}
         </div>

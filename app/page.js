@@ -6,7 +6,9 @@
 // }
 
 export default function Home() {
-  return (
-      <div>Main page Top and recent items and collections</div>
-  );
+    return (
+        <>
+            <div>Main page Top and recent items and collections</div>
+        </>
+    );
 }

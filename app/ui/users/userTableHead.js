@@ -29,12 +29,12 @@ export default function UserTableHead({ selectAllRows, deselectAllRows }) {
                 <th scope="col">Last login</th>
                 <th scope="col">Blocked</th>
                 <th scope="col">Admin</th>
-                <th scope="col">Personal page</th>
+                {/* <th scope="col">Personal page</th>
                 <th scope="col">Language</th>
                 <th scope="col">Collections</th>
                 <th scope="col">Items</th>
                 <th scope="col">Comments</th>
-                <th scope="col">Likes</th>
+                <th scope="col">Likes</th> */}
             </tr>
         </thead>
     );
