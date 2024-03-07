@@ -1,12 +1,14 @@
 // import ItemCard from "./itemCard";
 import ItemCard from "./itemCard";
+import ItemItem from "./itemItem";
 import CollectionCard from "../collections/collectionCard";
 
 function createItemCards() {
     const itemCount = 20;
     const allItems = [];
     for (let i = 0; i < itemCount; i++) {
-        allItems.push(<ItemCard key={i} itemId={i}></ItemCard>);
+        // allItems.push(<ItemCard key={i} itemId={i}></ItemCard>);
+        allItems.push(<ItemItem key={i} itemId={i}></ItemItem>);
     }
     return <ul className="row w-100 p-0 m-0">{allItems}</ul>;
 }

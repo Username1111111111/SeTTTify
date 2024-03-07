@@ -7,6 +7,7 @@ import UserTableBody from "./userTableBody";
 import UserBlockButton from "./userBlockButton";
 import UserDeleteButton from "./userDeleteButton";
 import UserUnblockButton from "./userUnblockButton";
+import UserAdminButton from "./userAdminButton";
 
 const domain = process.env.baseUrl; // this is localhost
 
@@ -152,6 +153,7 @@ export default function Table({ users, refreshUsers }) {
                     selectedRows={selectedRows}
                     onClick={onToggleDeleteButton}
                 ></UserDeleteButton>
+                <UserAdminButton></UserAdminButton>
             </div>
             <table className="table">
                 <UserTableHead

@@ -1,7 +1,7 @@
 import CollectionItem from "./collectionItem";
 
 function createCollectionItems() {
-    const colCount = 20;
+    const colCount = 10;
     const allCollections = [];
     for (let i = 0; i < colCount; i++) {
         allCollections.push(<CollectionItem key={i} id={i}/>);

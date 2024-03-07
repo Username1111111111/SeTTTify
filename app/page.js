@@ -1,3 +1,5 @@
+import MainCombo from "./ui/main/mainCombo";
+
 // Test
 // if (process.env.CUSTOM_ENV === 'dev') {
 //   console.log('dev mode');
@@ -7,8 +9,6 @@
 
 export default function Home() {
     return (
-        <>
-            <div>Main page Top and recent items and collections</div>
-        </>
+            <MainCombo/>
     );
 }

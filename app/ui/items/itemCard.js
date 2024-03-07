@@ -48,8 +48,6 @@ export default function ItemCard({ itemId, itemData }) {
                         />
                     </tbody>
                 </table>
-                <div>Comments</div>
-                <div>Likes</div>
             </div>
         </li>
     );

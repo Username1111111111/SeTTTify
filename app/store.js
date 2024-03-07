@@ -6,7 +6,6 @@ const useStore = create((set, get) => ({
 
 export default useStore;
 
-
 const dataStructure = {
     collection: {
         id: "string",
@@ -39,6 +38,7 @@ const dataStructure = {
         },
         comments: ["comment1", "comment2", "comment3"],
         likes: "int",
+        collection: "collectionId"
     },
     user: {
         id: "string",

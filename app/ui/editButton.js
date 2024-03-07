@@ -12,7 +12,7 @@ export default function EditButton({ id, idType }) {
     return (
         <button
             type="button"
-            className="btn border-0 text-nowrap p-0 m-0 me-3"
+            className="btn border-0 text-nowrap p-0 m-0 me-2"
             title="Edit"
             onClick={handleEdit}
         >
