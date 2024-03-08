@@ -10,16 +10,20 @@ export const metadata = {
 
 // https://getbootstrap.com/docs/5.3/customize/color-modes/
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
-            <script dangerouslySetInnerHTML={{ __html: `
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
                     (function () {
                         var theme = localStorage.getItem("theme") || "light";
                         document.documentElement.setAttribute("data-bs-theme", theme);
                     })();
-                `}} />
+                `,
+                    }}
+                />
             </head>
             <Body>{children}</Body>
             <BootstrapClient />

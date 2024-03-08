@@ -1,15 +1,19 @@
-"use client";
 import Header from "./ui/header/header";
+import SessionProvider from "./lib/sessionProvider";
+import { getServerSession } from "next-auth";
 
-export default function Body({ children }) {
+export default async function Body({ children }) {
+    const session = await getServerSession();
     return (
-        <body className="container-fluid">
-            <div className="row">
-                <Header />
-            </div>
-            <main className="w-100 p-0 m-0">
-                <div className="row">{children}</div>
-            </main>
-        </body>
+        <SessionProvider session={session} refetchInterval={3}>
+            <body className="container-fluid">
+                <div className="row">
+                    <Header />
+                </div>
+                <main className="w-100 p-0 m-0">
+                    <div className="row">{children}</div>
+                </main>
+            </body>
+        </SessionProvider>
     );
 }

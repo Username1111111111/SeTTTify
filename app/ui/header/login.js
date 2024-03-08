@@ -6,9 +6,9 @@ export default function Login() {
     const router = useRouter();
 
     function handleClick() {
-        router.push('/login');
+        router.push('/api/auth/signin');
     }
 
 
-    return (<button className="btn btn-secondary m-1" onClick={handleClick}>Login</button>);
+    return (<button className="btn btn-secondary m-1" onClick={handleClick}>Log in</button>);
 }
