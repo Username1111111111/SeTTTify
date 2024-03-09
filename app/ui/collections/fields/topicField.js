@@ -1,8 +1,7 @@
 export default function TopicField({value}) {
     return (
-        <tr className="">
-            {/* <td className="">Topic: </td> */}
-            <td colSpan="2" className="text-center">{value}</td>
-        </tr>
+        <li className="row w-100 p-0 m-0 mb-1 d-flex justify-content-start align-items-center">
+            <div className="text-center">{value}</div>
+        </li>
     );
 }

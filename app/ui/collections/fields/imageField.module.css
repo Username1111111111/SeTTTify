@@ -1,0 +1,11 @@
+.imageContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.roundedImage {
+    border-radius: 8px;
+    object-fit: contain !important;
+}

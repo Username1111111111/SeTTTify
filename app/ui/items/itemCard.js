@@ -2,10 +2,15 @@ import ItemIdField from "./fields/itemIdField";
 import ItemNameField from "./fields/itemNameField";
 import TaglistField from "./fields/taglistField";
 import OptField from "./fields/optField";
+import { useParams } from "next/navigation";
 
-export default function ItemCard({ itemId, itemData }) {
+export default function ItemCard({ itemData }) {
+
+    const params = useParams();
+    const itemId = params.itemId;
+
     return (
-        <li className="col-12 col-md-6 p-0 m-0">
+        <li className="col-12 col-md-6 p-0 m-0 pt-2">
             <div className="border border-secondary rounded m-2 p-1">
                 <table className="table w-100 p-0 m-0">
                     <tbody>

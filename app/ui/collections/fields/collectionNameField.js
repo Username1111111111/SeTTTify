@@ -1,8 +1,8 @@
 export default function ItemNameField({ value }) {
     return (
-        <tr className="">
+        <li className="row w-100 p-0 m-0 mb-1 d-flex justify-content-start align-items-center">
             {/* <td className=""></td> */}
-            <td colSpan="2" className="text-center">{ value }</td>
-        </tr>
+            <div className="text-center">{ value }</div>
+        </li>
     );
 }

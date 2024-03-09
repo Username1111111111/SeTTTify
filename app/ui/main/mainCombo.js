@@ -5,7 +5,7 @@ import TagCloud from "./tagCloud";
 export default function MainCombo() {
     return (
         <div className="col-12 col-md-12 d-flex flex-column justify-content-start align-items-center">
-            <h1 className="text-center m-0 p-0 w-100">Main page Combo</h1>
+            <h2 className="text-center m-0 p-0 w-100">Welcome to Setttify!</h2>
             <div className="row">
                 <div className="col-12 col-md-4 m-0">
                     <LatestItemsList />

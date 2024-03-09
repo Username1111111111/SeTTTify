@@ -1,7 +1,7 @@
 import Link from "next/link";
 import ButtonGroup from "../buttonGroup";
 
-export default function CollectionItem({ id }) {
+export default function CollectionListItem({ id }) {
     const idType = "collection";
 
     return (

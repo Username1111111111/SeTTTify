@@ -11,10 +11,11 @@ function createLatestItems() {
 
 export default function LatestItemsList() {
     return (
-        <> 
-            <div>List of latest items (name, collection, author)</div>
+        <div className="border border-secondary rounded p-1 m-0"> 
+            <h4 className="text-center">Latest items</h4>
+            <hr/>
             {createLatestItems()}
-        </>
+        </div>
     );
 }
 

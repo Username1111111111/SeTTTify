@@ -3,6 +3,9 @@ import EditButtonGroup from "../editButtonGroup";
 import TagInput from "./inputs/tagInput";
 
 export default function ItemCardEdit({ itemId }) {
+
+    // If in edit mode then fetch data from DB else leave fields empty
+
     return (
         <div className="col-12 col-md-10 col-lg-8 p-0 m-0 pt-2">
             <div className="border border-secondary rounded m-2 p-1">

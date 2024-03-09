@@ -3,10 +3,13 @@ import EditButtonGroup from "../editButtonGroup";
 import OptInput from "./inputs/optInput";
 
 export default function CollectionEdit({ collectionId }) {
+
+    // If in edit mode then fetch data from DB else leave fields empty
+
     return (
         <div className="col-12 col-md-10 col-lg-8 p-0 m-0 pt-2">
             <div className="border border-secondary rounded m-2 p-1">
-                <ul className="w-100 p-0 m-0">
+                <ul className="w-100 p-0 m-0 p-1">
                     <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
                         <div className="col-5 col-md-4 m-0 p-0">
                             <label
@@ -85,6 +88,8 @@ export default function CollectionEdit({ collectionId }) {
                             />
                         </div>
                     </li>
+
+                    <hr></hr>  
 
                     <OptInput fieldType={"integer"} fieldNumber={1} collectionId={collectionId}/>
                     <OptInput fieldType={"integer"} fieldNumber={2} collectionId={collectionId}/>
