@@ -1,8 +1,8 @@
 export default function ItemNameField({ value }) {
     return (
         <tr>
-            <td>Name: </td>
-            <td>{ value }</td>
+            <td className="bg-body-secondary">Name: </td>
+            <td className="bg-body-secondary">{ value }</td>
         </tr>
     );
 }

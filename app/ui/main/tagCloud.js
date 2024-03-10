@@ -65,8 +65,8 @@ export default function TagsCloud() {
     );
 
     return (
-        <div className="border border-secondary rounded p-1 m-0">
-            <h4 className="text-center">Tags</h4>
+        <div className="border border-secondary rounded p-1 m-0 bg-body-secondary">
+            <h4 className="text-center mt-2">Tags</h4>
             <hr />
             {SimpleCloud()}
             {selectedTag ? createTagItems(selectedTag) : null}

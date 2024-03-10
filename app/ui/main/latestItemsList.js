@@ -11,8 +11,8 @@ function createLatestItems() {
 
 export default function LatestItemsList() {
     return (
-        <div className="border border-secondary rounded p-1 m-0"> 
-            <h4 className="text-center">Latest items</h4>
+        <div className="border border-secondary rounded p-1 m-0 bg-body-secondary"> 
+            <h4 className="text-center mt-2">Latest items</h4>
             <hr/>
             {createLatestItems()}
         </div>

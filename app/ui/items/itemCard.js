@@ -11,7 +11,7 @@ export default function ItemCard({ itemData }) {
 
     return (
         <li className="col-12 col-md-6 p-0 m-0 pt-2">
-            <div className="border border-secondary rounded m-2 p-1">
+            <div className="border border-secondary rounded m-2 p-1 bg-body-secondary">
                 <table className="table w-100 p-0 m-0">
                     <tbody>
                         <ItemIdField itemId={itemId} />

@@ -10,10 +10,10 @@ export default function OptField({ name, value, type, itemId }) {
     function Row(name, value) {
         return (
             <tr className="">
-                <td scope="row" className="">
+                <td scope="row" className="bg-body-secondary">
                     {name}
                 </td>
-                <td scope="row" className="">
+                <td scope="row" className="bg-body-secondary">
                     {value}
                 </td>
             </tr>
@@ -30,8 +30,8 @@ export default function OptField({ name, value, type, itemId }) {
     } else if (type === "checkbox") {
         optField = (
             <tr className="">
-                <td className="">{name}</td>
-                <td>
+                <td className="bg-body-secondary">{name}</td>
+                <td className="bg-body-secondary">
                     <input
                         className="form-check-input"
                         type="checkbox"

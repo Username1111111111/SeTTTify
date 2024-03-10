@@ -1,8 +1,8 @@
 export default function TaglistField({ value }) {
     return (
         <tr className="">
-            <td className="">Tags:</td>
-            <td className="">{ value }</td>
+            <td className="bg-body-secondary">Tags:</td>
+            <td className="bg-body-secondary">{ value }</td>
         </tr>
     );
 }

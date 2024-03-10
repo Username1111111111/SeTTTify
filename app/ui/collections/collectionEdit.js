@@ -8,7 +8,7 @@ export default function CollectionEdit({ collectionId }) {
 
     return (
         <div className="col-12 col-md-10 col-lg-8 p-0 m-0 pt-2">
-            <div className="border border-secondary rounded m-2 p-1">
+            <div className="border border-secondary rounded m-2 p-1 bg-body-secondary">
                 <ul className="w-100 p-0 m-0 p-1">
                     <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
                         <div className="col-5 col-md-4 m-0 p-0">

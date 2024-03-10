@@ -7,9 +7,9 @@ export default function ItemListItem({ itemId, itemData }) {
 
     return (
         <li className="col-12 col-md-6 col-lg-4 p-0 m-0">
-            <div className="border border-secondary rounded m-2 p-1">
+            <div className="border border-secondary rounded m-2 p-1 bg-body-secondary">
                 <table className="table w-100 p-0 m-0">
-                    <tbody>
+                    <tbody className='bg-body-secondary'>
                         <ItemIdField itemId={itemId} />
                         <ItemNameField value={'Name'}/>
                         <TaglistField value={'tag1, tag2, tag3'} />

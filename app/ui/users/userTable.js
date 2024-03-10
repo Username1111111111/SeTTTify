@@ -19,7 +19,7 @@ export default function Table({ users, refreshUsers }) {
     // const isLoadingSession = status === "loading";
     // // const isLoadingSession = currentUserId === undefined;
 
-    users = [{id: 123 }, {id: 223 }];
+    users = [{ id: 123 }, { id: 223 }];
 
     // if (isLoadingSession) {
     //     return (
@@ -139,35 +139,37 @@ export default function Table({ users, refreshUsers }) {
     }
 
     return (
-        <div className="d-flex flex-column justify-content-center w-100 p-0 m-0">
-            <div>
+        <div className="d-flex flex-column justify-content-center w-100 p-0 p-md-2 m-0">
+            <div className="d-flex justify-content-center align-items-center w-100 p-0 m-0 flex-wrap">
                 <UserBlockButton
                     selectedRows={selectedRows}
                     onClick={onToggleBlockButton}
-                ></UserBlockButton>
+                />
                 <UserUnblockButton
                     selectedRows={selectedRows}
                     onClick={onToggleUnblockButton}
-                ></UserUnblockButton>
+                />
                 <UserDeleteButton
                     selectedRows={selectedRows}
                     onClick={onToggleDeleteButton}
-                ></UserDeleteButton>
-                <UserAdminButton></UserAdminButton>
+                />
+                <UserAdminButton />
             </div>
-            <table className="table">
-                <UserTableHead
-                    selectedRows={selectedRows}
-                    deselectAllRows={deselectAllRows}
-                    selectAllRows={selectAllRows}
-                ></UserTableHead>
-                <UserTableBody
-                    selectedRows={selectedRows}
-                    selectRow={selectRow}
-                    deselectRow={deselectRow}
-                    users={users}
-                ></UserTableBody>
-            </table>
+            <div className="border border-secondary rounded p-0 m-0 bg-body d-flex justify-content-center align-items-center">
+                <table className="table">
+                    <UserTableHead
+                        selectedRows={selectedRows}
+                        deselectAllRows={deselectAllRows}
+                        selectAllRows={selectAllRows}
+                    ></UserTableHead>
+                    <UserTableBody
+                        selectedRows={selectedRows}
+                        selectRow={selectRow}
+                        deselectRow={deselectRow}
+                        users={users}
+                    ></UserTableBody>
+                </table>
+            </div>
         </div>
     );
 }

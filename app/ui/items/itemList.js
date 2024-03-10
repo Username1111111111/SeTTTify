@@ -57,11 +57,11 @@ export default function ItemList() {
     ));
 
     return (
-        <div className="">
+        <div className="p-0 m-0 w-100">
             <div className="row w-100 p-0 m-0 d-flex flex-column justify-content-center align-items-center">
                 <CollectionCard collectionId={collectionId} />
             </div>
-            <div className="row w-100 p-0 m-0 d-flex flex-column justify-content-center align-items-center">
+            <div className="row w-100 p-2 m-0 d-flex flex-column justify-content-center align-items-center">
                 <FilterSorter onFilter={handleFilter} onSort={handleSort} />
             </div>
             {/* {createItemList()} */}

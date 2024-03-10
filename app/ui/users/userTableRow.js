@@ -36,16 +36,16 @@ export default function UserTableRow({
 
     return (
         <tr>
-            <td scope="row">
+            <td scope="col" className="m-0 p-1 text-center">
                 <UserTableCheckbox checked={selectedRows.includes(id)} onChange={() => handleChange(id)}></UserTableCheckbox>
             </td>
-            <td scope="col"><Link href={`/user/${id}`}>{id}</Link></td>
-            <td scope="col">{name}</td>
-            <td scope="col">{email}</td>
-            <td scope="col">{signup_date}</td>
-            <td scope="col">{last_login_date}</td>
-            <td scope="col">{blocked}</td>
-            <td scope="col">{admin}</td>
+            <td scope="col" className="m-0 p-1 text-center"><Link href={`/user/${id}`}>{id}</Link></td>
+            <td scope="col" className="m-0 p-1 text-center">{name}</td>
+            <td scope="col" className="m-0 p-1 text-center">{email}</td>
+            <td scope="col" className="m-0 p-1 text-center">{signup_date}</td>
+            <td scope="col" className="m-0 p-1 text-center">{last_login_date}</td>
+            <td scope="col" className="m-0 p-1 text-center">{blocked}</td>
+            <td scope="col" className="m-0 p-1 text-center">{admin}</td>
             {/* <td scope="col">{personal_page}</td>
             <td scope="col">{language}</td>
             <td scope="col">{collections}</td>

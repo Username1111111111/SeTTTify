@@ -14,14 +14,14 @@ export default function CollectionCard({ collectionId }) {
     }
 
     return (
-        <div className="col-12 col-md-8 col-lg-6 pt-2 pb-2">
-            <div className="w-100 m-0 p-2 border border-secondary rounded">
-                <ul className="w-100 p-0 m-0 d-flex flex-column justify-content-start align-items-center" suppressHydrationWarning>
+        <div className="col-12 col-md-8 col-lg-6 p-2 m-0">
+            <div className="w-100 m-0 p-2 border border-secondary rounded bg-body-secondary">
+                <ul className="w-100 p-0 m-0 d-flex flex-column justify-content-start align-items-center">
                         <CollectionIdField collectionId={collectionId} />
-                        <CollectionNameField value={"Name"} />
                         <ImageField src={"/300.jpg"} />
-                        <DescriptionField value={"Description with MD"} />
+                        <CollectionNameField value={"Name"} />
                         <TopicField value={"Topic from server"} />
+                        <DescriptionField value={"Description with MD"} />
                 </ul>
                 <CreateItemButton />
             </div>

@@ -16,19 +16,19 @@ export default function UserTableHead({ selectAllRows, deselectAllRows }) {
     return (
         <thead>
             <tr>
-                <th scope="col">
+                <th scope="col" className="m-0 p-1 text-center">
                     <UserTableCheckbox
                         checked={checked}
                         onChange={handleChange}
                     ></UserTableCheckbox>
                 </th>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Signup date</th>
-                <th scope="col">Last login</th>
-                <th scope="col">Blocked</th>
-                <th scope="col">Admin</th>
+                <th scope="col" className="m-0 p-1 text-center">ID</th>
+                <th scope="col" className="m-0 p-1 text-center">Name</th>
+                <th scope="col" className="m-0 p-1 text-center">Email</th>
+                <th scope="col" className="m-0 p-1 text-center">Signup date</th>
+                <th scope="col" className="m-0 p-1 text-center">Last login</th>
+                <th scope="col" className="m-0 p-1 text-center">Blocked</th>
+                <th scope="col" className="m-0 p-1 text-center">Admin</th>
                 {/* <th scope="col">Personal page</th>
                 <th scope="col">Language</th>
                 <th scope="col">Collections</th>

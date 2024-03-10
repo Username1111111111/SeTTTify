@@ -5,8 +5,8 @@ export default function CollectionListItem({ id }) {
     const idType = "collection";
 
     return (
-        <li className="d-flex flex-row text-center justify-content-between align-items-center text-nowrap fs-6 pt-0 pb-0 mb-2">
-            <Link href={`/collection/${id}`} className="nav-link text-start active fs-6 text-wrap w-100" >Collection #{id}</Link>
+        <li className="d-flex flex-row text-center justify-content-between align-items-center border boder-secondary rounded text-nowrap fs-6 p-0 m-0 mb-2 bg-body">
+            <Link href={`/collection/${id}`} className="nav-link text-start active fs-6 text-wrap w-100 h-100 p-0 m-2 d-flex align-items-center">Collection #{id}</Link>
             {/* if authorized */}
             <ButtonGroup id={id} idType={idType}/>
         </li>

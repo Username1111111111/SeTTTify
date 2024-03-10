@@ -17,8 +17,8 @@ function createLargestCollections() {
 
 export default function LargestCollections() {
     return (
-        <div className="border border-secondary rounded p-1 m-0">
-            <h4 className="text-center">Largest collections</h4>
+        <div className="border border-secondary rounded p-1 m-0 bg-body-secondary">
+            <h4 className="text-center mt-2">Largest collections</h4>
             <hr/>
             {createLargestCollections()}
         </div>

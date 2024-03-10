@@ -4,7 +4,7 @@ import DeleteButton from "./deleteButton";
 
 export default function ButtonGroup({id, idType}) {
     return (
-        <div className="d-flex justify-content-end align-items-center p-0 m-0">
+        <div className="d-flex justify-content-end align-items-center p-0 m-0 me-1">
             <EditButton id={id} idType={idType}/>
             <DeleteButton id={id} idType={idType}/>
         </div>
