@@ -1,0 +1,17 @@
+{
+    "Header": {
+        "home": "მთავარი",
+        "collections": "კოლექციები",
+        "users": "წევრები",
+        "search": "ძიება",
+        "login": "შეიყვანეთ",
+        "signup": "გამოწერა",
+        "signout": "შესვლა"
+    },
+    "Home": {
+        "welcome_to_settify": "მოგესალმებით Setttify!",
+        "latest_items": "უახლესი ნივთები",
+        "largest_collections": "ყველაზე დიდი კოლექციები",
+        "tags": "ტეგები"
+    }
+}

@@ -1,19 +1,14 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-    // i18n: {
-    //     locales: ["en", "ge"],
-    //     defaultLocale: "en",
-    //     localeDetection: false, // Disable automatic locale detection
-    // },
     //   env: {
     //     baseUrl: "",
     // },
 };
 
-// import createNextIntlPlugin from "next-intl/plugin";
+import createNextIntlPlugin from "next-intl/plugin";
 
-// const withNextIntl = createNextIntlPlugin('../setify/app/lib/i18n.tsx');
+const withNextIntl = createNextIntlPlugin('./i18n.js');
 
-// export default withNextIntl(nextConfig);
-export default nextConfig;
+export default withNextIntl(nextConfig);
+// export default nextConfig;
