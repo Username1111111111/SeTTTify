@@ -1,8 +1,10 @@
 "use client";
 import EditButtonGroup from "../editButtonGroup";
 import OptInput from "./inputs/optInput";
+import { useTranslations } from "next-intl";
 
 export default function CollectionEdit({ collectionId }) {
+    const t = useTranslations("Collection");
 
     // If in edit mode then fetch data from DB else leave fields empty
 
@@ -16,7 +18,7 @@ export default function CollectionEdit({ collectionId }) {
                                 htmlFor={`name-${collectionId}`}
                                 className="col-4 m-0 w-100"
                             >
-                                Name:
+                                {t("name")}:
                             </label>
                         </div>
                         <div className="col-7 col-md-8 pe-0">
@@ -24,7 +26,7 @@ export default function CollectionEdit({ collectionId }) {
                                 type="email"
                                 className="form-control border border-secondary"
                                 id={`name-${collectionId}`}
-                                placeholder="Name of collection"
+                                placeholder={`${t("name_of_collection")}`}
                             />
                         </div>
                     </li>
@@ -35,7 +37,7 @@ export default function CollectionEdit({ collectionId }) {
                                 htmlFor={`description-${collectionId}`}
                                 className="col-4 m-0 w-100"
                             >
-                                Description:
+                                {t("description")}:
                             </label>
                         </div>
                         <div className="col-7 col-md-8 pe-0">
@@ -55,7 +57,7 @@ export default function CollectionEdit({ collectionId }) {
                                 htmlFor={`topic-${collectionId}`}
                                 className="col-4 m-0 w-100"
                             >
-                                Topic:
+                                {t("topic")}:
                             </label>
                         </div>
                         <div className="col-7 col-md-8 pe-0">
@@ -77,7 +79,7 @@ export default function CollectionEdit({ collectionId }) {
                                 htmlFor={`image-${collectionId}`}
                                 className="col-4 m-0 w-100"
                             >
-                                Image:
+                                {t("image")}:
                             </label>
                         </div>
                         <div className="col-7 col-md-8 pe-0">
@@ -85,6 +87,7 @@ export default function CollectionEdit({ collectionId }) {
                                 className="form-control border border-secondary"
                                 type="file"
                                 id={`image-${collectionId}`}
+                                placeholder={`${t("choose_file")}`}
                             />
                         </div>
                     </li>

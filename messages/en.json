@@ -12,7 +12,61 @@
         "welcome_to_settify": "Welcome to Setttify!",
         "latest_items": "Latest items",
         "largest_collections": "Largest collections",
-        "tags": "tags"
+        "tags": "tags",
+        "from": "from",
+        "by": "by"
+    },
+    "Sidebarplus": {
+        "create_collection": "Create collection",
+        "Your collections": "Your collections",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "are_you_sure": "Are you sure you want to delete",
+        "item": "item",
+        "collection": "collection"
+    },
+    "Item": {
+        "name": "Name",
+        "tags": "Tags",
+        "create_item": "Create item",
+        "filter_by_tag": "Filter by tag",
+        "ascending": "Asc",
+        "descending": "Desc",
+        "delete": "Delete",
+        "edit": "Edit"
+    },
+    "Users": {
+        "name": "Name",
+        "email": "Email",
+        "singup_date": "Signup date",
+        "last_login": "Last login",
+        "blocked": "Blocked",
+        "admin": "Admin",
+        "block": "Block",
+        "unblock": "Unblock",
+        "delete": "Delete",
+        "toggle_admin": "Toggle admin",
+        "mdy": "mm/dd/yy",
+        "tags": "Tags",
+        "name_of_item": "Name of item"
+    },
+    "Collection": {
+        "name": "Name",
+        "description": "Description",
+        "topic": "Topic",
+        "image": "Image",
+        "choose_file": "Choose file",
+        "no_file_choosen": "No file choosen",
+        "integer": "integer",
+        "string": "string",
+        "textarea": "textarea",
+        "checkbox": "checkbox",
+        "date": "date",
+        "name_for_integer": "Name for integer",
+        "name_for_string": "Name for string",
+        "name_for_textarea": "Name for textarea",
+        "name_for_checkbox": "Name for checkbox",
+        "name_for_date": "Name for date",
+        "name_of_collection": "Name of collection"
     }
-    
 }

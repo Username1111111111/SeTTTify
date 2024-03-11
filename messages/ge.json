@@ -6,12 +6,62 @@
         "search": "ძიება",
         "login": "შეიყვანეთ",
         "signup": "გამოწერა",
-        "signout": "შესვლა"
+        "signout": "გამოსვლა"
     },
     "Home": {
         "welcome_to_settify": "მოგესალმებით Setttify!",
         "latest_items": "უახლესი ნივთები",
         "largest_collections": "ყველაზე დიდი კოლექციები",
-        "tags": "ტეგები"
+        "tags": "ტეგები",
+        "from": "დან",
+        "by": "მიერ"
+    },
+    "Sidebarplus": {
+        "create_collection": "კოლექციის შექმნა",
+        "Your collections": "თქვენი კოლექციები",
+        "confirm": "დადასტურება",
+        "cancel": "გაუქმება",
+        "are_you_sure": "დარწმუნებული ხართ, რომ გსურთ წაშლა",
+        "item": "ნივთი",
+        "collection": "კოლექცია"
+    },
+    "Item": {
+        "name": "სახელი",
+        "tags": "ტეგები",
+        "create_item": "ნივთის შექმნა",
+        "filter_by_tag": "ფილტრი ტეგის მიხედვით",
+        "ascending": "ზრდადი",
+        "descending": "კლებადი",
+        "delete": "წაშლა",
+        "edit": "რედაქტირება"
+    },
+    "Users": {
+        "name": "სახელი",
+        "email": "ელ. ფოსტა",
+        "singup_date": "რეგისტრაციის თარიღი",
+        "last_login": "ბოლო შესვლა",
+        "blocked": "დაბლოკილი",
+        "admin": "ადმინი",
+        "block": "დაბლოკვა",
+        "unblock": "ბლოკის მოხსნა"
+    },
+    "Collection": {
+        "name": "სახელი",
+        "description": "აღწერა",
+        "topic": "თემა",
+        "image": "სურათი",
+        "choose_file": "ფაილის არჩევა",
+        "no_file_choosen": "ფაილი არ არჩეულა",
+        "integer": "ციფრული",
+        "string": "სტრიქონი",
+        "textarea": "ტექსტური ველი",
+        "checkbox": "მოსანიშნი უჯრა",
+        "date": "თარიღი",
+        "name_for_integer": "სახელი ციფრულისთვის",
+        "name_for_string": "სახელი სტრიქონისთვის",
+        "name_for_textarea": "სახელი ტექსტური ველისთვის",
+        "name_for_checkbox": "სახელი მოსანიშნი უჯრისთვის",
+        "name_for_date": "სახელი თარიღისთვის",
+        "name_of_collection": "კოლექციის სახელი"
     }
 }
