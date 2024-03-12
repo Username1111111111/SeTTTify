@@ -18,7 +18,7 @@
     },
     "Sidebarplus": {
         "create_collection": "კოლექციის შექმნა",
-        "Your collections": "თქვენი კოლექციები",
+        "your_collections": "თქვენი კოლექციები",
         "confirm": "დადასტურება",
         "cancel": "გაუქმება",
         "are_you_sure": "დარწმუნებული ხართ, რომ გსურთ წაშლა",
@@ -30,10 +30,19 @@
         "tags": "ტეგები",
         "create_item": "ნივთის შექმნა",
         "filter_by_tag": "ფილტრი ტეგის მიხედვით",
-        "ascending": "ზრდადი",
+        "ascending": "ზრდადი", 
+        "asc": "ზრდ", 
         "descending": "კლებადი",
+        "desc": "კლებ",
         "delete": "წაშლა",
-        "edit": "რედაქტირება"
+        "edit": "რედაქტირება", 
+        "duplicated_tag": "დუბლირებული ტეგი",
+        "mdy": "თთ/დდ/წწ",
+        "name_of_item": "ნივთის დასახელება",
+        "number": "ნომერი",
+        "text": "ტექსტი",
+        "textarea": "ტექსტარეა",
+        "lang": "ge"
     },
     "Users": {
         "name": "სახელი",
@@ -57,11 +66,7 @@
         "textarea": "ტექსტური ველი",
         "checkbox": "მოსანიშნი უჯრა",
         "date": "თარიღი",
-        "name_for_integer": "სახელი ციფრულისთვის",
-        "name_for_string": "სახელი სტრიქონისთვის",
-        "name_for_textarea": "სახელი ტექსტური ველისთვის",
-        "name_for_checkbox": "სახელი მოსანიშნი უჯრისთვის",
-        "name_for_date": "სახელი თარიღისთვის",
-        "name_of_collection": "კოლექციის სახელი"
+        "name_for": "სახელი",
+        "name_of_collection": "კოლექციის დასახელება"
     }
 }

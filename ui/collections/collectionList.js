@@ -1,6 +1,7 @@
 import CollectionListItem from "./collectionListItem";
+import { useTranslations } from "next-intl";
 
-function createCollectionItems() {
+export function createCollectionItems() {
     const colCount = 10;
     const allCollections = [];
     for (let i = 0; i < colCount; i++) {
@@ -10,9 +11,10 @@ function createCollectionItems() {
 }
 
 export default function CollectionList() {
+    const t = useTranslations("Sidebarplus");
     return (
         <div className="row w-100">
-            <p className="text-center fs-5 mt-2 mb-0">Your collections:</p>
+            <p className="text-center fs-5 mt-2 mb-0">{t("your_collections")}:</p>
             {createCollectionItems()}
         </div>
     );

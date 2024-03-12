@@ -1,8 +1,10 @@
 import { GiCancel } from "react-icons/gi";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function CancelButton() {
     const router = useRouter();
+    const t = useTranslations("Sidebarplus");
 
     const handleCancel = () => {
         router.back();
@@ -12,10 +14,10 @@ export default function CancelButton() {
         <button
             type="button"
             className="btn btn-secondary text-nowrap m-0 ms-3"
-            title="Cancel"
+            title={t("cancel")} 
             onClick={handleCancel}
         >
-            Cancel <GiCancel size="1.5em" />
+            {t("cancel")} <GiCancel size="1.5em" />
         </button>
     );
 }

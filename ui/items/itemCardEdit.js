@@ -1,8 +1,10 @@
-"use client"
+"use client";
 import EditButtonGroup from "../editButtonGroup";
 import TagInput from "./inputs/tagInput";
+import { useTranslations } from "next-intl";
 
 export default function ItemCardEdit({ itemId }) {
+    const t = useTranslations("Item");
 
     // If in edit mode then fetch data from DB else leave fields empty
 
@@ -16,8 +18,12 @@ export default function ItemCardEdit({ itemId }) {
                     </li> */}
 
                     <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
-                        <div className="col-5 col-md-4 m-0 p-0">Tags:</div>
-                        <div className="col-7 col-md-8 pe-0"><TagInput/></div>
+                        <div className="col-5 col-md-4 m-0 p-0">
+                            {t("tags")}:
+                        </div>
+                        <div className="col-7 col-md-8 pe-0">
+                            <TagInput />
+                        </div>
                     </li>
 
                     <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
@@ -26,7 +32,7 @@ export default function ItemCardEdit({ itemId }) {
                                 htmlFor={`name-${itemId}`}
                                 className="col-4 m-0 w-100"
                             >
-                                Name:
+                                {t("name")}:
                             </label>
                         </div>
                         <div className="col-7 col-md-8 pe-0">
@@ -34,7 +40,7 @@ export default function ItemCardEdit({ itemId }) {
                                 type="email"
                                 className="form-control border border-secondary"
                                 id={`name-${itemId}`}
-                                placeholder="Name of item"
+                                placeholder={t("name_of_item")}
                             />
                         </div>
                     </li>
@@ -53,7 +59,7 @@ export default function ItemCardEdit({ itemId }) {
                                 type="number"
                                 className="form-control border border-secondary flex-grow-1"
                                 id={`integer-${itemId}`}
-                                placeholder="Numbers"
+                                placeholder={t("number")}
                             />
                         </div>
                     </li>
@@ -72,7 +78,7 @@ export default function ItemCardEdit({ itemId }) {
                                 type="text"
                                 className="form-control border border-secondary flex-grow-1"
                                 id={`string-${itemId}`}
-                                placeholder="Text"
+                                placeholder={t("text")}
                             />
                         </div>
                     </li>
@@ -91,8 +97,9 @@ export default function ItemCardEdit({ itemId }) {
                                 id={`textarea-${itemId}`}
                                 name="opt"
                                 rows={3}
-                                className="form-control border border-secondary flex-grow-1 w-100 p-0 m-0"
+                                className="form-control border border-secondary flex-grow-1 w-100 m-0"
                                 defaultValue=""
+                                placeholder={t("textarea")}
                             ></textarea>
                         </div>
                     </li>
@@ -130,7 +137,8 @@ export default function ItemCardEdit({ itemId }) {
                                 type="date"
                                 className="form-control border border-secondary flex-grow-1"
                                 id={`date-${itemId}`}
-                                placeholder="Numbers"
+                                // placeholder={t("mdy")}
+                                lang={t("lang")}
                             />
                         </div>
                     </li>

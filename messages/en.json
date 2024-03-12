@@ -18,7 +18,7 @@
     },
     "Sidebarplus": {
         "create_collection": "Create collection",
-        "Your collections": "Your collections",
+        "your_collections": "Your collections",
         "confirm": "Confirm",
         "cancel": "Cancel",
         "are_you_sure": "Are you sure you want to delete",
@@ -30,10 +30,20 @@
         "tags": "Tags",
         "create_item": "Create item",
         "filter_by_tag": "Filter by tag",
-        "ascending": "Asc",
-        "descending": "Desc",
+        "ascending": "Ascending",
+        "asc": "Asc",
+        "descending": "Descending",
+        "desc": "Desc",
         "delete": "Delete",
-        "edit": "Edit"
+        "edit": "Edit",
+        "duplicated_tag": "Duplicated tag",
+        "mdy": "mm/dd/yy",
+        "name_of_item": "Name of item",
+        "number": "Number",
+        "text": "Text",
+        "textarea": "Textarea",
+        "lang": "en"
+
     },
     "Users": {
         "name": "Name",
@@ -45,10 +55,7 @@
         "block": "Block",
         "unblock": "Unblock",
         "delete": "Delete",
-        "toggle_admin": "Toggle admin",
-        "mdy": "mm/dd/yy",
-        "tags": "Tags",
-        "name_of_item": "Name of item"
+        "toggle_admin": "Toggle admin"
     },
     "Collection": {
         "name": "Name",
@@ -62,11 +69,7 @@
         "textarea": "textarea",
         "checkbox": "checkbox",
         "date": "date",
-        "name_for_integer": "Name for integer",
-        "name_for_string": "Name for string",
-        "name_for_textarea": "Name for textarea",
-        "name_for_checkbox": "Name for checkbox",
-        "name_for_date": "Name for date",
+        "name_for": "Name for",
         "name_of_collection": "Name of collection"
     }
 }

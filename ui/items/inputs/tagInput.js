@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import styles from './tagInput.module.css'
+import { useTranslations } from "next-intl";
 
 const TagInput = () => {
     const [tags, setTags] = useState(["test"]);
     const [inputValue, setInputValue] = useState("");
+    const t = useTranslations("Item");
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -16,7 +18,7 @@ const TagInput = () => {
                 setTags([...tags, inputValue]);
                 setInputValue("");
             } else {
-                alert("Duplicated tag");
+                alert(`${t("duplicated_tag")}`);
             }
         }
     };
@@ -41,7 +43,7 @@ const TagInput = () => {
                     value={inputValue}
                     onChange={handleInputChange}
                     onKeyDown={handleInputKeyDown}
-                    placeholder="Tags..."
+                    placeholder={`${t("tags")}...`}
                     size={6}
                     className={`${styles.tagInput} bg-body border border-secondary rounded p-0 ps-2 pe-2 m-0`}
                 />
