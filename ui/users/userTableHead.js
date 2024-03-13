@@ -1,8 +1,10 @@
 import UserTableCheckbox from "./userTableCheckbox";
 import { useState } from "react";
+import { useTranslations } from "next-intl"
 
 export default function UserTableHead({ selectAllRows, deselectAllRows }) {
     const [checked, setCheckbox] = useState(false);
+    const t = useTranslations("Users");
 
     function handleChange() {
         if (!checked) {
@@ -23,12 +25,12 @@ export default function UserTableHead({ selectAllRows, deselectAllRows }) {
                     ></UserTableCheckbox>
                 </th>
                 <th scope="col" className="m-0 p-1 text-center">ID</th>
-                <th scope="col" className="m-0 p-1 text-center">Name</th>
-                <th scope="col" className="m-0 p-1 text-center">Email</th>
-                <th scope="col" className="m-0 p-1 text-center">Signup date</th>
-                <th scope="col" className="m-0 p-1 text-center">Last login</th>
-                <th scope="col" className="m-0 p-1 text-center">Blocked</th>
-                <th scope="col" className="m-0 p-1 text-center">Admin</th>
+                <th scope="col" className="m-0 p-1 text-center">{t("name")}</th>
+                <th scope="col" className="m-0 p-1 text-center">{t("email")}</th>
+                <th scope="col" className="m-0 p-1 text-center">{t("signup_date")}</th>
+                <th scope="col" className="m-0 p-1 text-center">{t("last_login")}</th>
+                <th scope="col" className="m-0 p-1 text-center">{t("blocked")}</th>
+                <th scope="col" className="m-0 p-1 text-center">{t("admin")}</th>
                 {/* <th scope="col">Personal page</th>
                 <th scope="col">Language</th>
                 <th scope="col">Collections</th>

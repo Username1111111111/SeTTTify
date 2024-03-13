@@ -48,7 +48,7 @@
     "Users": {
         "name": "Name",
         "email": "Email",
-        "singup_date": "Signup date",
+        "signup_date": "Signup date",
         "last_login": "Last login",
         "blocked": "Blocked",
         "admin": "Admin",

@@ -47,12 +47,14 @@
     "Users": {
         "name": "სახელი",
         "email": "ელ. ფოსტა",
-        "singup_date": "რეგისტრაციის თარიღი",
+        "signup_date": "რეგისტრაციის თარიღი",
         "last_login": "ბოლო შესვლა",
         "blocked": "დაბლოკილი",
         "admin": "ადმინი",
         "block": "დაბლოკვა",
-        "unblock": "ბლოკის მოხსნა"
+        "unblock": "ბლოკის მოხსნა",
+        "delete": "წაშლა",
+        "toggle_admin": "გადართვა ადმინ"
     },
     "Collection": {
         "name": "სახელი",

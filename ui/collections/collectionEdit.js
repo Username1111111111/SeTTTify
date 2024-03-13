@@ -2,6 +2,7 @@
 import EditButtonGroup from "../editButtonGroup";
 import OptInput from "./inputs/optInput";
 import { useTranslations } from "next-intl";
+import styles from './collectionEdit.module.css'
 
 export default function CollectionEdit({ collectionId }) {
     const t = useTranslations("Collection");
@@ -84,7 +85,7 @@ export default function CollectionEdit({ collectionId }) {
                         </div>
                         <div className="col-7 col-md-8 pe-0">
                             <input
-                                className="form-control border border-secondary"
+                                className={`form-control border border-secondary ${styles.customFileButton}`}
                                 type="file"
                                 id={`image-${collectionId}`}
                                 placeholder={`${t("choose_file")}`}
