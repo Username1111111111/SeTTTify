@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^5.11.0",
+    "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
     "markdown-to-jsx": "^7.4.1",
@@ -29,6 +31,6 @@
     "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
-    "prisma": "^5.10.2"
+    "prisma": "^5.11.0"
   }
 }

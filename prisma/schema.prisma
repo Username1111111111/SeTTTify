@@ -12,3 +12,125 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id             String       @id @default(uuid())
+  name           String
+  email          String       @unique
+  password       String
+  signupDate     DateTime     @default(now())
+  lastLoginDate  DateTime?
+  blocked        Boolean
+  admin          Boolean
+  collections    Collection[]
+  items          Item[]
+  comments       Comment[]
+  likes          Like[]
+  tags           Tag[]
+  personalPage   User?        @relation("PersonalPage", fields: [personalPageId], references: [id])
+  personalPageId String?      @unique
+  referencedBy   User?        @relation("PersonalPage")
+}
+
+model Collection {
+  id                   String  @id @default(uuid())
+  name                 String
+  description          String
+  imageUrl             String?
+  topicId              String
+  topic                Topic   @relation(fields: [topicId], references: [id])
+  userId               String
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items                Item[]
+  custom_int1_state    Boolean @default(false)
+  custom_int1_name     String?
+  custom_int2_state    Boolean @default(false)
+  custom_int2_name     String?
+  custom_int3_state    Boolean @default(false)
+  custom_int3_name     String?
+  custom_string1_state Boolean @default(false)
+  custom_string1_name  String?
+  custom_string2_state Boolean @default(false)
+  custom_string2_name  String?
+  custom_string3_state Boolean @default(false)
+  custom_string3_name  String?
+  custom_text1_state   Boolean @default(false)
+  custom_text1_name    String?
+  custom_text2_state   Boolean @default(false)
+  custom_text2_name    String?
+  custom_text3_state   Boolean @default(false)
+  custom_text3_name    String?
+  custom_bool1_state   Boolean @default(false)
+  custom_bool1_name    String?
+  custom_bool2_state   Boolean @default(false)
+  custom_bool2_name    String?
+  custom_bool3_state   Boolean @default(false)
+  custom_bool3_name    String?
+  custom_date1_state   Boolean @default(false)
+  custom_date1_name    String?
+  custom_date2_state   Boolean @default(false)
+  custom_date2_name    String?
+  custom_date3_state   Boolean @default(false)
+  custom_date3_name    String?
+}
+
+model Item {
+  id                   String     @id @default(uuid())
+  name                 String
+  userId               String
+  user                 User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collectionId         String
+  collection           Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  tags                 Tag[]      @relation("ItemTags")
+  comments             Comment[]
+  likes                Like[]
+  custom_int1_value    Int?
+  custom_int2_value    Int?
+  custom_int3_value    Int?
+  custom_string1_value String?
+  custom_string2_value String?
+  custom_string3_value String?
+  custom_text1_value   String?
+  custom_text2_value   String?
+  custom_text3_value   String?
+  custom_bool1_value   Boolean?   @default(false)
+  custom_bool2_value   Boolean?   @default(false)
+  custom_bool3_value   Boolean?   @default(false)
+  custom_date1_value   DateTime?
+  custom_date2_value   DateTime?
+  custom_date3_value   DateTime?
+}
+
+model Topic {
+  id          String       @id @default(uuid())
+  name        String
+  collections Collection[]
+}
+
+model Tag {
+  id     String @id @default(uuid())
+  name   String
+  items  Item[] @relation("ItemTags")
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Comment {
+  id     String   @id @default(uuid())
+  text   String
+  userId String
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemId String
+  item   Item     @relation(fields: [itemId], references: [id])
+  time   DateTime
+}
+
+model Like {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemId String
+  item   Item   @relation(fields: [itemId], references: [id])
+
+  @@unique([userId, itemId])
+}
