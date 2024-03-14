@@ -16,9 +16,9 @@ export default function UserTableHead({ selectAllRows, deselectAllRows }) {
     }
 
     return (
-        <thead>
-            <tr>
-                <th scope="col" className="m-0 p-1 text-center">
+        <thead className="rounded">
+            <tr className="rounded">
+                <th scope="col" className="m-0 p-1 text-center rounded">
                     <UserTableCheckbox
                         checked={checked}
                         onChange={handleChange}
@@ -30,7 +30,7 @@ export default function UserTableHead({ selectAllRows, deselectAllRows }) {
                 <th scope="col" className="m-0 p-1 text-center">{t("signup_date")}</th>
                 <th scope="col" className="m-0 p-1 text-center">{t("last_login")}</th>
                 <th scope="col" className="m-0 p-1 text-center">{t("blocked")}</th>
-                <th scope="col" className="m-0 p-1 text-center">{t("admin")}</th>
+                <th scope="col" className="m-0 p-1 text-center rounded">{t("admin")}</th>
                 {/* <th scope="col">Personal page</th>
                 <th scope="col">Language</th>
                 <th scope="col">Collections</th>

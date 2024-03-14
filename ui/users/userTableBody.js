@@ -21,5 +21,5 @@ export default function UserTableBody({ users, selectedRows, selectRow, deselect
         />
     ));
 
-    return <tbody>{allRows}</tbody>;
+    return <tbody className="rounded">{allRows}</tbody>;
 }

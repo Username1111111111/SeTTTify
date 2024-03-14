@@ -184,7 +184,7 @@ export default function Table() {
                 />
             </div>
             <div className="border border-secondary rounded p-0 m-0 bg-body d-flex justify-content-center align-items-center">
-                <table className="table">
+                <table className="table rounded">
                     <UserTableHead
                         selectedRows={selectedRows}
                         deselectAllRows={deselectAllRows}
