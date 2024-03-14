@@ -11,15 +11,26 @@ import UserAdminButton from "./userAdminButton";
 
 const domain = process.env.baseUrl; // this is localhost
 
-export default function Table({ users, refreshUsers }) {
+export default function Table() {
     // const { data: session, status } = useSession();
+    const [users, setUsers] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
     // const [currentUserId, setCurrentUserId] = useState(session?.user?._id);
 
+    useEffect(() => {
+        async function fetchUsers() {
+            const response = await fetch("/api/users", { cache: 'force-cache', next: { revalidate: 10 } });
+            const data = await response.json();
+            setUsers(data);
+        }
+
+        fetchUsers();
+    }, []);
+
+    
+
     // const isLoadingSession = status === "loading";
     // // const isLoadingSession = currentUserId === undefined;
-
-    users = [{ id: 123 }, { id: 223 }];
 
     // if (isLoadingSession) {
     //     return (
@@ -118,8 +129,22 @@ export default function Table({ users, refreshUsers }) {
         }
     }
 
+    async function onToggleAdminButton() {
+        if (selectedRows.length > 0) {
+            if (selectedRows.includes(currentUserId)) {
+                // await __deleteData(selectedRows);
+                // signOutAndRedirect();
+            } else {
+                // await __deleteData(selectedRows);
+                // refreshUsers();
+            }
+        } else {
+            console.log("No rows selected for deletion");
+        }
+    }
+
     function selectAllRows() {
-        const allRowIDs = users.map((user) => user._id);
+        const allRowIDs = users.map((user) => user.id);
         setSelectedRows(allRowIDs);
     }
 
@@ -153,7 +178,10 @@ export default function Table({ users, refreshUsers }) {
                     selectedRows={selectedRows}
                     onClick={onToggleDeleteButton}
                 />
-                <UserAdminButton />
+                <UserAdminButton
+                    selectedRows={selectedRows}
+                    onClick={onToggleAdminButton}
+                />
             </div>
             <div className="border border-secondary rounded p-0 m-0 bg-body d-flex justify-content-center align-items-center">
                 <table className="table">
