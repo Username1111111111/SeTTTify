@@ -5,47 +5,61 @@ import DescriptionField from "./fields/descriptionField";
 import ImageField from "./fields/imageField";
 import TopicField from "./fields/topicField";
 import { useParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import getDomain from "@/lib/getDomain";
 
 export default function CollectionCard({ collectionId }) {
+    const [collId, setCollectionId] = useState(collectionId);
+    const [collection, setCollection] = useState("");
     const params = useParams();
-    
+
+    const domain = getDomain();
+
     if (!collectionId) {
-        const collectionId = params.collectionId;
+        setCollectionId(params.collectionId);
     }
+
+    useEffect(() => {
+        async function getCollection(collectionId) {
+            if (collectionId) {
+                const req = new Request(
+                    `${domain}/api/collection?collectionId=${collId}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+
+                const res = await fetch(req, {
+                    cache: "force-cache",
+                    next: { revalidate: 10 },
+                });
+
+                const data = await res.json();
+                setCollection(data);
+            }
+        }
+        getCollection(collId);
+    }, [collId, domain]);
 
     return (
         <div className="col-12 col-md-8 col-lg-6 p-2 m-0">
             <div className="w-100 m-0 p-2 border border-secondary rounded bg-body-secondary">
                 <ul className="w-100 p-0 m-0 d-flex flex-column justify-content-start align-items-center">
-                        <CollectionIdField collectionId={collectionId} />
-                        <ImageField src={"/300.jpg"} />
-                        <CollectionNameField value={"Name"} />
-                        <TopicField value={"Topic from server"} />
-                        <DescriptionField value={"Description with MD"} />
+                    <CollectionIdField collectionId={collId} />
+                    <ImageField collectionImageUrl={collection.imageUrl} />
+                    <CollectionNameField collectionName={collection.name} />
+                    {collection.topic && (
+                        <TopicField collectionTopic={collection.topic.name} />
+                    )}
+                    <DescriptionField
+                        collectionDescription={collection.description}
+                    />
                 </ul>
-                <CreateItemButton />
+                <CreateItemButton collectionId={collId} />
             </div>
         </div>
     );
 }
-
-// https://www.dropbox.com/developers/documentation
-
-// collection: {
-//     id: "string",
-//     name: "string",
-//     description: "string",
-//     topic: "string",
-//     image: "string (optional)",
-//     fields: {
-//         fixed: ["id", "name", "tags"],
-//         optional: {
-//             integer: ["int1", "int2", "int3"],
-//             string: ["string1", "string2", "string3"],
-//             text: ["text1", "text2", "text3"],
-//             boolean: ["bool1", "bool2", "bool3"],
-//             date: ["date1", "date2", "date3"],
-//         },
-//     },
-//     items: ["itemId", "itemId2", "itemId3"]
-// }
