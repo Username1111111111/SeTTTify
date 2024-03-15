@@ -1,4 +1,5 @@
-import prisma from '@lib/prisma';
+import prisma from '@/lib/prisma';
+
 
 async function handler(req) {
     if (req.method === "GET") {
