@@ -1,7 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-
-const prisma = new PrismaClient();
+import prisma from '@lib/prisma';
 
 async function handler(req) {
     if (req.method === "GET") {

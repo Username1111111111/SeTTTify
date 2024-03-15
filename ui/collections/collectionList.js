@@ -36,7 +36,7 @@ export default function CollectionList({ userId }) {
 
                 const res = await fetch(req, {
                     cache: "force-cache",
-                    next: { revalidate: 10 },
+                    next: { revalidate: 60 },
                 });
 
                 const data = await res.json();

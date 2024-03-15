@@ -1,38 +1,40 @@
 import prisma from '@lib/prisma';
 
-async function handler(req) {
+async function handler(req, res) {
     if (req.method === "GET") {
-
         const searchParams = req.nextUrl.searchParams;
-        const topicId = searchParams.get('topicId')
-
-        if (!topicId || topicId === null) {
-            throw new Error(`No topicId`);
-        }
+        const collectionId = searchParams.get('collectionId')
 
         try {
-            
-            const topic = await prisma.topic.findUnique({
+
+            const collection = await prisma.collection.findUnique({
                 where: {
-                    id: topicId
-                }
+                    id: collectionId,
+                },
+                select: {
+                    user: {
+                        select: {
+                            id: true,
+                        },
+                    },
+                },
             });
 
-            const resBody = JSON.stringify(topic);
+            const resBody = JSON.stringify(collection.user.id);
 
             const res = new Response(resBody, {
                 status: 200,
-                statusText: "topic have been fetched",
+                statusText: "Users have fetched",
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
-            
+
             return res;
         } catch (error) {
             const res = new Response(resBody, {
                 status: 500,
-                statusText: `Failed to fetch topic: ${topicId}`,
+                statusText: "Failed to fetch users.",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -42,4 +44,4 @@ async function handler(req) {
     } 
 }
 
-export { handler as GET}; 
+export { handler as GET};

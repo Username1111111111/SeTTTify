@@ -19,15 +19,16 @@ export default function Table() {
 
     useEffect(() => {
         async function fetchUsers() {
-            const response = await fetch("/api/users", { cache: 'force-cache', next: { revalidate: 10 } });
+            const response = await fetch("/api/users", {
+                cache: "force-cache",
+                next: { revalidate: 60 },
+            });
             const data = await response.json();
             setUsers(data);
         }
 
         fetchUsers();
     }, []);
-
-    
 
     // const isLoadingSession = status === "loading";
     // // const isLoadingSession = currentUserId === undefined;

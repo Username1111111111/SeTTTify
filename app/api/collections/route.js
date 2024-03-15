@@ -1,28 +1,27 @@
-import { PrismaClient } from "@prisma/client";
-
-
-const prisma = new PrismaClient();
+import prisma from '@lib/prisma';
 
 async function handler(req) {
     if (req.method === "GET") {
-
         const searchParams = req.nextUrl.searchParams;
-        console.log(`searchParams Route handler =====> ${searchParams}`)
-        const userId = searchParams.get('userId')
-
-        console.log(`userId Route handler =====> ${userId}`)
+        const userId = searchParams.get("userId");
 
         if (!userId || userId === null) {
             throw new Error(`No userId`);
         }
 
-
         try {
-            
             const collections = await prisma.collection.findMany({
                 where: {
-                    userId: userId
-                }
+                    userId: userId,
+                },
+                select: {
+                    collection: {
+                        select: {
+                            id: true,
+                            name: true,
+                        },
+                    },
+                },
             });
 
             const resBody = JSON.stringify(collections);
@@ -34,7 +33,7 @@ async function handler(req) {
                     "Content-Type": "application/json",
                 },
             });
-            
+
             return res;
         } catch (error) {
             const res = new Response(resBody, {
@@ -43,10 +42,10 @@ async function handler(req) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-            });        
+            });
             return res;
         }
-    } 
+    }
 }
 
-export { handler as GET}; 
+export { handler as GET };

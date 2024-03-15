@@ -1,31 +1,18 @@
-// import ItemCard from "./itemCard";
 import ItemListItem from "./itemListItem";
 import CollectionCard from "../collections/collectionCard";
-import { useParams } from "next/navigation";
+// import { useParams } from "next/navigation";
 import FilterSorter from "../filterSorter";
 import { useState } from "react";
 
-// function createItemList() {
-//     const itemCount = 20;
-//     const allItems = [];
-//     for (let i = 0; i < itemCount; i++) {
-//         // allItems.push(<ItemCard key={i} itemId={i}></ItemCard>);
-//         allItems.push(<ItemListItem key={i} itemId={i}></ItemListItem>);
-//     }
-//     return <ul className="row w-100 p-0 m-0">{allItems}</ul>;
-// }
+export default function ItemList({collectionId}) {
+    const [collId, setCollectionId] = useState(collectionId);
+    const [items, setItems] = useState([]); 
 
-export default function ItemList() {
-    const params = useParams();
-    const collectionId = params.collectionId;
+    if (!collectionId || collectionId === null) {
+        throw new Error(`No collectionId`);
+    }
 
-    const itemCount = 20;
-    const initialItems = Array.from({ length: itemCount }, (_, i) => ({
-        itemId: i,
-        // other item data
-    }));
-
-    const [items, setItems] = useState(initialItems);
+    // FETCH ITEMS HERE
 
     const handleFilter = (event) => {
         const filterText = event.target.value.toLowerCase();

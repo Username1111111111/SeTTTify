@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from '@lib/prisma';
 
 async function handler(req, res) {
     if (req.method === "GET") {
@@ -30,10 +28,6 @@ async function handler(req, res) {
             return res;
         }
     } 
-    // else {
-    //     res.setHeader("Allow", ["GET"]);
-    //     res.status(405).end(`Method ${req.method} Not Allowed`);
-    // }
 }
 
 export { handler as GET};

@@ -8,9 +8,9 @@ export default function CollectionPage() {
     const collectionId = params.collectionId;
 
     if (collectionId == 'create') {
-        return <CollectionEdit/>
+        return <CollectionEdit collectionId={collectionId}/>
     } else {
-        return <ItemList/>;
+        return <ItemList collectionId={collectionId}/>;
     }
     
 }
