@@ -1,26 +1,55 @@
+"use client"
 import ItemIdField from "./fields/itemIdField";
 import ItemNameField from "./fields/itemNameField";
 import TaglistField from "./fields/taglistField";
 import OptField from "./fields/optField";
 import { useParams } from "next/navigation";
 
-export default function ItemCard({ itemData }) {
-
+export default function ItemCard() {
     const params = useParams();
     const itemId = params.itemId;
 
     return (
-        <li className="col-12 col-md-6 p-0 m-0 pt-2">
+        <li className="col-12 col-md-6 p-0 m-0">
             <div className="border border-secondary rounded m-2 p-1 bg-body-secondary">
                 <table className="table w-100 p-0 m-0">
                     <tbody>
                         <ItemIdField itemId={itemId} />
-                        <ItemNameField value={'Name'}/>
-                        <TaglistField value={'tag1, tag2, tag3'} />
+                        <ItemNameField value={"Name"} />
+                        <TaglistField value={"tag1, tag2, tag3"} />
+
                         <OptField
                             type={"number"}
                             name={"number:"}
                             value={"number"}
+                            itemId={itemId}
+                        />
+
+                        <OptField
+                            type={"number"}
+                            name={"number:"}
+                            value={"number"}
+                            itemId={itemId}
+                        />
+
+                        <OptField
+                            type={"number"}
+                            name={"number:"}
+                            value={"number"}
+                            itemId={itemId}
+                        />
+
+                        <OptField
+                            type={"string"}
+                            name={"string:"}
+                            value={"string"}
+                            itemId={itemId}
+                        />
+
+                        <OptField
+                            type={"string"}
+                            name={"string:"}
+                            value={"string"}
                             itemId={itemId}
                         />
 

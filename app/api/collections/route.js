@@ -36,6 +36,8 @@ async function handler(req) {
 
             return res;
         } catch (error) {
+            const resBody = JSON.stringify({ error: error.message });
+            
             const res = new Response(resBody, {
                 status: 500,
                 statusText: `Epic Failed to fetch Collections: ${userId}. ${error}`,

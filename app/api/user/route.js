@@ -1,6 +1,5 @@
 import prisma from '@/lib/prisma';
 
-
 async function handler(req, res) {
     if (req.method === "GET") {
         const searchParams = req.nextUrl.searchParams;

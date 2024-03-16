@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-    //   env: {
-    //     baseUrl: "",
-    // },
     images: {
-        domains: ["picsum.photos"],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'picsum.photos',
+            },
+        ],
     },
 };
 

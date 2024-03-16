@@ -3,7 +3,7 @@ import ItemNameField from "./fields/itemNameField";
 import TaglistField from "./fields/taglistField";
 
 
-export default function ItemListItem({ itemId, itemData }) {
+export default function ItemListItem({ itemId, itemName, itemTags }) {
 
     return (
         <li className="col-12 col-md-6 col-lg-4 p-0 m-0">
@@ -11,8 +11,8 @@ export default function ItemListItem({ itemId, itemData }) {
                 <table className="table w-100 p-0 m-0">
                     <tbody className='bg-body-secondary'>
                         <ItemIdField itemId={itemId} />
-                        <ItemNameField value={'Name'}/>
-                        <TaglistField value={'tag1, tag2, tag3'} />
+                        <ItemNameField value={itemName}/>
+                        <TaglistField value={itemTags} />
                     </tbody>
                 </table>
             </div>
