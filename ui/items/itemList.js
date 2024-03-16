@@ -7,12 +7,14 @@ import getItems from "@/lib/getItems";
 
 export default function ItemList({ collectionId }) {
     const [items, setItems] = useState([]);
+    const [initialItems, setInitialItems] = useState([]);
 
     useEffect(() => {
         async function fetchItems() {
             if (collectionId) {
                 const data = await getItems(collectionId);
                 setItems(data);
+                setInitialItems(data);
             }
         }
         fetchItems();
@@ -20,10 +22,13 @@ export default function ItemList({ collectionId }) {
 
     const handleFilter = (event) => {
         const filterText = event.target.value.toLowerCase();
-        const filteredItems = initialItems.filter((item) =>
-            // Each item has a tags property which is an array of strings
-            item.tags.some((tag) => tag.toLowerCase().includes(filterText))
-        );
+        if (!filterText) {
+            setItems(initialItems);
+            return;
+        }
+        const filteredItems = initialItems.filter((item) => {
+            return item.tags.some((tag) => tag.name.toLowerCase().includes(filterText));
+        });
         setItems(filteredItems);
     };
 
@@ -43,14 +48,19 @@ export default function ItemList({ collectionId }) {
         setItems(sortedItems);
     };
 
-    const itemList = items.map((item) => (
-        <ItemListItem
+    const itemList = items.map((item) => {
+
+        let itemTagsArr = [];
+        item.tags.forEach(tag => itemTagsArr.push(tag.name));
+
+        return (<ItemListItem
             key={item.id}
             itemId={item.id}
             itemName={item.name}
-            itemTags={item.tags?.map(tag => tag.name).join(', ') || ''}
-        />
-    ));
+            itemTags={itemTagsArr}
+        />)
+        
+        });
 
     return (
         <div className="p-0 m-0 w-100">

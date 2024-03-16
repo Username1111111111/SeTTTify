@@ -11,8 +11,8 @@ export default function ItemListItem({ itemId, itemName, itemTags }) {
                 <table className="table w-100 p-0 m-0">
                     <tbody className='bg-body-secondary'>
                         <ItemIdField itemId={itemId} />
-                        <ItemNameField value={itemName}/>
-                        <TaglistField value={itemTags} />
+                        <ItemNameField itemName={itemName}/>
+                        <TaglistField itemTags={itemTags} />
                     </tbody>
                 </table>
             </div>
