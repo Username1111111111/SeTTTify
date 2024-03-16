@@ -15,13 +15,17 @@ async function handler(req) {
             const items = await prisma.item.findMany({
                 where: {
                     collectionId: collectionId
-                }, select: {
+                },
+                select: {
                     id: true,
                     name: true,
-                }, include: {
-                    tags: true
+                    tags: {
+                        select: {
+                            id: true,
+                            name: true
+                        }
+                    }
                 }
-                
             });
 
             const resBody = JSON.stringify(items);
