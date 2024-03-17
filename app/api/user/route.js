@@ -27,6 +27,7 @@ async function handler(req, res) {
 
             return res;
         } catch (error) {
+            const resBody = JSON.stringify({error: error});
             const res = new Response(resBody, {
                 status: 500,
                 statusText: "Failed to fetch user.",
