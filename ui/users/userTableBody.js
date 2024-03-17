@@ -1,7 +1,7 @@
 import UserTableRow from "./userTableRow";
 
 export default function UserTableBody({ users, selectedRows, selectRow, deselectRow }) {
-    console.log(users);
+    // console.log(users);
     // console.log(`TableBody user: -----> ${users}`);
     
     const allRows = users.map((user) => (

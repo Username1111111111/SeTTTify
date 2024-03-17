@@ -1,6 +1,5 @@
 import prisma from '@/lib/prisma';
 
-
 async function handler(req, res) {
     if (req.method === "GET") {
         try {
@@ -11,7 +10,7 @@ async function handler(req, res) {
 
             const res = new Response(resBody, {
                 status: 200,
-                statusText: "Users have fetched",
+                statusText: "Users have been fetched",
                 headers: {
                     "Content-Type": "application/json",
                 },

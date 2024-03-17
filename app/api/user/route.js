@@ -1,30 +1,25 @@
-import prisma from '@/lib/prisma';
+import prisma from "@/lib/prisma";
 
 async function handler(req, res) {
     if (req.method === "GET") {
-        const searchParams = req.nextUrl.searchParams;
-        const collectionId = searchParams.get('collectionId')
-
         try {
+            const searchParams = req.nextUrl.searchParams;
+            const collectionId = searchParams.get("collectionId");
 
             const collection = await prisma.collection.findUnique({
                 where: {
                     id: collectionId,
                 },
                 select: {
-                    user: {
-                        select: {
-                            id: true,
-                        },
-                    },
+                    userId: true,
                 },
             });
 
-            const resBody = JSON.stringify(collection.user.id);
+            const resBody = JSON.stringify(collection.userId);
 
             const res = new Response(resBody, {
                 status: 200,
-                statusText: "Users have fetched",
+                statusText: "User have been fetched",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -34,14 +29,14 @@ async function handler(req, res) {
         } catch (error) {
             const res = new Response(resBody, {
                 status: 500,
-                statusText: "Failed to fetch users.",
+                statusText: "Failed to fetch user.",
                 headers: {
                     "Content-Type": "application/json",
                 },
-            });        
+            });
             return res;
         }
-    } 
+    }
 }
 
-export { handler as GET};
+export { handler as GET };

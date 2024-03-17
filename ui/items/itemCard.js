@@ -1,13 +1,9 @@
-"use client"
 import ItemIdField from "./fields/itemIdField";
 import ItemNameField from "./fields/itemNameField";
 import TaglistField from "./fields/taglistField";
 import OptField from "./fields/optField";
-import { useParams } from "next/navigation";
 
-export default function ItemCard() {
-    const params = useParams();
-    const itemId = params.itemId;
+export default function ItemCard({ itemId }) {
 
     return (
         <li className="col-12 col-md-6 p-0 m-0">

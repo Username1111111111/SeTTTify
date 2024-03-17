@@ -184,8 +184,8 @@ export default function Table() {
                     onClick={onToggleAdminButton}
                 />
             </div>
-            <div className="border border-secondary rounded p-0 m-0 bg-body d-flex justify-content-center align-items-center">
-                <table className="table rounded">
+            <div className="border border-secondary rounded p-0 m-0 bg-body d-flex justify-content-center align-items-center table-responsive">
+                <table className="table table-striped rounded">
                     <UserTableHead
                         selectedRows={selectedRows}
                         deselectAllRows={deselectAllRows}

@@ -20,7 +20,7 @@ export default function LargestCollections() {
     const t = useTranslations("Home");
 
     return (
-        <div className="border border-secondary rounded p-1 m-0 bg-body-secondary">
+        <div className="border border-secondary rounded p-1 m-md-0 mt-4 bg-body-secondary">
             <h4 className="text-center mt-2">{t("largest_collections")}</h4>
             <hr/>
             {createLargestCollections()}

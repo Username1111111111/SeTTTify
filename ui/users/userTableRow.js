@@ -48,25 +48,25 @@ export default function UserTableRow({
                     onChange={() => handleChange(id)}
                 ></UserTableCheckbox>
             </td>
-            <td scope="col" className="m-0 p-1 text-center">
-                <Link href={`/user/${id}`}>{id}</Link>
+            <td scope="col" className="m-0 p-1 text-center text-break">
+                <Link href={`/user/${id}`}>{id.slice(28)}</Link>
             </td>
-            <td scope="col" className="m-0 p-1 text-center">
+            <td scope="col" className="m-0 p-1 text-center text-break">
                 {name}
             </td>
-            <td scope="col" className="m-0 p-1 text-center">
+            <td scope="col" className="m-0 p-1 text-center text-break">
                 {email}
             </td>
-            <td scope="col" className="m-0 p-1 text-center">
+            <td scope="col" className="m-0 p-1 text-center text-break">
                 {formattedDate}
             </td>
-            <td scope="col" className="m-0 p-1 text-center">
+            <td scope="col" className="m-0 p-1 text-center text-break">
                 {lastLoginDate + ""}
             </td>
-            <td scope="col" className="m-0 p-1 text-center">
+            <td scope="col" className="m-0 p-1 text-center text-break">
                 {blocked + ""}
             </td>
-            <td scope="col" className="m-0 p-1 text-center">
+            <td scope="col" className="m-0 p-1 text-center text-break">
                 {admin + ""}
             </td>
         </tr>

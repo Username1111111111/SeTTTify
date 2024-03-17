@@ -1,4 +1,4 @@
-import prisma from '@/lib/prisma';
+import prisma from "@/lib/prisma";
 
 async function handler(req) {
     if (req.method === "GET") {
@@ -15,12 +15,8 @@ async function handler(req) {
                     userId: userId,
                 },
                 select: {
-                    collection: {
-                        select: {
-                            id: true,
-                            name: true,
-                        },
-                    },
+                    id: true,
+                    name: true,
                 },
             });
 
@@ -37,10 +33,10 @@ async function handler(req) {
             return res;
         } catch (error) {
             const resBody = JSON.stringify({ error: error.message });
-            
+
             const res = new Response(resBody, {
                 status: 500,
-                statusText: `Epic Failed to fetch Collections: ${userId}. ${error}`,
+                statusText: `Epic Failed to fetch Collections: ${error.message}`,
                 headers: {
                     "Content-Type": "application/json",
                 },

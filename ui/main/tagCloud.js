@@ -67,7 +67,7 @@ export default function TagsCloud() {
     );
 
     return (
-        <div className="border border-secondary rounded p-1 m-0 bg-body-secondary">
+        <div className="border border-secondary rounded p-1 m-md-0 mt-4 mb-4 bg-body-secondary">
             <h4 className="text-center mt-2">{t('tags')}</h4>
             <hr />
             {SimpleCloud()}

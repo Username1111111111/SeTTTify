@@ -1,43 +1,8 @@
-"use client";
 import Sidebar from "@/ui/collections/sidebar";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import getDomain from "@/lib/getDomain";
+import getUserByCollectionId from "@/lib/getUserByCollectionId";
 
-export default function CollectionLayout({ children }) {
-    const [collectionId, setCollectionId] = useState("");
-    const [userId, setUserId] = useState('');
-    const params = useParams();
-    const domain = getDomain();
-
-    useEffect(() => {
-        setCollectionId(params.collectionId);
-    }, [params.collectionId]);
-
-    useEffect(() => {
-        async function getUser(collectionId) {
-            if (collectionId) {
-                const req = new Request(
-                    `${domain}/api/user?collectionId=${collectionId}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-
-                const res = await fetch(req, {
-                    cache: "force-cache",
-                    next: { revalidate: 60 },
-                });
-
-                const data = await res.json();
-                setUserId(data);
-            }
-        }
-        getUser(collectionId)
-    }, [domain, collectionId]);
+export default async function CollectionLayout({ children, params }) {
+    const userId = await getUserByCollectionId(params.collectionId);
 
     return (
         <>

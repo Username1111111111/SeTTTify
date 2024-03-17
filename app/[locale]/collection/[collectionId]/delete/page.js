@@ -1,10 +1,6 @@
-"use client"
 import DeletePage from "@/ui/deletePage";
-import { useParams } from "next/navigation";
 
-
-export default function Page() {
-    const params = useParams();
+export default function CollectionPage({ params }) {
     const collectionId = params.collectionId;
     const idType = "collection";
 

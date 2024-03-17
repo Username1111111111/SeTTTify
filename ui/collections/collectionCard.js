@@ -5,7 +5,7 @@ import DescriptionField from "./fields/descriptionField";
 import ImageField from "./fields/imageField";
 import TopicField from "./fields/topicField";
 import { useState, useEffect } from "react";
-import getCollection from "@/lib/getCollection";
+import getCollectionById from "@/lib/getCollectionById";
 
 export default function CollectionCard({ collectionId }) {
     const [collection, setCollection] = useState("");
@@ -13,7 +13,7 @@ export default function CollectionCard({ collectionId }) {
     useEffect(() => {
         async function fetchCollection() {
             if (collectionId) {
-                const data = await getCollection(collectionId);
+                const data = await getCollectionById(collectionId);
                 setCollection(data);
             }
         }

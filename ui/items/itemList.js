@@ -3,7 +3,7 @@ import ItemListItem from "./itemListItem";
 import CollectionCard from "../collections/collectionCard";
 import FilterSorter from "../filterSorter";
 import { useEffect, useState } from "react";
-import getItems from "@/lib/getItems";
+import getItemsByCollectionId from "@/lib/getItemsByCollectionId";
 
 export default function ItemList({ collectionId }) {
     const [items, setItems] = useState([]);
@@ -12,7 +12,7 @@ export default function ItemList({ collectionId }) {
     useEffect(() => {
         async function fetchItems() {
             if (collectionId) {
-                const data = await getItems(collectionId);
+                const data = await getItemsByCollectionId(collectionId);
                 setItems(data);
                 setInitialItems(data);
             }

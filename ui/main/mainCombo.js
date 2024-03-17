@@ -7,8 +7,8 @@ export default function MainCombo() {
     const t = useTranslations('Home');
     
     return (
-        <div className="col-12 col-md-12 d-flex flex-column justify-content-start align-items-center">
-            <h2 className="text-center m-0 p-0 w-100 my-2">{t("welcome_to_settify")}</h2>
+        <div className="col-12 col-md-12 d-flex flex-column justify-content-start align-items-center p-2">
+            <h2 className="text-center m-0 p-0 w-100 mb-2">{t("welcome_to_settify")}</h2>
             <div className="row">
                 <div className="col-12 col-md-4 m-0">
                     <LatestItemsList />

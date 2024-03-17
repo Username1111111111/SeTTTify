@@ -1,12 +1,9 @@
-"use client";
 import ItemList from "@/ui/items/itemList";
-import { useParams } from "next/navigation";
 import CollectionEdit from "@/ui/collections/collectionEdit";
 
 
-export default function CollectionPage() {
+export default function CollectionPage({params}) {
 
-    const params = useParams();
     const collectionId = params.collectionId;
 
     if (collectionId == "create") {

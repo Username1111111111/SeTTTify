@@ -12,7 +12,7 @@ export const metadata = {
 
 export default async function RootLayout({ children, locale }) {
     return (
-        <html lang={locale}>
+        <html lang={locale} suppressHydrationWarning={true}>
             <head>
                 <script
                     dangerouslySetInnerHTML={{

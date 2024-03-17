@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
+import getDomain from "@/lib/getDomain";
 
-const domain = process.env.NEXT_PUBLIC_API_URL;
+const domain = getDomain();
 
 export default function SignupForm() {
     const [name, setName] = useState("");
@@ -91,8 +92,8 @@ export default function SignupForm() {
     }
 
     return (
-        <div className="col-12 d-flex flex-column justify-content-center align-items-center p-0 m-0">
-            <div className="col-12 col-md-6 col-lg-5 border border-secondary rounded p-2 mt-3">
+        <div className="col-12 d-flex flex-column justify-content-center align-items-center p-2 m-0">
+            <div className="col-12 col-md-6 col-lg-5 border border-secondary rounded p-2 mt-2 bg-body-secondary">
                 <h2 className="text-center h2 w-100 p-0 m-0">Sign up</h2>
                 <hr></hr>
                 <form className="row w-100 p-0 m-0">

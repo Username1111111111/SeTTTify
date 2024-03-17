@@ -1,16 +1,13 @@
-"use client"
 import ItemCard from "@/ui/items/itemCard";
 import ItemCardEdit from "@/ui/items/itemCardEdit";
-import { useParams } from "next/navigation";
 
-export default function ItemPage() {
-    const params = useParams();
+export default function ItemPage({ params }) {
     const itemId = params.itemId;
 
     if (itemId == 'create') {
-        return <ItemCardEdit/>
+        return <ItemCardEdit itemId={itemId} />
     } else {
-        return <ItemCard/>;
+        return <ItemCard itemId={itemId} />;
     }
 
     

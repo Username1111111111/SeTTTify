@@ -22,7 +22,7 @@ export default function UserTableHead({ selectAllRows, deselectAllRows }) {
                     <UserTableCheckbox
                         checked={checked}
                         onChange={handleChange}
-                    ></UserTableCheckbox>
+                    >All</UserTableCheckbox>
                 </th>
                 <th scope="col" className="m-0 p-1 text-center">ID</th>
                 <th scope="col" className="m-0 p-1 text-center">{t("name")}</th>
