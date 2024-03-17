@@ -8,27 +8,26 @@ import UserBlockButton from "./userBlockButton";
 import UserDeleteButton from "./userDeleteButton";
 import UserUnblockButton from "./userUnblockButton";
 import UserAdminButton from "./userAdminButton";
-
-const domain = process.env.baseUrl; // this is localhost
+import getDomain from "@/lib/getDomain";
 
 export default function Table() {
     // const { data: session, status } = useSession();
     const [users, setUsers] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
     // const [currentUserId, setCurrentUserId] = useState(session?.user?._id);
+    const domain = getDomain();
 
     useEffect(() => {
         async function fetchUsers() {
-            const response = await fetch("/api/users", {
-                cache: "force-cache",
+            const res = await fetch(`${domain}/api/users`, {
                 next: { revalidate: 60 },
             });
-            const data = await response.json();
+            const data = await res.json();
             setUsers(data);
         }
 
         fetchUsers();
-    }, []);
+    });
 
     // const isLoadingSession = status === "loading";
     // // const isLoadingSession = currentUserId === undefined;

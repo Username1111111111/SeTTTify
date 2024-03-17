@@ -1,3 +1,4 @@
+"use client"
 import { BiSolidEditAlt } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -8,7 +9,7 @@ export default function EditButton({ id, idType }) {
 
     const handleEdit = () => {
         router.push(`/${idType}/${id}/edit`);
-        console.log(`Editing ${idType} with ID: ${id}`);
+        // console.log(`Editing ${idType} with ID: ${id}`);
     };
 
     return (

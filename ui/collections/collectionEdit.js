@@ -11,7 +11,7 @@ export default function CollectionEdit({ collectionId }) {
 
     return (
         <div className="col-12 col-md-10 col-lg-8 p-0 m-0 pt-2">
-            <div className="border border-secondary rounded m-2 p-1 bg-body-secondary">
+            <div className="border border-secondary rounded m-2 mt-0 p-1 bg-body-secondary">
                 <ul className="w-100 p-0 m-0 p-1">
                     <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
                         <div className="col-5 col-md-4 m-0 p-0">
@@ -120,22 +120,3 @@ export default function CollectionEdit({ collectionId }) {
         </div>
     );
 }
-
-// collection: {
-//     id: "string",
-//     name: "string",
-//     description: "string",
-//     topic: "string",
-//     image: "string (optional)",
-//     fields: {
-//         fixed: ["id", "name", "tags"],
-//         optional: {
-//             integer: ["int1", "int2", "int3"],
-//             string: ["string1", "string2", "string3"],
-//             text: ["text1", "text2", "text3"],
-//             boolean: ["bool1", "bool2", "bool3"],
-//             date: ["date1", "date2", "date3"],
-//         },
-//     },
-//     items: ["collectionId", "collectionId2", "collectionId3"]
-// }

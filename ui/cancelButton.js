@@ -1,3 +1,4 @@
+"use client"
 import { GiCancel } from "react-icons/gi";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
