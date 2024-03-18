@@ -1,12 +1,20 @@
 import prisma from "@/lib/prisma";
 
-async function handler(req) {
+async function handler(req, res) {
     if (req.method === "GET") {
         const searchParams = req.nextUrl.searchParams;
         const userId = searchParams.get("userId");
 
         if (!userId || userId === null) {
-            throw new Error(`No userId`);
+            const res = new Response({
+                status: 400,
+                statusText: "No userId provided",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            return res;
         }
 
         try {
@@ -31,6 +39,8 @@ async function handler(req) {
             });
 
             return res;
+            // res.status(200).json(collections);
+
         } catch (error) {
             const resBody = JSON.stringify({ error: error.message });
 

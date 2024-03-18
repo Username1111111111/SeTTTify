@@ -1,9 +1,14 @@
 import Sidebar from "@/ui/collections/sidebar";
+import getUserByItemId from "@/lib/getUserByItemId"
 
-export default function ItemLayout({ children }) {
+export default async function ItemLayout({ children, params }) {
+
+    console.log(params.itemId);
+    const userId = await getUserByItemId(params.itemId);
+
     return (
         <>
-            <Sidebar />
+            <Sidebar userId={userId}/>
             <div className="col-12 col-md-9 m-0 p-0 d-flex justify-content-center">{children}</div>
         </>
     );

@@ -25,7 +25,6 @@ export default function Table() {
             const data = await res.json();
             setUsers(data);
         }
-
         fetchUsers();
     });
 
