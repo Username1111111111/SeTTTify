@@ -39,9 +39,7 @@ async function handler(req, res) {
                 });
                 return res;
             }
-        }
-
-        if (searchParams.has("itemId")) {
+        } else if (searchParams.has("itemId")) {
             const itemId = searchParams.get("itemId");
 
             try {

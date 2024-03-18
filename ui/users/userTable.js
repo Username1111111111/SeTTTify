@@ -26,7 +26,7 @@ export default function Table() {
             setUsers(data);
         }
         fetchUsers();
-    });
+    }, [domain]);
 
     // const isLoadingSession = status === "loading";
     // // const isLoadingSession = currentUserId === undefined;

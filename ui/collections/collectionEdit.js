@@ -4,10 +4,10 @@ import OptInput from "./inputs/optInput";
 import { useTranslations } from "next-intl";
 import styles from './collectionEdit.module.css'
 
-export default function CollectionEdit({ collectionId }) {
+export default function CollectionEdit({ collectionId, userId, mode }) {
     const t = useTranslations("Collection");
 
-    // If in edit mode then fetch data from DB else leave fields empty
+    // If in edit mode then fetch data from DB else if create mode leave fields empty
 
     return (
         <div className="col-12 col-md-10 col-lg-8 p-0 m-0 pt-2">

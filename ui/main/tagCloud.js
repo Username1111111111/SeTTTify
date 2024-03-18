@@ -1,45 +1,45 @@
 "use client";
 import { TagCloud } from "react-tagcloud";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TagItem from "./tagItem";
 import styles from './tagCloud.module.css';
 import { useTranslations } from "next-intl";
-
-function createTagItems(selectedTag) {
-    const itemCount = 5;
-    const allItems = [];
-    for (let i = 0; i < itemCount; i++) {
-        allItems.push(<TagItem key={i} itemId={i} name={`Name`}></TagItem>);
-    }
-    return (
-        <>
-            <span id="tagspan">{`${selectedTag}`}</span>
-            <ul className="row w-100 p-0 m-0">{allItems}</ul>
-        </>
-    );
-}
+import getTags from "@/lib/getTags";
 
 export default function TagsCloud() {
     const [selectedTag, setSelectedTag] = useState("");
+    const [tags, setTags] = useState("");
     const t = useTranslations("Home");
+    
+
+    useEffect(()=>{
+        async function fetchTags() {
+            const tags = await getTags();
+            setTags(tags);
+        }
+        fetchTags();
+    }, [])
+
+    // TO BE FINISHED !!!
+    
+    // let data = [];
+    // tags.map(tag => {
+    //     data.push( { name: tag.name, count: 12 },)
+    // })
 
     const data = [
-        { value: "JavaScript", count: 38 },
-        { value: "React", count: 30 },
-        { value: "Nodejs", count: 28 },
-        { value: "Express.js", count: 25 },
-        { value: "HTML5", count: 33 },
-        { value: "MongoDB", count: 18 },
-        { value: "CSS3", count: 20 },
+        { name: "JavaScript", count: 12 },
+        { name: "React", count: 12 },
+        { name: "Nodejs", count: 12 },
+        { name: "Express.js", count: 12 },
+        { name: "HTML5", count: 12 },
+        { name: "MongoDB", count: 12 },
+        { name: "CSS3", count: 12 },
     ];
-
-    function handleClick(tag) {
-        setSelectedTag(tag.value);
-    }
 
     const customRenderer = (tag, size, color) => (
         <span
-            key={tag.value}
+            key={tag.name}
             style={{
                 animation: `${styles.blinker} 3s linear infinite`,
                 animationDelay: `${Math.random() * 2}s`,
@@ -52,7 +52,7 @@ export default function TagsCloud() {
             }}
             className="cursor-pointer"
         >
-            {tag.value}
+            {tag.name}
         </span>
     );
 
@@ -66,6 +66,10 @@ export default function TagsCloud() {
         />
     );
 
+    function handleClick(tag) {
+        setSelectedTag(tag.name);
+    }
+
     return (
         <div className="border border-secondary rounded p-1 m-md-0 mt-4 mb-4 bg-body-secondary">
             <h4 className="text-center mt-2">{t('tags')}</h4>
@@ -75,6 +79,23 @@ export default function TagsCloud() {
         </div>
     );
 }
+
+function createTagItems(selectedTag) {
+    const itemCount = 5;
+    const allItems = [];
+
+    for (let i = 0; i < itemCount; i++) {
+        allItems.push(<TagItem key={i} itemId={i} name={`Name`}></TagItem>);
+    }
+
+    return (
+        <>
+            {/* <span id="tagspan">{`${selectedTag}`}</span> */}
+            <ul className="row w-100 p-0 m-0">{allItems}</ul>
+        </>
+    );
+}
+
 
 // https://www.npmjs.com/package/react-tagcloud
 
