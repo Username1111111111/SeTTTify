@@ -46,51 +46,58 @@ async function handler(req) {
                 });
                 return res;
             }
-        } 
-        // TO BE FINISHED !!!
-        else if (searchParams.has("latest")) {
-            const collectionId = searchParams.get('latest')
-
-        try {
-            
-            const items = await prisma.item.findMany({
-                where: {
-                    collectionId: collectionId
-                },
-                select: {
-                    id: true,
-                    name: true,
-                    tags: {
-                        select: {
-                            id: true,
-                            name: true
-                        }
-                    }
-                }
-            });
-
-            const resBody = JSON.stringify(items);
-
-            const res = new Response(resBody, {
-                status: 200,
-                statusText: "Items have been fetched",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-            
-            return res;
-        } catch (error) {
-            const resBody = JSON.stringify({error: error.message});
-            const res = new Response(resBody, {
-                status: 500,
-                statusText: `Failed to fetch items: ${collectionId}`,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });        
-            return res;
         }
+
+        else if (searchParams.has("latest")) {
+
+            // https://www.prisma.io/docs/orm/reference/prisma-client-reference#filter-conditions-and-operators
+
+            try {
+                const items = await prisma.item.findMany({
+                    take: 10,
+                    select: {
+                        id: true,
+                        name: true,
+                        collection: {
+                            select: {
+                                name: true,
+                            },
+                        },
+                        user: {
+                            select: {
+                                name: true,
+                            },
+                        },
+                    },
+                    orderBy: {
+                        createdAt: "desc",
+                    },
+                });
+
+                const resBody = JSON.stringify(items);
+
+                const res = new Response(resBody, {
+                    status: 200,
+                    statusText: "Latest items have been fetched",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                return res;
+            } catch (error) {
+                const resBody = JSON.stringify({ error: error.message });
+
+                const res = new Response(resBody, {
+                    status: 500,
+                    statusText: `Failed to fetch latest items.`,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                return res;
+            }
         }
     }
 }

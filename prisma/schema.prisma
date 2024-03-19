@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -18,8 +19,10 @@ model User {
   name           String
   email          String       @unique
   password       String
-  signupDate     DateTime     @default(now())
+  signupDate     DateTime?    @default(now())
   lastLoginDate  DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime?    @updatedAt
   blocked        Boolean
   admin          Boolean
   collections    Collection[]
@@ -33,44 +36,46 @@ model User {
 }
 
 model Collection {
-  id                   String  @id @default(uuid())
+  id                   String    @id @default(uuid())
   name                 String
   description          String
   imageUrl             String?
   topicId              String
-  topic                Topic   @relation(fields: [topicId], references: [id])
+  topic                Topic     @relation(fields: [topicId], references: [id])
   userId               String
-  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   items                Item[]
-  custom_int1_state    Boolean @default(false)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime? @updatedAt
+  custom_int1_state    Boolean   @default(false)
   custom_int1_name     String?
-  custom_int2_state    Boolean @default(false)
+  custom_int2_state    Boolean   @default(false)
   custom_int2_name     String?
-  custom_int3_state    Boolean @default(false)
+  custom_int3_state    Boolean   @default(false)
   custom_int3_name     String?
-  custom_string1_state Boolean @default(false)
+  custom_string1_state Boolean   @default(false)
   custom_string1_name  String?
-  custom_string2_state Boolean @default(false)
+  custom_string2_state Boolean   @default(false)
   custom_string2_name  String?
-  custom_string3_state Boolean @default(false)
+  custom_string3_state Boolean   @default(false)
   custom_string3_name  String?
-  custom_text1_state   Boolean @default(false)
+  custom_text1_state   Boolean   @default(false)
   custom_text1_name    String?
-  custom_text2_state   Boolean @default(false)
+  custom_text2_state   Boolean   @default(false)
   custom_text2_name    String?
-  custom_text3_state   Boolean @default(false)
+  custom_text3_state   Boolean   @default(false)
   custom_text3_name    String?
-  custom_bool1_state   Boolean @default(false)
+  custom_bool1_state   Boolean   @default(false)
   custom_bool1_name    String?
-  custom_bool2_state   Boolean @default(false)
+  custom_bool2_state   Boolean   @default(false)
   custom_bool2_name    String?
-  custom_bool3_state   Boolean @default(false)
+  custom_bool3_state   Boolean   @default(false)
   custom_bool3_name    String?
-  custom_date1_state   Boolean @default(false)
+  custom_date1_state   Boolean   @default(false)
   custom_date1_name    String?
-  custom_date2_state   Boolean @default(false)
+  custom_date2_state   Boolean   @default(false)
   custom_date2_name    String?
-  custom_date3_state   Boolean @default(false)
+  custom_date3_state   Boolean   @default(false)
   custom_date3_name    String?
 }
 
@@ -84,6 +89,8 @@ model Item {
   tags                 Tag[]      @relation("ItemTags")
   comments             Comment[]
   likes                Like[]
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime?  @updatedAt
   custom_int1_value    Int?
   custom_int2_value    Int?
   custom_int3_value    Int?
@@ -105,32 +112,40 @@ model Topic {
   id          String       @id @default(uuid())
   name        String
   collections Collection[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime?    @updatedAt
 }
 
 model Tag {
-  id     String @id @default(uuid())
-  name   String
-  items  Item[] @relation("ItemTags")
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  id        String    @id @default(uuid())
+  name      String
+  items     Item[]    @relation("ItemTags")
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Comment {
-  id     String   @id @default(uuid())
-  text   String
-  userId String
-  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  itemId String
-  item   Item     @relation(fields: [itemId], references: [id])
-  time   DateTime
+  id        String    @id @default(uuid())
+  text      String
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemId    String
+  item      Item      @relation(fields: [itemId], references: [id])
+  time      DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Like {
-  id     String @id @default(uuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  itemId String
-  item   Item   @relation(fields: [itemId], references: [id])
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemId    String
+  item      Item      @relation(fields: [itemId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 
   @@unique([userId, itemId])
 }
