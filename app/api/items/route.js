@@ -49,12 +49,12 @@ async function handler(req) {
         }
 
         else if (searchParams.has("latest")) {
-
+            const latestCount = +searchParams.get("latest");
             // https://www.prisma.io/docs/orm/reference/prisma-client-reference#filter-conditions-and-operators
 
             try {
                 const items = await prisma.item.findMany({
-                    take: 10,
+                    take: latestCount,
                     select: {
                         id: true,
                         name: true,

@@ -163,8 +163,8 @@ export default function Table() {
     }
 
     return (
-        <div className="d-flex flex-column justify-content-center w-100 p-0 p-md-2 m-0">
-            <div className="d-flex justify-content-center align-items-center w-100 p-0 m-0 flex-wrap">
+        <div className="d-flex flex-column justify-content-center w-100 p-0 p-md-2 pt-2 m-0">
+            <div className="d-flex justify-content-center align-items-center w-100 p-0 m-0 mb-2 flex-wrap border border-secondary bg-body-secondary rounded">
                 <UserBlockButton
                     selectedRows={selectedRows}
                     onClick={onToggleBlockButton}

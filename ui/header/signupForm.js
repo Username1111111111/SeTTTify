@@ -93,7 +93,7 @@ export default function SignupForm() {
 
     return (
         <div className="col-12 d-flex flex-column justify-content-center align-items-center p-2 m-0">
-            <div className="col-12 col-md-6 col-lg-5 border border-secondary rounded p-2 mt-2 bg-body-secondary">
+            <div className="col-12 col-md-6 col-lg-5 border border-secondary rounded p-2 bg-body-secondary">
                 <h2 className="text-center h2 w-100 p-0 m-0">Sign up</h2>
                 <hr></hr>
                 <form className="row w-100 p-0 m-0">

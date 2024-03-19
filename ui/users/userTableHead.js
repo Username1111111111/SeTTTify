@@ -17,19 +17,19 @@ export default function UserTableHead({ selectAllRows, deselectAllRows }) {
 
     return (
         <thead className="rounded">
-            <tr className="rounded">
-                <th scope="col" className="m-0 p-1 text-center rounded">
+            <tr className="rounded m-0 p-0">
+                <th scope="col" className="m-0 p-0 p-1 text-center rounded">
                     <UserTableCheckbox
                         checked={checked}
                         onChange={handleChange}
-                    >All</UserTableCheckbox>
+                    ></UserTableCheckbox>
                 </th>
                 <th scope="col" className="m-0 p-1 text-center">ID</th>
                 <th scope="col" className="m-0 p-1 text-center">{t("name")}</th>
                 <th scope="col" className="m-0 p-1 text-center">{t("email")}</th>
                 <th scope="col" className="m-0 p-1 text-center">{t("signup_date")}</th>
                 <th scope="col" className="m-0 p-1 text-center">{t("last_login")}</th>
-                <th scope="col" className="m-0 p-1 text-center">{t("blocked")}</th>
+                <th scope="col" className="m-0 p-1 text-center">{t("block")}</th>
                 <th scope="col" className="m-0 p-1 text-center rounded">{t("admin")}</th>
             </tr>
         </thead>
