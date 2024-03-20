@@ -52,12 +52,10 @@ async function handler(req) {
 
             try {
                 const items = await prisma.item.findMany({
-                    orderBy: {
-                        createdAt: "desc",
-                    },
                     select: {
                         id: true,
                         name: true,
+                        createdAt: true,
                         collection: {
                             select: {
                                 name: true,
@@ -69,7 +67,10 @@ async function handler(req) {
                             },
                         },
                     },
-                    take: latestCount
+                    orderBy: {
+                        createdAt: "desc",
+                    },
+                    take: latestCount,
                 });
 
                 const resBody = JSON.stringify(items);
