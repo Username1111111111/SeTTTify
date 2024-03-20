@@ -58,6 +58,20 @@ export default function TagsCloud() {
         setSelectedTag(tag);
     }
 
+    if (!tags) {
+        return (
+            <div className="border border-secondary rounded p-1 m-md-0 mt-4 mb-4 bg-body-secondary">
+                <h4 className="text-center mt-2">{t("tags")}</h4>
+                <hr />
+                <div className="d-flex justify-content-center align-content-center m-2 p-2">
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="border border-secondary rounded p-1 m-md-0 mt-4 mb-4 bg-body-secondary">
             <h4 className="text-center mt-2">{t("tags")}</h4>

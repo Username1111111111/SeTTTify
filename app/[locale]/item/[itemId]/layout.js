@@ -3,7 +3,7 @@ import getUserByItemId from "@/lib/getUserByItemId"
 
 export default async function ItemLayout({ children, params }) {
 
-    console.log(params.itemId);
+    // console.log(params.itemId);
     const userId = await getUserByItemId(params.itemId);
 
     return (

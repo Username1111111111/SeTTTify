@@ -8,7 +8,7 @@ export default function DeleteButton({ id, idType }) {
     
     const handleDelete = () => {
         router.push(`/${idType}/${id}/delete`);
-        console.log(`Deleting ${idType} with ID: ${id}`);
+        // console.log(`Deleting ${idType} with ID: ${id}`);
     };
 
     return (

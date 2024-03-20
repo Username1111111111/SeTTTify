@@ -39,7 +39,7 @@ async function handler(req) {
                 const resBody = JSON.stringify({ error: error.message });
                 const res = new Response(resBody, {
                     status: 500,
-                    statusText: `Failed to fetch items: ${collectionId}`,
+                    statusText: `Failed to fetch items by collectionId: ${collectionId}`,
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -57,6 +57,7 @@ async function handler(req) {
                     orderBy: {
                         createdAt: "desc",
                     },
+                    take: +latestCount,
                     select: {
                         id: true,
                         name: true,
@@ -70,8 +71,7 @@ async function handler(req) {
                                 name: true,
                             },
                         },
-                    },
-                    take: +latestCount,
+                    }
                 });
 
                 const resBody = JSON.stringify(items);
@@ -98,9 +98,6 @@ async function handler(req) {
 
                 return res;
             }
-        }
-        else if (searchParams.has("itemId")) {
-
         }
     }
 }

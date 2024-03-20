@@ -1,20 +1,24 @@
+"use client";
 import { useTranslations } from "next-intl";
-// import { useState } from "react";
+import generateUniqueId from "@/lib/generateUniqueId";
+import { useState, useEffect } from "react";
 
 export default function TaglistField({ itemTags }) {
-    let tags;
-    if (itemTags) {
-        tags = itemTags.map((tag, index) => (
+    const t = useTranslations("Item");
+    const [tags, setTags] = useState();
+
+    useEffect(() => {
+        let tags = itemTags.map((tag, index) => (
             <span
-                key={tag + index}
+                key={tag + index + generateUniqueId()}
                 className="border border-secondary rounded m-1 ps-1 pe-1 text-nowrap"
             >
                 {tag}
             </span>
         ));
-    }
+        setTags(tags);
+    }, [itemTags])
 
-    const t = useTranslations("Item");
     return (
         <tr className="">
             <td className="bg-body-secondary">{t("tags")}:</td>
