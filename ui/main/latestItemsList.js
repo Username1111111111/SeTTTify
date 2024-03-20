@@ -1,6 +1,8 @@
+"use client";
 import LatestItem from "./latestItem";
 import { useTranslations } from "next-intl";
 import getItemsLatest from "@/lib/getItemsLatest";
+import { useState, useEffect } from "react";
 
 function createLatestItems(items) {
     const allItems = [];
@@ -20,16 +22,19 @@ function createLatestItems(items) {
     return <ul className="row w-100 p-0 m-0">{allItems}</ul>;
 }
 
-export default async function LatestItemsList() {
+export default function LatestItemsList() {
     const t = useTranslations("Home");
+    const [items, setItems] = useState([]);
     const latestCount = 10;
 
-    let items;
-    try {
-        items = await getItemsLatest(latestCount);
-    } catch (error) {
-        alert(error.message);
-    }
+    useEffect(() => {
+        async function fetchItems() {
+            const fetchedItems = await getItemsLatest(latestCount);
+            setItems(fetchedItems);
+        }
+        fetchItems();
+    })
+    
 
     if (!items) {
         return (
