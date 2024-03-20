@@ -3,18 +3,30 @@ import prisma from "@/lib/prisma";
 async function handler(req) {
     if (req.method === "GET") {
         try {
-            // TO BE FINISHED !!!
+
             const tags = await prisma.tag.findMany({
                 take: 10,
-                include: {
+                select: {
+                    id: true,
+                    name: true,
                     items: {
+                        // orderBy: {
+                        //     items: {
+                        //         _count: "desc",
+                        //     },
+                        // },
                         select: {
                             id: true,
                             name: true
-                        }
+                        },
+                        take: 5,
                     },
-                    take: 5,
-                }, 
+                    _count: {
+                        select: {
+                            items: true,
+                        },
+                    },
+                },
             });
 
             const resBody = JSON.stringify(tags);

@@ -69,22 +69,6 @@ async function handler(req, res) {
             }
 
             try {
-                // const collections = await prisma.collection.findMany({
-                //     orderBy: {
-                //         items: {
-                //             _count: "desc",
-                //         },
-                //     },
-                //     select: {
-                //         id: true,
-                //         name: true,
-                //         items: {
-                //             _count: true
-                //         }
-                //     },
-                //     take: largestCount,
-                // });
-                
                 const collections = await prisma.collection.findMany({
                     orderBy: {
                         items: {
