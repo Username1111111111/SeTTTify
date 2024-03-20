@@ -78,11 +78,6 @@ async function handler(req, res) {
                     select: {
                         id: true,
                         name: true,
-                        // posts: {
-                        //     select: {
-                        //         _count: true,
-                        //     },
-                        // },
                         _count: {
                             select: {
                                 items: true,
