@@ -55,7 +55,7 @@ async function handler(req) {
                     select: {
                         id: true,
                         name: true,
-                        createdAt: true,
+                        // createdAt: true,
                         collection: {
                             select: {
                                 name: true,
@@ -67,9 +67,9 @@ async function handler(req) {
                             },
                         },
                     },
-                    orderBy: {
-                        createdAt: "desc",
-                    },
+                    // orderBy: {
+                    //     createdAt: "desc",
+                    // },
                     take: latestCount,
                 });
 
