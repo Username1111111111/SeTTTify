@@ -42,70 +42,69 @@ export default function ItemCard({ itemId }) {
                     <tbody>
                         <ItemIdField itemId={item.id} />
                         <ItemNameField itemName={item.name} />
-                        {/* <TaglistField value={item.tags} /> */}
                         <TaglistField itemTags={tagList} />
 
                         <OptField
                             type={"number"}
                             name={"number:"}
                             value={"number"}
-                            itemId={itemId}
+                            itemId={item.id}
                         />
 
                         <OptField
                             type={"number"}
                             name={"number:"}
                             value={"number"}
-                            itemId={itemId}
+                            itemId={item.id}
                         />
 
                         <OptField
                             type={"number"}
                             name={"number:"}
                             value={"number"}
-                            itemId={itemId}
+                            itemId={item.id}
                         />
 
                         <OptField
                             type={"string"}
                             name={"string:"}
                             value={"string"}
-                            itemId={itemId}
+                            itemId={item.id}
                         />
 
                         <OptField
                             type={"string"}
                             name={"string:"}
                             value={"string"}
-                            itemId={itemId}
+                            itemId={item.id}
                         />
 
                         <OptField
                             type={"string"}
                             name={"string:"}
                             value={"string"}
-                            itemId={itemId}
+                            itemId={item.id}
                         />
 
                         <OptField
                             type={"textarea"}
                             name={"textarea:"}
                             value={"textarea"}
-                            itemId={itemId}
+                            itemId={item.id}
                         />
 
                         {/* <OptField
                             type={"checkbox"}
                             name={"checkbox:"}
                             value={"checkbox"}
-                            itemId={itemId}
+                            itemId={item.id}
                         /> */}
 
                         <OptField
                             type={"date"}
                             name={"date:"}
                             value={"date"}
-                            itemId={itemId}
+                            itemId={item.id}
                         />
                     </tbody>
                 </table>
