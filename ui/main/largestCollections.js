@@ -6,7 +6,7 @@ function createLargestCollections(collections) {
     const allCollections = [];
 
     if (!Array.isArray(collections)) {
-        return <ul className="row w-100 p-0 m-0">Failed to fetch</ul>;
+        return <ul className="row w-100 p-0 m-0"><li className="text-center">Failed to fetch largest collections</li></ul>;
     }
 
     collections.map((collection) => {
@@ -15,12 +15,12 @@ function createLargestCollections(collections) {
                 key={collection.id}
                 collectionId={collection.id}
                 name={collection.name}
-                itemsCount={itemsCount}
+                itemsCount={collection._count.items}
             />
         );
     });
 
-    return <ul className="row w-100 p-0 m-0">{allItems}</ul>;
+    return <ul className="row w-100 p-0 m-0">{allCollections}</ul>;
 }
 
 export default async function LargestCollections() {

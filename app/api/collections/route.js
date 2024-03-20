@@ -69,6 +69,22 @@ async function handler(req, res) {
             }
 
             try {
+                // const collections = await prisma.collection.findMany({
+                //     orderBy: {
+                //         items: {
+                //             _count: "desc",
+                //         },
+                //     },
+                //     select: {
+                //         id: true,
+                //         name: true,
+                //         items: {
+                //             _count: true
+                //         }
+                //     },
+                //     take: largestCount,
+                // });
+                
                 const collections = await prisma.collection.findMany({
                     orderBy: {
                         items: {
@@ -78,39 +94,21 @@ async function handler(req, res) {
                     select: {
                         id: true,
                         name: true,
-                        items: {
-                            _count: true
-                        }
-                    },
-                    take: largestCount,
-                });
-                
-
-                const itemCount = await prisma.item.count({
-                    where: {
-                        collection: {
-                            some: {
-                                id: {
-                                    in: collections.map(
-                                        (collection) => collection.id
-                                    ),
-                                },
+                        // posts: {
+                        //     select: {
+                        //         _count: true,
+                        //     },
+                        // },
+                        _count: {
+                            select: {
+                                items: true,
                             },
                         },
                     },
+                    take: largestCount,
                 });
 
-                const collectionsWithItemCount = collections.map(
-                    (collection) => {
-                        return {
-                            id: collection.id,
-                            name: collection.name,
-                            itemCount: itemCount,
-                        };
-                    }
-                );
-
-                const resBody = JSON.stringify(collectionsWithItemCount);
+                const resBody = JSON.stringify(collections);
 
                 const res = new Response(resBody, {
                     status: 200,
