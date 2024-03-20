@@ -14,9 +14,43 @@ async function handler(req) {
                     tags: {
                         select: {
                             id: true,
-                            name: true
-                        }
-                    }
+                            name: true,
+                        },
+                    },
+                    collection: {
+                        select: {
+                            custom_int1_state: true,
+                            custom_int1_name: true,
+                            custom_int2_state: true,
+                            custom_int2_name: true,
+                            custom_int3_state: true,
+                            custom_int3_name: true,
+                            custom_string1_state: true,
+                            custom_string1_name: true,
+                            custom_string2_state: true,
+                            custom_string2_name: true,
+                            custom_string3_state: true,
+                            custom_string3_name: true,
+                            custom_text1_state: true,
+                            custom_text1_name: true,
+                            custom_text2_state: true,
+                            custom_text2_name: true,
+                            custom_text3_state: true,
+                            custom_text3_name: true,
+                            custom_bool1_state: true,
+                            custom_bool1_name: true,
+                            custom_bool2_state: true,
+                            custom_bool2_name: true,
+                            custom_bool3_state: true,
+                            custom_bool3_name: true,
+                            custom_date1_state: true,
+                            custom_date1_name: true,
+                            custom_date2_state: true,
+                            custom_date2_name: true,
+                            custom_date3_state: true,
+                            custom_date3_name: true,
+                        },
+                    },
                 },
             });
 

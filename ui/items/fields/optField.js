@@ -7,7 +7,7 @@ export default function OptField({ name, value, type, itemId }) {
         return (
             <tr className="">
                 <td scope="row" className="bg-body-secondary">
-                    {name}
+                    {name}:
                 </td>
                 <td scope="row" className="bg-body-secondary">
                     {value}
@@ -26,16 +26,26 @@ export default function OptField({ name, value, type, itemId }) {
     } else if (type === "checkbox") {
         optField = (
             <tr className="">
-                <td className="bg-body-secondary">{name}</td>
+                <td className="bg-body-secondary">{name}:</td>
                 <td className="bg-body-secondary">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        // value={value}
-                        id={`checkboxDisplay-${itemId}-${generateUniqueId()}`}
-                        checked
-                        disabled
-                    />
+                    {value ? (
+                        <input
+                            className="form-check-input"
+                            type="checkbox"
+                            value={value}
+                            id={`checkboxDisplay-${itemId}-${generateUniqueId()}`}
+                            checked
+                            disabled
+                        />
+                    ) : (
+                        <input
+                            className="form-check-input"
+                            type="checkbox"
+                            value={value}
+                            id={`checkboxDisplay-${itemId}-${generateUniqueId()}`}
+                            disabled
+                        />
+                    )}
                 </td>
             </tr>
         );

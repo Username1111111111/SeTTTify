@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function ItemCard({ itemId }) {
     const [item, setItem] = useState();
+    const n = "number", s = "string", t = "textarea", c = "checkbox", d = "date";
 
     useEffect(() => {
         async function fetchItem(itemId) {
@@ -29,8 +30,6 @@ export default function ItemCard({ itemId }) {
         );
     }
 
-    console.log(item);
-    console.log(item.tags);
 
     let tagList = [];
     item.tags.map((tag) => tagList.push(tag.name));
@@ -44,68 +43,121 @@ export default function ItemCard({ itemId }) {
                         <ItemNameField itemName={item.name} />
                         <TaglistField itemTags={tagList} />
 
-                        <OptField
-                            type={"number"}
-                            name={"number:"}
-                            value={"number"}
-                            itemId={item.id}
-                        />
+                        {/*  ---------------------------------- */}
 
-                        <OptField
-                            type={"number"}
-                            name={"number:"}
-                            value={"number"}
+                        {item.collection.custom_int1_state ? <OptField
+                            type={n}
+                            name={item.collection.custom_int1_name}
+                            value={item.custom_int1_value}
                             itemId={item.id}
-                        />
+                        />  : null}
 
-                        <OptField
-                            type={"number"}
-                            name={"number:"}
-                            value={"number"}
+                        {item.collection.custom_int2_state ? <OptField
+                            type={n}
+                            name={item.collection.custom_int2_name}
+                            value={item.custom_int2_value}
                             itemId={item.id}
-                        />
+                        />  : null}
+                        
+                        {item.collection.custom_int3_state ? <OptField
+                            type={n}
+                            name={item.collection.custom_int3_name}
+                            value={item.custom_int3_value}
+                            itemId={item.id}
+                        />  : null}
 
-                        <OptField
-                            type={"string"}
-                            name={"string:"}
-                            value={"string"}
-                            itemId={item.id}
-                        />
+                        {/*  ---------------------------------- */}
 
-                        <OptField
-                            type={"string"}
-                            name={"string:"}
-                            value={"string"}
+                        {item.collection.custom_string1_state ? <OptField
+                            type={s}
+                            name={item.collection.custom_string1_name}
+                            value={item.custom_string1_value}
                             itemId={item.id}
-                        />
+                        />  : null}
 
-                        <OptField
-                            type={"string"}
-                            name={"string:"}
-                            value={"string"}
+                        {item.collection.custom_string2_state ? <OptField
+                            type={s}
+                            name={item.collection.custom_string2_name}
+                            value={item.custom_string2_value}
                             itemId={item.id}
-                        />
+                        />  : null}
+                        
+                        {item.collection.custom_string3_state ? <OptField
+                            type={s}
+                            name={item.collection.custom_string3_name}
+                            value={item.custom_string3_value}
+                            itemId={item.id}
+                        />  : null}
 
-                        <OptField
-                            type={"textarea"}
-                            name={"textarea:"}
-                            value={"textarea"}
-                            itemId={item.id}
-                        />
+                        {/*  ---------------------------------- */}
 
-                        {/* <OptField
-                            type={"checkbox"}
-                            name={"checkbox:"}
-                            value={"checkbox"}
+                        {item.collection.custom_text1_state ? <OptField
+                            type={t}
+                            name={item.collection.custom_text1_name}
+                            value={item.custom_text1_value}
                             itemId={item.id}
-                        /> */}
+                        />  : null}
 
-                        <OptField
-                            type={"date"}
-                            name={"date:"}
-                            value={"date"}
+                        {item.collection.custom_text2_state ? <OptField
+                            type={t}
+                            name={item.collection.custom_text2_name}
+                            value={item.custom_text2_value}
                             itemId={item.id}
-                        />
+                        />  : null}
+                        
+                        {item.collection.custom_text3_state ? <OptField
+                            type={t}
+                            name={item.collection.custom_text3_name}
+                            value={item.custom_text3_value}
+                            itemId={item.id}
+                        />  : null}
+
+                        {/*  ---------------------------------- */}
+
+                        {item.collection.custom_bool1_state ? <OptField
+                            type={c}
+                            name={item.collection.custom_bool1_name}
+                            value={item.custom_bool1_value}
+                            itemId={item.id}
+                        />  : null}
+
+                        {item.collection.custom_bool2_state ? <OptField
+                            type={c}
+                            name={item.collection.custom_bool2_name}
+                            value={item.custom_bool2_value}
+                            itemId={item.id}
+                        />  : null}
+                        
+                        {item.collection.custom_bool3_state ? <OptField
+                            type={c}
+                            name={item.collection.custom_bool3_name}
+                            value={item.custom_bool3_value}
+                            itemId={item.id}
+                        />  : null}
+
+                        {/*  ---------------------------------- */}
+
+                        {item.collection.custom_date1_state ? <OptField
+                            type={d}
+                            name={item.collection.custom_date1_name}
+                            value={item.custom_date1_value}
+                            itemId={item.id}
+                        />  : null}
+
+                        {item.collection.custom_date2_state ? <OptField
+                            type={d}
+                            name={item.collection.custom_date2_name}
+                            value={item.custom_date2_value}
+                            itemId={item.id}
+                        />  : null}
+                        
+                        {item.collection.custom_date3_state ? <OptField
+                            type={d}
+                            name={item.collection.custom_date3_name}
+                            value={item.custom_date3_value}
+                            itemId={item.id}
+                        />  : null}
+
                     </tbody>
                 </table>
             </div>
