@@ -33,7 +33,7 @@ export default function LatestItemsList() {
             setItems(fetchedItems);
         }
         fetchItems();
-    })
+    }, [])
     
 
     // if (!items) {
