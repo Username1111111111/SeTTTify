@@ -31,13 +31,16 @@ async function handler(req) {
             
             return res;
         } catch (error) {
+            const resBody = JSON.stringify({ error: error.message });
+
             const res = new Response(resBody, {
                 status: 500,
-                statusText: `Failed to fetch topic: ${topicId}`,
+                statusText: `Failed to fetch topic.`,
                 headers: {
                     "Content-Type": "application/json",
                 },
-            });        
+            });
+
             return res;
         }
     } 

@@ -46,9 +46,7 @@ async function handler(req) {
                 });
                 return res;
             }
-        }
-
-        else if (searchParams.has("latest")) {
+        } else if (searchParams.has("latest")) {
             const latestCount = searchParams.get("latest");
             // https://www.prisma.io/docs/orm/reference/prisma-client-reference#filter-conditions-and-operators
 
@@ -71,7 +69,7 @@ async function handler(req) {
                                 name: true,
                             },
                         },
-                    }
+                    },
                 });
 
                 const resBody = JSON.stringify(items);
