@@ -28,24 +28,16 @@ export default function OptField({ name, value, type, itemId }) {
             <tr className="">
                 <td className="bg-body-secondary">{name}:</td>
                 <td className="bg-body-secondary">
-                    {value ? (
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value={value}
-                            id={`checkboxDisplay-${itemId}-${generateUniqueId()}`}
-                            checked
-                            disabled
-                        />
-                    ) : (
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value={value}
-                            id={`checkboxDisplay-${itemId}-${generateUniqueId()}`}
-                            disabled
-                        />
-                    )}
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value={value}
+                        id={`checkboxDisplay-${
+                            itemId ? itemId : "create"
+                        }-${generateUniqueId()}`}
+                        checked={value}
+                        disabled
+                    />
                 </td>
             </tr>
         );

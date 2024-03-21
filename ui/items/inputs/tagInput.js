@@ -1,12 +1,16 @@
+"use client";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import styles from './tagInput.module.css'
+import styles from "./tagInput.module.css";
+import generateUniqueId from "@/lib/generateUniqueId";
+import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 
-const TagInput = () => {
-    const [tags, setTags] = useState(["test"]);
+export default function TagInput({ itemId, placeholder, name, value }) {
+    const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState("");
-    const t = useTranslations("Item");
+    const t = useTranslations("Item")
+
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -23,33 +27,50 @@ const TagInput = () => {
         }
     };
 
+    useEffect(() => {
+        let tags = [];
+        value.map( tag => tags.push(tag.name))
+        setTags(tags);
+    }, [value]);
+
     const removeTag = (indexToRemove) => {
         setTags(tags.filter((_, index) => index !== indexToRemove));
     };
 
     return (
-        <div className="form-control border border-secondary p-1 m-0 d-flex flex-wrap justify-content-start align-items-center">
-            {tags.map((tag, index) => (
-                <span key={index} className="btn-primary border border-secondary rounded d-flex flex-row justify-content-start align-items-center m-1 ps-1 text-nowrap">
-                    {tag}
-                    <button type="button" className="btn d-flex flex-row justify-content-start align-items-center p-0 m-0 ms-1 me-1 bg-body" onClick={() => removeTag(index)}>
-                        <IoMdClose color={'red'} />
-                    </button>
-                </span>
-            ))}
+        <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
+            <div className="col-5 col-md-4 m-0 p-0">{name}:</div>
+            <div className="col-7 col-md-8 pe-0">
+                <div className="form-control border border-secondary p-1 m-0 d-flex flex-wrap justify-content-start align-items-center">
+                    {tags.map((tag, index) => (
+                        <span
+                            key={index}
+                            className="btn-primary border border-secondary rounded d-flex flex-row justify-content-start align-items-center m-1 ps-1 text-nowrap"
+                        >
+                            {tag}
+                            <button
+                                type="button"
+                                className="btn d-flex flex-row justify-content-start align-items-center p-0 m-0 ms-1 me-1 bg-body"
+                                onClick={() => removeTag(index)}
+                            >
+                                <IoMdClose color={"red"} />
+                            </button>
+                        </span>
+                    ))}
 
-                <input
-                    type="text"
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    onKeyDown={handleInputKeyDown}
-                    placeholder={`${t("tags")}...`}
-                    size={6}
-                    className={`${styles.tagInput} bg-body border border-secondary rounded p-0 ps-2 pe-2 m-0`}
-                />
-
-        </div>
+                    <input
+                        type="text"
+                        value={inputValue}
+                        id={`tags-${itemId ? itemId : "create"}`}
+                        // id={`tags-${itemId ? itemId : "create"}-${generateUniqueId()}`}
+                        onChange={handleInputChange}
+                        onKeyDown={handleInputKeyDown}
+                        placeholder={`${placeholder}...`}
+                        size={6}
+                        className={`${styles.tagInput} bg-body border border-secondary rounded p-0 ps-2 pe-2 m-0`}
+                    />
+                </div>
+            </div>
+        </li>
     );
-};
-
-export default TagInput;
+}

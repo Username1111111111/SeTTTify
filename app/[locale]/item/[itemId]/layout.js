@@ -2,8 +2,6 @@ import Sidebar from "@/ui/collections/sidebar";
 import getUserByItemId from "@/lib/getUserByItemId"
 
 export default async function ItemLayout({ children, params }) {
-
-    // console.log(params.itemId);
     const userId = await getUserByItemId(params.itemId);
 
     return (

@@ -2,12 +2,12 @@
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
-export default function CreateItemButton() {
+export default function CreateItemButton({collectionId}) {
     const router = useRouter();
     const t = useTranslations("Item");
 
     function handleClick() {
-        router.push('/item/create');
+        router.push(`/item/create/${collectionId}`);
     }
 
     return (
