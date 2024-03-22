@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import getItemById from "@/lib/getItemById";
 import getCollectionItemsStateByCollectionId from "@/lib/getCollectionItemsStateByCollectionId";
+// import formatDate from "@/lib/formatDate";
+import extractItemData from "@/lib/extractItemData";
 
 export default function ItemCardEdit({ itemId, collectionId, mode }) {
     const t = useTranslations("Item");
@@ -73,7 +75,7 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
         async function fetchItem() {
             if (mode == "edit") {
                 const item = await getItemById(itemId);
-                console.log(item);
+                // console.log(item);
                 let newState = {},
                     newName = {},
                     newValue = {};
@@ -94,7 +96,13 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                     }
                 }
                 for (const key in item) {
-                    newValue[key] = item[key];
+                    if (key === "tags") {
+                        let tags = [];
+                        item[key].map( tag => tags.push(tag.name));
+                        newValue[key] = [...tags];
+                    } else {
+                        newValue[key] = item[key];
+                    }
                 }
                 setFormData(newValue);
                 setinputsNames(newName);
@@ -128,33 +136,24 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
         fetchItem();
     }, [itemId, collectionId, mode]);
 
-    // if (!item) {
-    //     return (
-    //         <div className="col-12 col-md-10 col-lg-8 p-0 m-0 p-2">
-    //             <div className="border border-secondary rounded m-2 m-md-0 p-1 bg-body-secondary d-flex justify-content-center align-items-center">
-    //                 <div className="spinner-border" role="status">
-    //                     <span className="visually-hidden">Loading...</span>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     );
-    // }
+    function handleSubmit() {
+        const data = extractItemData(formData);
+        console.log(data);
+        async function postItemData(data) {
 
-    const handleInputChange = (inputName, value) => {
-        setFormData((prevFormData) => {
-            const updatedInputs = { ...prevFormData };
-            if (Array.isArray(updatedInputs[inputName])) {
-                updatedInputs[inputName] = value;
-            } else {
-                updatedInputs[inputName] = value;
-            }
-            return updatedInputs;
-        });
-    };
+        }
+        if (mode == "create") {
+            data["collectionId"] = collectionId;
+
+        } else if (mode == "edit") {
+            data["itemId"] = itemId;
+        }
+        
+    }
 
     return (
         <div className="col-12 col-md-10 col-lg-8 p-0 m-0 p-2">
-            <form className="border border-secondary rounded m-md-0 p-1 bg-body-secondary">
+            <form id={`form-${mode}-${itemId || collectionId}`} className="border border-secondary rounded m-md-0 p-1 bg-body-secondary">
                 <ul className="w-100 p-2 m-0">
                     <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
                         <div className="col-5 col-md-4 m-0 p-0">ID</div>
@@ -168,6 +167,7 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                         placeholder={t("name_of_item")}
                         name={t("name")}
                         value={formData.name}
+                        onChange={(newName) => setFormData({...formData, name: newName})}
                     />
 
                     <TagInput
@@ -175,6 +175,7 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                         placeholder={t("tags")}
                         name={t("tags")}
                         value={formData.tags}
+                        onChange={(newTags) => setFormData({ ...formData, tags: [...newTags] })}
                     />
 
                     {/* ----------------------------------------- */}
@@ -184,7 +185,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                             itemId={itemId}
                             placeholder={t("number")}
                             name={inputsNames["custom_int1_name"]}
-                            value={formData.custom_int1_value}
+                            value={formData.custom_int1_value || ''}
+                            onChange={(newInt) => setFormData({ ...formData, custom_int1_value: newInt })}
                         />
                     ) : null}
 
@@ -193,7 +195,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                             itemId={itemId}
                             placeholder={t("number")}
                             name={inputsNames["custom_int2_name"]}
-                            value={formData.custom_int2_value}
+                            value={formData.custom_int2_value || ''}
+                            onChange={(newInt) => setFormData({ ...formData, custom_int2_value: newInt })}
                         />
                     ) : null}
 
@@ -202,7 +205,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                             itemId={itemId}
                             placeholder={t("number")}
                             name={inputsNames["custom_int3_name"]}
-                            value={formData.custom_int3_value}
+                            value={formData.custom_int3_value || ''}
+                            onChange={(newInt) => setFormData({ ...formData, custom_int3_value: newInt })}
                         />
                     ) : null}
 
@@ -213,7 +217,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                             itemId={itemId}
                             placeholder={t("text")}
                             name={inputsNames["custom_string1_name"]}
-                            value={formData.custom_string1_value}
+                            value={formData.custom_string1_value || ''}
+                            onChange={(newStr) => setFormData({ ...formData, custom_string1_value: newStr })}
                         />
                     ) : null}
 
@@ -222,7 +227,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                             itemId={itemId}
                             placeholder={t("text")}
                             name={inputsNames["custom_string2_name"]}
-                            value={formData.custom_string2_value}
+                            value={formData.custom_string2_value || ''}
+                            onChange={(newStr) => setFormData({ ...formData, custom_string2_value: newStr })}
                         />
                     ) : null}
 
@@ -231,7 +237,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                             itemId={itemId}
                             placeholder={t("text")}
                             name={inputsNames["custom_string3_name"]}
-                            value={formData.custom_string3_value}
+                            value={formData.custom_string3_value || ''}
+                            onChange={(newStr) => setFormData({ ...formData, custom_string3_value: newStr })}
                         />
                     ) : null}
 
@@ -242,7 +249,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                             itemId={itemId}
                             placeholder={t("textarea")}
                             name={inputsNames["custom_text1_name"]}
-                            value={formData.custom_text1_name}
+                            value={formData.custom_text1_name || ''}
+                            onChange={(newText) => setFormData({ ...formData, custom_text1_value: newText })}
                         />
                     ) : null}
 
@@ -251,7 +259,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                             itemId={itemId}
                             placeholder={t("textarea")}
                             name={inputsNames["custom_text2_name"]}
-                            value={formData.custom_text2_name}
+                            value={formData.custom_text2_name || ''}
+                            onChange={(newText) => setFormData({ ...formData, custom_text2_value: newText })}
                         />
                     ) : null}
 
@@ -260,7 +269,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                             itemId={itemId}
                             placeholder={t("textarea")}
                             name={inputsNames["custom_text3_name"]}
-                            value={formData.custom_text3_name}
+                            value={formData.custom_text3_name || ''}
+                            onChange={(newText) => setFormData({ ...formData, custom_text3_value: newText })}
                         />
                     ) : null}
 
@@ -270,7 +280,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                         <CheckboxInput
                             itemId={itemId}
                             name={inputsNames["custom_bool1_name"]}
-                            value={formData.custom_bool1_value}
+                            value={formData.custom_bool1_value || false}
+                            onChange={(newBool) => setFormData({ ...formData, custom_bool1_value: newBool })}
                         />
                     ) : null}
 
@@ -278,7 +289,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                         <CheckboxInput
                             itemId={itemId}
                             name={inputsNames["custom_bool2_name"]}
-                            value={formData.custom_bool2_value}
+                            value={formData.custom_bool2_value || false}
+                            onChange={(newBool) => setFormData({ ...formData, custom_bool2_value: newBool })}
                         />
                     ) : null}
 
@@ -286,7 +298,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                         <CheckboxInput
                             itemId={itemId}
                             name={inputsNames["custom_bool3_name"]}
-                            value={formData.custom_bool3_value}
+                            value={formData.custom_bool3_value || false}
+                            onChange={(newBool) => setFormData({ ...formData, custom_bool3_value: newBool })}
                         />
                     ) : null}
 
@@ -296,7 +309,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                         <DateInput
                             itemId={itemId}
                             name={inputsNames["custom_date1_name"]}
-                            value={formData.custom_date1_value}
+                            value={formData.custom_date1_value || ''}
+                            onChange={(newDate) => setFormData({ ...formData, custom_date1_value: newDate })}
                         />
                     ) : null}
 
@@ -304,7 +318,8 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                         <DateInput
                             itemId={itemId}
                             name={inputsNames["custom_date2_name"]}
-                            value={formData.custom_date2_value}
+                            value={formData.custom_date2_value || ''}
+                            onChange={(newDate) => setFormData({ ...formData, custom_date2_value: newDate })}
                         />
                     ) : null}
 
@@ -312,12 +327,13 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                         <DateInput
                             itemId={itemId}
                             name={inputsNames["custom_date3_name"]}
-                            value={formData.custom_date3_value}
+                            value={formData.custom_date3_value || ''}
+                            onChange={(newDate) => setFormData({ ...formData, custom_date3_value: newDate })}
                         />
                     ) : null}
                 </ul>
                 <div className="d-flex flex-row justify-content-center align-items-center m-0 p-0 mb-1">
-                    <EditButtonGroup onConfirm={0} />
+                    <EditButtonGroup onSubmit={handleSubmit} />
                 </div>
             </form>
         </div>

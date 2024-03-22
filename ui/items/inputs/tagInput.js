@@ -6,11 +6,14 @@ import generateUniqueId from "@/lib/generateUniqueId";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 
-export default function TagInput({ itemId, placeholder, name, value }) {
+export default function TagInput({ itemId, placeholder, name, value, onChange }) {
     const [tags, setTags] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const t = useTranslations("Item")
 
+    useEffect(() => {
+        setTags(value);
+    }, [value]);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -20,6 +23,8 @@ export default function TagInput({ itemId, placeholder, name, value }) {
         if (e.key === "Enter" && inputValue) {
             if (!tags.includes(inputValue)) {
                 setTags([...tags, inputValue]);
+                // console.log([...tags, inputValue])
+                onChange([...tags, inputValue]);
                 setInputValue("");
             } else {
                 alert(`${t("duplicated_tag")}`);
@@ -27,15 +32,14 @@ export default function TagInput({ itemId, placeholder, name, value }) {
         }
     };
 
-    useEffect(() => {
-        let tags = [];
-        value.map( tag => tags.push(tag.name))
-        setTags(tags);
-    }, [value]);
-
     const removeTag = (indexToRemove) => {
-        setTags(tags.filter((_, index) => index !== indexToRemove));
+        const newTags = tags.filter((_, index) => index !== indexToRemove);
+        setTags(newTags);
+        // console.log(newTags)
+        onChange(newTags);
     };
+
+    const inputId = `tags-${itemId ? itemId : "create"}-${generateUniqueId()}`;
 
     return (
         <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
@@ -61,8 +65,7 @@ export default function TagInput({ itemId, placeholder, name, value }) {
                     <input
                         type="text"
                         value={inputValue}
-                        id={`tags-${itemId ? itemId : "create"}`}
-                        // id={`tags-${itemId ? itemId : "create"}-${generateUniqueId()}`}
+                        id={inputId}
                         onChange={handleInputChange}
                         onKeyDown={handleInputKeyDown}
                         placeholder={`${placeholder}...`}

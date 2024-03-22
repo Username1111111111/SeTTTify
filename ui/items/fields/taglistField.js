@@ -11,7 +11,7 @@ export default function TaglistField({ itemTags }) {
         let tags = itemTags.map((tag, index) => (
             <span
                 key={tag + index + generateUniqueId()}
-                className="border border-secondary rounded me-1 ps-1 pe-1 text-nowrap"
+                className="border border-secondary rounded me-1 mb-1 ps-1 pe-1 text-nowrap"
             >
                 {tag}
             </span>
