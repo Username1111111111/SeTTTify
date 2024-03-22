@@ -1,8 +1,10 @@
 import prisma from "@/lib/prisma";
+import combFields from "@/lib/combFields";
 
 async function handler(req) {
+    const searchParams = req.nextUrl.searchParams;
+
     if (req.method === "GET") {
-        const searchParams = req.nextUrl.searchParams;
         const itemId = searchParams.get("itemId");
 
         try {
@@ -77,30 +79,13 @@ async function handler(req) {
             return res;
         }
     } else if (req.method === "POST") {
-        const searchParams = req.nextUrl.searchParams;
         const itemData = await req.json();
         let { tags, ...itemFields } = itemData;
 
-        // console.log(itemFields);
-        
-        for (const key in itemFields) {
-            if (key.match(/custom_int.*_value/)) {
-                if (itemFields[key] == "") {
-                    itemFields[key] = null;
-                } else {
-                    itemFields[key] = +itemFields[key];
-                }
-                
-            } else if (key.match(/custom_date.*_value/)) {
-                if (itemFields[key] == "") {
-                    itemFields[key] = null;
-                }
-            }
-        }
+        combFields(itemFields);
 
         if (searchParams.has("collectionId")) {
             const collectionId = searchParams.get("collectionId");
-            // This is create
 
             try {
                 const userId = await prisma.collection.findUnique({
@@ -113,15 +98,12 @@ async function handler(req) {
                 });
 
                 const userIdValue = userId.userId;
-                console.log("userId:");
-                console.log(userIdValue);
-                
+                // console.log("userId:");
+                // console.log(userIdValue);
 
                 const result = await prisma.$transaction(async (prisma) => {
-
                     const tagRecords = await Promise.all(
                         tags.map(async (tagName) => {
-
                             const tag = await prisma.tag.findUnique({
                                 where: { name: tagName },
                             });
@@ -130,15 +112,17 @@ async function handler(req) {
                                 return tag;
                             } else {
                                 return prisma.tag.create({
-                                    data: { name: tagName, userId: userIdValue },
+                                    data: {
+                                        name: tagName,
+                                        userId: userIdValue,
+                                    },
                                 });
                             }
-
                         })
                     );
 
-                    console.log("tagRecords:");
-                    console.log(tagRecords);
+                    // console.log("tagRecords:");
+                    // console.log(tagRecords);
 
                     const item = await prisma.item.create({
                         data: {
@@ -147,10 +131,12 @@ async function handler(req) {
                                 connect: { id: collectionId },
                             },
                             tags: {
-                                connectOrCreate: 
-                                tagRecords.map((tag) => ({
+                                connectOrCreate: tagRecords.map((tag) => ({
                                     where: { name: tag.name },
-                                    create: { name: tag.name, userId: userIdValue },
+                                    create: {
+                                        name: tag.name,
+                                        userId: userIdValue,
+                                    },
                                 })),
                             },
                             user: {
@@ -171,8 +157,6 @@ async function handler(req) {
                     },
                 });
                 return res;
-
-
             } catch (error) {
                 const resBody = JSON.stringify({ error: error.message });
                 const res = new Response(resBody, {
@@ -201,6 +185,116 @@ async function handler(req) {
                 return res;
             }
         }
+    } else if (req.method === "DELETE") {
+        const itemId = searchParams.get("itemId");
+
+        try {
+            const deletedItem = await prisma.item.delete({
+                where: {
+                    id: itemId,
+                },
+            });
+
+            const resBody = JSON.stringify(deletedItem);
+            const res = new Response(resBody, {
+                status: 200,
+                statusText: `Item with ID ${itemId} has been deleted successfully`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            return res;
+        } catch (error) {
+            const resBody = JSON.stringify({ error: error.message });
+            const res = new Response(resBody, {
+                status: 500,
+                statusText: `Failed to delete item with ID: ${itemId}`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            return res;
+        }
+    } else if (req.method === "PUT") {
+        const itemId = searchParams.get("itemId");
+        const newItemData = await req.json();
+        let { tags, ...itemFields } = newItemData;
+
+        combFields(itemFields);
+
+        try {
+
+            const userId = await prisma.item.findUnique({
+                where: {
+                    id: itemId,
+                },
+                select: {
+                    userId: true,
+                },
+            });
+
+            const userIdValue = userId.userId;
+
+            console.log("userIdValue");
+            console.log(userIdValue);
+
+            const currentItem = await prisma.item.findUnique({
+                where: { id: itemId },
+                include: { tags: true },
+            });
+
+            const tagsToDisconnect = currentItem.tags
+                .filter((tag) => !tags.includes(tag.name))
+                .map((tag) => ({ id: tag.id }));
+
+            // console.log("tagsToDisconnect");
+            // console.log(tagsToDisconnect);
+
+            const tagsToConnect = tags
+                .filter(
+                    (tagName) =>
+                        !currentItem.tags.some((tag) => tag.name === tagName)
+                )
+                .map((tagName) => ({ name: tagName }));
+
+            // console.log("tagsToConnect");
+            // console.log(tagsToConnect);
+
+            const updatedItem = await prisma.item.update({
+                where: { id: itemId },
+                data: {
+                    ...itemFields,
+                    tags: {
+                        disconnect: tagsToDisconnect,
+                        connectOrCreate: tagsToConnect.map((tag) => ({
+                            where: { name: tag.name, userId: userIdValue, },
+                            create: { name: tag.name, userId: userIdValue, },
+                        })),
+                    },
+                },
+                include: { tags: true },
+            });
+
+            const resBody = JSON.stringify(updatedItem);
+            const res = new Response(resBody, {
+                status: 200,
+                statusText: `Item with ID ${itemId} has been updated successfully`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            return res;
+        } catch (error) {
+            const resBody = JSON.stringify({ error: error.message });
+            const res = new Response(resBody, {
+                status: 500,
+                statusText: `Failed to update item with ID: ${itemId}`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            return res;
+        }
     }
 }
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST, handler as DELETE, handler as PUT };

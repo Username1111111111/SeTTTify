@@ -1,10 +1,10 @@
 import CancelButton from "./cancelButton";
 import ConfirmButton from "./confirmButton";
 
-export default function EditButtonGroup({onSubmit}) {
+export default function EditButtonGroup({onConfirm}) {
     return (
         <>
-            <ConfirmButton onSubmit={onSubmit}/>
+            <ConfirmButton onConfirm={onConfirm}/>
             <CancelButton/>
         </>
     );

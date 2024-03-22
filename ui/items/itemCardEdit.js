@@ -14,6 +14,7 @@ import getCollectionItemsStateByCollectionId from "@/lib/getCollectionItemsState
 // import formatDate from "@/lib/formatDate";
 import extractItemData from "@/lib/extractItemData";
 import createItem from "@/lib/createItem";
+import updateItem from "@/lib/updateItem";
 
 export default function ItemCardEdit({ itemId, collectionId, mode }) {
     const t = useTranslations("Item");
@@ -150,7 +151,7 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
             async function updateItemData() {
                 await updateItem(itemId, data);
             }
-            updateItemData()
+            updateItemData();
         }
     }
 
@@ -177,7 +178,7 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                         itemId={itemId}
                         placeholder={t("tags")}
                         name={t("tags")}
-                        value={formData.tags}
+                        value={formData.tags || []}
                         onChange={(newTags) => setFormData({ ...formData, tags: [...newTags] })}
                     />
 
@@ -336,7 +337,7 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
                     ) : null}
                 </ul>
                 <div className="d-flex flex-row justify-content-center align-items-center m-0 p-0 mb-1">
-                    <EditButtonGroup onSubmit={handleSubmit} />
+                    <EditButtonGroup onConfirm={handleSubmit} />
                 </div>
             </form>
         </div>

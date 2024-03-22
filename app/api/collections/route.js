@@ -46,7 +46,7 @@ async function handler(req, res) {
 
                 const res = new Response(resBody, {
                     status: 500,
-                    statusText: `Failed to fetch Collections by userId: ${error.message}`,
+                    statusText: `Failed to fetch Collections by userId`,
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -103,7 +103,7 @@ async function handler(req, res) {
 
                 const res = new Response(resBody, {
                     status: 500,
-                    statusText: `Failed to fetch largest collections: ${error.message}`,
+                    statusText: `Failed to fetch largest collections`,
                     headers: {
                         "Content-Type": "application/json",
                     },
