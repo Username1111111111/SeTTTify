@@ -39,7 +39,8 @@ export default function TagInput({ itemId, placeholder, name, value, onChange })
         onChange(newTags);
     };
 
-    const inputId = `tags-${itemId ? itemId : "create"}-${generateUniqueId()}`;
+    // const inputId = `tags-${itemId ? itemId : "create"}-${generateUniqueId()}`;
+    const inputId = `tags-${itemId ? itemId : "create"}`;
 
     return (
         <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">

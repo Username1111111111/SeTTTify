@@ -45,7 +45,7 @@ export default function SignupForm() {
 
         if (res.status == 200) {
             const user = await res.json();
-            console.log(`User found: ${user}`);
+            // console.log(`User found: ${user}`);
             alert("Email already used. Choose other.");
             return;
         } else {
@@ -71,7 +71,7 @@ export default function SignupForm() {
                 }
             );
 
-            console.log(`response.status: -----> ${response.status}`);
+            // console.log(`response.status: -----> ${response.status}`);
 
             if (response.status == 201) {
                 signIn("credentials", {

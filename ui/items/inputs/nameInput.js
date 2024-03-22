@@ -4,10 +4,11 @@ import generateUniqueId from "@/lib/generateUniqueId";
 
 export default function NameInput({ itemId, placeholder, name, value, onChange }) {
     const [inputValue, setInputValue] = useState(value);
-    const inputIdRef = useRef(`name-${itemId ? itemId : "create"}-${generateUniqueId()}`);
+    // const inputIdRef = useRef(`name-${itemId ? itemId : "create"}-${generateUniqueId()}`);
+    const inputIdRef = useRef(`name-${itemId ? itemId : "create"}`);
 
     const handleInputChange = (event) => {
-        // setInputValue(event.target.value);
+        setInputValue(event.target.value);
         // console.log(event.target.value);
         onChange(event.target.value);
     };

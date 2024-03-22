@@ -13,6 +13,7 @@ import getItemById from "@/lib/getItemById";
 import getCollectionItemsStateByCollectionId from "@/lib/getCollectionItemsStateByCollectionId";
 // import formatDate from "@/lib/formatDate";
 import extractItemData from "@/lib/extractItemData";
+import createItem from "@/lib/createItem";
 
 export default function ItemCardEdit({ itemId, collectionId, mode }) {
     const t = useTranslations("Item");
@@ -53,9 +54,9 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
     const [formData, setFormData] = useState({
         name: "",
         tags: [],
-        custom_int1_value: "",
-        custom_int2_value: "",
-        custom_int3_value: "",
+        custom_int1_value: 0,
+        custom_int2_value: 0,
+        custom_int3_value: 0,
         custom_string1_value: "",
         custom_string2_value: "",
         custom_string3_value: "",
@@ -138,17 +139,19 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
 
     function handleSubmit() {
         const data = extractItemData(formData);
-        console.log(data);
-        async function postItemData(data) {
-
-        }
-        if (mode == "create") {
-            data["collectionId"] = collectionId;
-
-        } else if (mode == "edit") {
-            data["itemId"] = itemId;
-        }
+        // console.log(data);
         
+        if (mode == "create") {
+            async function postItemData() {
+                await createItem(collectionId, data);
+            }
+            postItemData();
+        } else if (mode == "edit") {
+            async function updateItemData() {
+                await updateItem(itemId, data);
+            }
+            updateItemData()
+        }
     }
 
     return (

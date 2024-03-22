@@ -45,7 +45,7 @@ async function handler(req) {
 
             const res = new Response(resBody, {
                 status: 500,
-                statusText: `Failed to fetch tags: ${error.message}`,
+                statusText: `Failed to fetch tags`,
                 headers: {
                     "Content-Type": "application/json",
                 },

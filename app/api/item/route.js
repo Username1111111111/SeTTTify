@@ -76,6 +76,131 @@ async function handler(req) {
             });
             return res;
         }
+    } else if (req.method === "POST") {
+        const searchParams = req.nextUrl.searchParams;
+        const itemData = await req.json();
+        let { tags, ...itemFields } = itemData;
+
+        // console.log(itemFields);
+        
+        for (const key in itemFields) {
+            if (key.match(/custom_int.*_value/)) {
+                if (itemFields[key] == "") {
+                    itemFields[key] = null;
+                } else {
+                    itemFields[key] = +itemFields[key];
+                }
+                
+            } else if (key.match(/custom_date.*_value/)) {
+                if (itemFields[key] == "") {
+                    itemFields[key] = null;
+                }
+            }
+        }
+
+        if (searchParams.has("collectionId")) {
+            const collectionId = searchParams.get("collectionId");
+            // This is create
+
+            try {
+                const userId = await prisma.collection.findUnique({
+                    where: {
+                        id: collectionId,
+                    },
+                    select: {
+                        userId: true,
+                    },
+                });
+
+                const userIdValue = userId.userId;
+                console.log("userId:");
+                console.log(userIdValue);
+                
+
+                const result = await prisma.$transaction(async (prisma) => {
+
+                    const tagRecords = await Promise.all(
+                        tags.map(async (tagName) => {
+
+                            const tag = await prisma.tag.findUnique({
+                                where: { name: tagName },
+                            });
+
+                            if (tag) {
+                                return tag;
+                            } else {
+                                return prisma.tag.create({
+                                    data: { name: tagName, userId: userIdValue },
+                                });
+                            }
+
+                        })
+                    );
+
+                    console.log("tagRecords:");
+                    console.log(tagRecords);
+
+                    const item = await prisma.item.create({
+                        data: {
+                            ...itemFields,
+                            collection: {
+                                connect: { id: collectionId },
+                            },
+                            tags: {
+                                connectOrCreate: 
+                                tagRecords.map((tag) => ({
+                                    where: { name: tag.name },
+                                    create: { name: tag.name, userId: userIdValue },
+                                })),
+                            },
+                            user: {
+                                connect: { id: userIdValue },
+                            },
+                        },
+                    });
+
+                    return item;
+                });
+
+                const resBody = JSON.stringify(result);
+                const res = new Response(resBody, {
+                    status: 200,
+                    statusText: `Created new item by collectionId: ${collectionId}`,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                return res;
+
+
+            } catch (error) {
+                const resBody = JSON.stringify({ error: error.message });
+                const res = new Response(resBody, {
+                    status: 500,
+                    statusText: `Failed to create item by collectionId: ${collectionId}`,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                return res;
+            }
+        } else if (searchParams.has("itemId")) {
+            const itemId = searchParams.get("itemId");
+            // This is update
+
+            try {
+            } catch (error) {
+                const resBody = JSON.stringify({ error: error.message });
+                const res = new Response(resBody, {
+                    status: 500,
+                    statusText: `Failed to update item by itemId: ${itemId}`,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                return res;
+            }
+        }
     }
 }
-export { handler as GET };
+export { handler as GET, handler as POST };

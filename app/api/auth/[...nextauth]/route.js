@@ -39,7 +39,7 @@ const handler = NextAuth({
 
                     if (res.status == 200) {
                         const user = await res.json();
-                        console.log(`User found: ${user}`);
+                        // console.log(`User found: ${user}`);
 
                         if (
                             user.email === email &&
