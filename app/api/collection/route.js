@@ -7,6 +7,7 @@ async function handler(req) {
 
         try {
             let collection;
+            console.log(searchParams)
 
             if (searchParams.has("getState")) {
                 collection = await prisma.collection.findUnique({

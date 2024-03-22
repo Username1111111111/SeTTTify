@@ -15,7 +15,7 @@ export default function NameInput({ itemId, placeholder, name, value }) {
     return (
         <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
             <div className="col-5 col-md-4 m-0 p-0">
-                <label htmlFor={`name-${itemId}`} className="col-4 m-0 w-100">
+                <label htmlFor={`name-${itemId ? itemId : "create"}`} className="col-4 m-0 w-100">
                     {name}:
                 </label>
             </div>

@@ -68,51 +68,62 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
         custom_date3_value: "",
     });
 
+
     useEffect(() => {
         async function fetchItem() {
-            // If in edit mode then fetch data from DB else leave fields empty
             if (mode == "edit") {
                 const item = await getItemById(itemId);
                 console.log(item);
-                let newState = {}, newName = {}, newValue = {};
+                let newState = {},
+                    newName = {},
+                    newValue = {};
                 for (const key in item.collection) {
-                    if (item.collection.hasOwnProperty(key) && key.match(/custom_.*_state/)) {
+                    if (
+                        item.collection.hasOwnProperty(key) &&
+                        key.match(/custom_.*_state/)
+                    ) {
                         newState[key] = item.collection[key];
                     }
                 }
                 for (const key in item.collection) {
-                    if (item.collection.hasOwnProperty(key) && key.match(/custom_.*_name/)) {
+                    if (
+                        item.collection.hasOwnProperty(key) &&
+                        key.match(/custom_.*_name/)
+                    ) {
                         newName[key] = item.collection[key];
                     }
                 }
                 for (const key in item) {
                     newValue[key] = item[key];
                 }
-
                 setFormData(newValue);
                 setinputsNames(newName);
                 setinputsState(newState);
             } else if (mode == "create") {
-                let newState = {}, newName = {};
+                let newState = {},
+                    newName = {};
                 let collection = await getCollectionItemsStateByCollectionId(
                     collectionId
                 );
-
-                console.log(collection);
                 for (const key in collection) {
-                    if (collection.hasOwnProperty(key) && key.match(/custom_.*_state/)) {
+                    if (
+                        collection.hasOwnProperty(key) &&
+                        key.match(/custom_.*_state/)
+                    ) {
                         newState[key] = collection[key];
                     }
                 }
                 for (const key in collection) {
-                    if (collection.hasOwnProperty(key) && key.match(/custom_.*_name/)) {
+                    if (
+                        collection.hasOwnProperty(key) &&
+                        key.match(/custom_.*_name/)
+                    ) {
                         newName[key] = collection[key];
                     }
                 }
                 setinputsNames(newName);
                 setinputsState(newState);
             }
-
         }
         fetchItem();
     }, [itemId, collectionId, mode]);
@@ -143,7 +154,7 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
 
     return (
         <div className="col-12 col-md-10 col-lg-8 p-0 m-0 p-2">
-            <form className="border border-secondary rounded m-2 m-md-0 p-1 bg-body-secondary">
+            <form className="border border-secondary rounded m-md-0 p-1 bg-body-secondary">
                 <ul className="w-100 p-2 m-0">
                     <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
                         <div className="col-5 col-md-4 m-0 p-0">ID</div>
@@ -168,139 +179,139 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
 
                     {/* ----------------------------------------- */}
 
-                    {inputsState['custom_int1_state'] ? (
+                    {inputsState["custom_int1_state"] ? (
                         <IntegerInput
                             itemId={itemId}
                             placeholder={t("number")}
-                            name={inputsNames['custom_int1_name']}
+                            name={inputsNames["custom_int1_name"]}
                             value={formData.custom_int1_value}
                         />
                     ) : null}
 
-                    {inputsState['custom_int2_state'] ? (
+                    {inputsState["custom_int2_state"] ? (
                         <IntegerInput
                             itemId={itemId}
                             placeholder={t("number")}
-                            name={inputsNames['custom_int2_name']}
+                            name={inputsNames["custom_int2_name"]}
                             value={formData.custom_int2_value}
                         />
                     ) : null}
 
-                    {inputsState['custom_int3_state'] ? (
+                    {inputsState["custom_int3_state"] ? (
                         <IntegerInput
                             itemId={itemId}
                             placeholder={t("number")}
-                            name={inputsNames['custom_int3_name']}
+                            name={inputsNames["custom_int3_name"]}
                             value={formData.custom_int3_value}
                         />
                     ) : null}
 
                     {/* ----------------------------------------- */}
 
-                    {inputsState['custom_string1_state'] ? (
+                    {inputsState["custom_string1_state"] ? (
                         <StringInput
                             itemId={itemId}
                             placeholder={t("text")}
-                            name={inputsNames['custom_string1_name']}
+                            name={inputsNames["custom_string1_name"]}
                             value={formData.custom_string1_value}
                         />
                     ) : null}
 
-                    {inputsState['custom_string2_state'] ? (
+                    {inputsState["custom_string2_state"] ? (
                         <StringInput
                             itemId={itemId}
                             placeholder={t("text")}
-                            name={inputsNames['custom_string2_name']}
+                            name={inputsNames["custom_string2_name"]}
                             value={formData.custom_string2_value}
                         />
                     ) : null}
 
-                    {inputsState['custom_string3_state'] ? (
+                    {inputsState["custom_string3_state"] ? (
                         <StringInput
                             itemId={itemId}
                             placeholder={t("text")}
-                            name={inputsNames['custom_string3_name']}
+                            name={inputsNames["custom_string3_name"]}
                             value={formData.custom_string3_value}
                         />
                     ) : null}
 
                     {/* ----------------------------------------- */}
 
-                    {inputsState['custom_text1_state'] ? (
+                    {inputsState["custom_text1_state"] ? (
                         <TextareaInput
                             itemId={itemId}
                             placeholder={t("textarea")}
-                            name={inputsNames['custom_text1_name']}
+                            name={inputsNames["custom_text1_name"]}
                             value={formData.custom_text1_name}
                         />
                     ) : null}
 
-                    {inputsState['custom_text2_state'] ? (
+                    {inputsState["custom_text2_state"] ? (
                         <TextareaInput
                             itemId={itemId}
                             placeholder={t("textarea")}
-                            name={inputsNames['custom_text2_name']}
+                            name={inputsNames["custom_text2_name"]}
                             value={formData.custom_text2_name}
                         />
                     ) : null}
 
-                    {inputsState['custom_text3_state'] ? (
+                    {inputsState["custom_text3_state"] ? (
                         <TextareaInput
                             itemId={itemId}
                             placeholder={t("textarea")}
-                            name={inputsNames['custom_text3_name']}
+                            name={inputsNames["custom_text3_name"]}
                             value={formData.custom_text3_name}
                         />
                     ) : null}
 
                     {/* ----------------------------------------- */}
 
-                    {inputsState['custom_bool1_state'] ? (
+                    {inputsState["custom_bool1_state"] ? (
                         <CheckboxInput
                             itemId={itemId}
-                            name={inputsNames['custom_bool1_name']}
+                            name={inputsNames["custom_bool1_name"]}
                             value={formData.custom_bool1_value}
                         />
                     ) : null}
 
-                    {inputsState['custom_bool2_state'] ? (
+                    {inputsState["custom_bool2_state"] ? (
                         <CheckboxInput
                             itemId={itemId}
-                            name={inputsNames['custom_bool2_name']}
+                            name={inputsNames["custom_bool2_name"]}
                             value={formData.custom_bool2_value}
                         />
                     ) : null}
 
-                    {inputsState['custom_bool3_state'] ? (
+                    {inputsState["custom_bool3_state"] ? (
                         <CheckboxInput
                             itemId={itemId}
-                            name={inputsNames['custom_bool3_name']}
+                            name={inputsNames["custom_bool3_name"]}
                             value={formData.custom_bool3_value}
                         />
                     ) : null}
 
                     {/* ----------------------------------------- */}
 
-                    {inputsState['custom_date1_state'] ? (
+                    {inputsState["custom_date1_state"] ? (
                         <DateInput
                             itemId={itemId}
-                            name={inputsNames['custom_date1_name']}
+                            name={inputsNames["custom_date1_name"]}
                             value={formData.custom_date1_value}
                         />
                     ) : null}
 
-                    {inputsState['custom_date2_state'] ? (
+                    {inputsState["custom_date2_state"] ? (
                         <DateInput
                             itemId={itemId}
-                            name={inputsNames['custom_date2_name']}
+                            name={inputsNames["custom_date2_name"]}
                             value={formData.custom_date2_value}
                         />
                     ) : null}
 
-                    {inputsState['custom_date3_state'] ? (
+                    {inputsState["custom_date3_state"] ? (
                         <DateInput
                             itemId={itemId}
-                            name={inputsNames['custom_date3_name']}
+                            name={inputsNames["custom_date3_name"]}
                             value={formData.custom_date3_value}
                         />
                     ) : null}

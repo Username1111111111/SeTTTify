@@ -24,7 +24,7 @@ export default function ItemCreatePage({ params }) {
         <>
             <Sidebar userId={userId} />
             <div className="col-12 col-md-9 m-0 p-0 d-flex justify-content-center">
-                <ItemCardEdit userId={userId} mode={mode}/>
+                <ItemCardEdit collectionId={collectionId} mode={mode}/>
             </div>
         </>
     );
