@@ -71,5 +71,7 @@
         "name_for": "სახელი",
         "name_of_collection": "კოლექციის დასახელება",
         "select_topic": "აირჩიეთ თემა"
+    },"Topic": {
+        "demo_topic": "დემო თემა"
     }
 }

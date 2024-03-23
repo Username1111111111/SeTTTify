@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import combFields from "@/lib/combFields";
+import catchResponse from "@/lib/catchResponse";
 
 async function handler(req) {
     const searchParams = req.nextUrl.searchParams;

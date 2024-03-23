@@ -13,14 +13,11 @@ export default function OptInput({ fieldType, fieldNumber, name, state, collecti
 
     const handleInputStateChange = (event) => {
         setInputState(event.target.checked);
-        // console.log(event.target.value);
-        // onChange(event.target.value);
         onChange(event.target.checked, inputValue)
     };
 
     const handleInputValueChange = (event) => {
         setInputValue(event.target.value);
-        // console.log(event.target.value);
         onChange(inputState, event.target.value);
     };
 

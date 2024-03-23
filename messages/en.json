@@ -72,5 +72,7 @@
         "name_for": "Name for",
         "name_of_collection": "Name of collection",
         "select_topic": "Select topic"
+    }, "Topic": {
+        "demo_topic": "Demo topic"
     }
 }

@@ -9,6 +9,7 @@ import NameInput from "./inputs/nameInput";
 import { useState, useEffect } from "react";
 import getCollectionById from "@/lib/getCollectionById";
 import getTopics from "@/lib/getTopics";
+import createCollection from "@/lib/createCollection";
 
 export default function CollectionEdit({ collectionId, userId, mode }) {
     const t = useTranslations("Collection");
@@ -93,8 +94,6 @@ export default function CollectionEdit({ collectionId, userId, mode }) {
 
                 setInputValues(newValue);
                 setInputStates(newState);
-            } else if (mode == "create") {
-                // nothing?
             }
         }
         fetchItem();
@@ -104,17 +103,17 @@ export default function CollectionEdit({ collectionId, userId, mode }) {
         const data = { ...inputValues, ...inputStates };
         console.log(data);
 
-        // if (mode == "create") {
-        //     async function postCollectionData() {
-        //         await createCollection(userId, data);
-        //     }
-        //     postCollectionData();
-        // } else if (mode == "edit") {
-        //     async function updateCollectionData() {
-        //         await updateCollection(collectionId, data);
-        //     }
-        //     updateCollectionData();
-        // }
+        if (mode == "create") {
+            async function postCollectionData() {
+                await createCollection(userId, data);
+            }
+            postCollectionData();
+        } else if (mode == "edit") {
+            // async function updateCollectionData() {
+            //     await updateCollection(collectionId, data);
+            // }
+            // updateCollectionData();
+        }
     }
 
     return (

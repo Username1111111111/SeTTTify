@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import catchResponse from "@/lib/catchResponse";
 
 async function handler(req) {
     if (req.method === "GET") {
@@ -70,14 +71,9 @@ async function handler(req) {
 
             return res;
         } catch (error) {
-            const resBody = JSON.stringify({ error: error });
-            const res = new Response(resBody, {
-                status: 500,
-                statusText: `Failed to fetch collection: ${collectionId}`,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            const message = `Failed to fetch collection: ${collectionId}`;
+            const res = catchResponse(error, message);
+
             return res;
         }
     } else if (req.method = "POST") {

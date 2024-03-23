@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
-export default function TopicInput({ name, collectionId, topics, choosenTopic }) {
+export default function TopicInput({ name, collectionId, topics, choosenTopic, onChange }) {
     const [topicsArr, setTopicsArr] = useState([]);
     const [selectedTopic, setSelectedTopic] = useState("");
     const t = useTranslations("Collection")
+    const to = useTranslations("Topic");
 
     useEffect(() => {
         setTopicsArr(topics);
@@ -15,13 +16,13 @@ export default function TopicInput({ name, collectionId, topics, choosenTopic })
     let options = [];
     topicsArr.map( (topic) => {
         options.push(
-            <option key={topic.id} value={topic.id}>{topic.name}</option>
+            <option key={topic.id} value={topic.id}>{to(topic.name)}</option>
         );
     })
 
     const handleTopicChange = (event) => {
         setSelectedTopic(event.target.value);
-        console.log(event.target.value);
+        onChange(event.target.value)
     };
 
     return (
