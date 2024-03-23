@@ -69,6 +69,7 @@
         "checkbox": "მოსანიშნი უჯრა",
         "date": "თარიღი",
         "name_for": "სახელი",
-        "name_of_collection": "კოლექციის დასახელება"
+        "name_of_collection": "კოლექციის დასახელება",
+        "select_topic": "აირჩიეთ თემა"
     }
 }

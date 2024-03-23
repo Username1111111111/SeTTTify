@@ -1,7 +1,28 @@
 import { useTranslations } from "next-intl";
+import { useState, useEffect } from "react";
 
-export default function OptInput({ fieldType, fieldNumber, collectionId }) {
+export default function OptInput({ fieldType, fieldNumber, name, state, collectionId, onChange }) {
     const t = useTranslations("Collection");
+    const [inputValue, setInputValue] = useState(name);
+    const [inputState, setInputState] = useState(false);
+
+    useEffect(() => {
+        setInputValue(name);
+        setInputState(state);
+    }, [name, state])
+
+    const handleInputStateChange = (event) => {
+        setInputState(event.target.checked);
+        // console.log(event.target.value);
+        // onChange(event.target.value);
+        onChange(event.target.checked, inputValue)
+    };
+
+    const handleInputValueChange = (event) => {
+        setInputValue(event.target.value);
+        // console.log(event.target.value);
+        onChange(inputState, event.target.value);
+    };
 
     return (
         <li className="row w-100 p-0 m-0 d-flex flex-row justify-content-start align-items-center mb-2">
@@ -9,8 +30,9 @@ export default function OptInput({ fieldType, fieldNumber, collectionId }) {
                 <input
                     className="form-check-input border border-secondary m-0 p-0 ms-3 me-3"
                     type="checkbox"
-                    value=""
+                    checked={ inputState ? true : false }
                     id={`checkbox-${fieldType}${fieldNumber}-${collectionId}`}
+                    onChange={handleInputStateChange}
                 />
 
                 <label
@@ -26,6 +48,8 @@ export default function OptInput({ fieldType, fieldNumber, collectionId }) {
                     className="form-control border border-secondary"
                     id={`name-${fieldType}${fieldNumber}-${collectionId}`}
                     placeholder={`${t("name_for")} ${t(fieldType)} №${fieldNumber}`}
+                    value={inputValue ? inputValue : ""}
+                    onChange={handleInputValueChange}
                 />
             </div>
         </li>

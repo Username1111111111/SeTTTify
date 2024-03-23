@@ -110,7 +110,7 @@ model Item {
 
 model Topic {
   id          String       @id @default(uuid())
-  name        String
+  name        String       @unique
   collections Collection[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime?    @updatedAt

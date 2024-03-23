@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import styles from "./tagInput.module.css";
-import generateUniqueId from "@/lib/generateUniqueId";
+// import generateUniqueId from "@/lib/generateUniqueId";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 

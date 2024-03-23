@@ -80,7 +80,13 @@ async function handler(req) {
             });
             return res;
         }
+    } else if (req.method = "POST") {
+
+    } else if (req.method = "DELETE") {
+        
+    } else if (req.method = "PUT") {
+        
     }
 }
 
-export { handler as GET };
+export { handler as GET, handler as POST, handler as PUT, handler as DELETE };

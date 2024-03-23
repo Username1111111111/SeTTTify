@@ -70,6 +70,7 @@
         "checkbox": "checkbox",
         "date": "date",
         "name_for": "Name for",
-        "name_of_collection": "Name of collection"
+        "name_of_collection": "Name of collection",
+        "select_topic": "Select topic"
     }
 }
