@@ -1,4 +1,6 @@
 import prisma from "@/lib/prisma";
+import catchResponse from "@/lib/catchResponse";
+import hashPassword from "@/lib/hashPassword";
 
 async function handler(req, res) {
     if (req.method === "GET") {
@@ -29,14 +31,9 @@ async function handler(req, res) {
 
                 return res;
             } catch (error) {
-                const resBody = JSON.stringify({ error: error });
-                const res = new Response(resBody, {
-                    status: 500,
-                    statusText: "Failed to fetch user at api/user.",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+                const message = `Failed to fetch user by collectionId: ${collectionId}`;
+                const res = catchResponse(error, message);
+
                 return res;
             }
         } else if (searchParams.has("itemId")) {
@@ -64,19 +61,67 @@ async function handler(req, res) {
 
                 return res;
             } catch (error) {
-                const resBody = JSON.stringify({ error: error });
+                const message = `Failed to fetch user by itemId: ${itemId}`;
+                const res = catchResponse(error, message);
+
+                return res;
+            }
+        }
+    } else if (req.method === "POST") {
+        const data = await req.json();
+        const { name, email, password } = data;
+
+        try {
+            const existingUser = await prisma.user.findUnique({
+                where: {
+                    email: email,
+                },
+            });
+
+            if (existingUser) {
+                const resBody = JSON.stringify(`Email already exists ${email}`);
 
                 const res = new Response(resBody, {
-                    status: 500,
-                    statusText: "Failed to fetch user at api/user.",
+                    status: 409,
+                    statusText: "Email already used. Choose another.",
                     headers: {
                         "Content-Type": "application/json",
                     },
                 });
+
                 return res;
             }
+
+            const hashedPassword = await hashPassword(password);
+
+            const user = await prisma.user.create({
+                data: {
+                    name: name,
+                    email: email,
+                    password: hashedPassword,
+                    blocked: false,
+                    admin: false,
+                },
+            });
+
+            const resBody = JSON.stringify(user);
+
+            const res = new Response(resBody, {
+                status: 201,
+                statusText: "User have been created!",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            return res;
+        } catch (error) {
+            const message = `Failed to create user`;
+            const res = catchResponse(error, message);
+
+            return res;
         }
     }
 }
 
-export { handler as GET };
+export { handler as GET, handler as POST };

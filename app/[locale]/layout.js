@@ -25,6 +25,7 @@ export default async function RootLayout({ children, locale }) {
                     }}
                 />
             </head>
+            <link rel="icon" href="/favicon.ico" sizes="any" />
             <Body>{children}</Body>
             <BootstrapClient />
         </html>

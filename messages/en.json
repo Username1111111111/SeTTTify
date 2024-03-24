@@ -43,7 +43,6 @@
         "text": "Text",
         "textarea": "Textarea",
         "lang": "en"
-
     },
     "Users": {
         "name": "Name",
@@ -72,12 +71,13 @@
         "name_for": "Name for",
         "name_of_collection": "Name of collection",
         "select_topic": "Select topic"
-    }, "Topic": {
+    },
+    "Topic": {
         "demo_topic": "Demo topic",
         "books": "Books",
         "cars": "Cars",
         "coins": "Coins",
         "post_stamps": "Post-stamps",
-        "films": "films"
+        "films": "Films"
     }
 }

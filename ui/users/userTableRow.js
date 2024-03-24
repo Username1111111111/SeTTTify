@@ -42,7 +42,7 @@ export default function UserTableRow({
 
     return (
         <tr>
-            <td scope="col" className="m-0 p-1 text-center d-flex align-items-center justify-content-center">
+            <td scope="col" className="m-0 p-1 text-center">
                 <UserTableCheckbox
                     checked={selectedRows.includes(id)}
                     onChange={() => handleChange(id)}

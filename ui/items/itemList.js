@@ -34,7 +34,6 @@ export default function ItemList({ collectionId }) {
 
     const handleSort = (order) => {
         const sortedItems = [...items].sort((a, b) => {
-            // Each item has a name property to sort by
 
             const nameA = a.name || "";
             const nameB = b.name || "";

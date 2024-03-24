@@ -15,6 +15,7 @@ export default function FilterSorter({ onFilter, onSort }) {
                             type="text"
                             placeholder={`${t("filter_by_tag")}`}
                             onChange={onFilter}
+                            id={`filter-by-tag`}
                             className="form-control border border-secondary"
                         />
                     </div>

@@ -1,15 +1,17 @@
 "use client";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import getDomain from "@/lib/getDomain";
-
-const domain = getDomain();
+import createUser from "@/lib/createUser";
+// import hashPassword from "@/lib/hashPassword";
 
 export default function SignupForm() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const domain = getDomain();
+    const router = useRouter();
 
     async function handleClick(e) {
         e.preventDefault();
@@ -18,76 +20,21 @@ export default function SignupForm() {
             return;
         }
 
-        // console.log(`email: -----> ${email}`);
-        // console.log(`password: -----> ${password}`);
+        const res = await createUser({ name, email, password });
 
-        const requestBody = {
-            providedKey: "email",
-            providedData: email,
-        };
-
-        const req = new Request(`${domain}/api/findData`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestBody),
-        });
-
-        // console.log(`req in singnUp: -----> ${req}`);
-
-        const res = await fetch(req);
-
-        // console.log(`res in singnUp: -----> ${res}`);
-
-        // console.log(`res: -----> ${res}`);
-        // console.log(`res.status: -----> ${res.status}`);
-
-        if (res.status == 200) {
-            const user = await res.json();
-            // console.log(`User found: ${user}`);
-            alert("Email already used. Choose other.");
+        if (res.status == 409) {
+            alert("Email have already used. Choose other.");
             return;
+        } else if (res.status == 201) {
+            signIn("credentials", {
+                email,
+                password,
+                redirect: false,
+            });
+
+            router.push(`${domain}/`);
         } else {
-            const data = [
-                {
-                    name,
-                    email,
-                    password, // I was too lazy to HASH password etc and it wasnt' required, but I know that it must be implemented in every other serious project
-                    lastloginDate: new Date(),
-                    signupDate: new Date(),
-                    status: "active",
-                },
-            ];
-
-            const response = await fetch(
-                `http://localhost:3000/api/createUser`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(data),
-                }
-            );
-
-            // console.log(`response.status: -----> ${response.status}`);
-
-            if (response.status == 201) {
-                signIn("credentials", {
-                    email,
-                    password,
-                    callbackUrl: `${domain}/`,
-                    redirect: false,
-                });
-                redirect(`${domain}/`);
-            } else if (response.status === 409) {
-                // Email already exists
-                alert("Email already used. Choose another.");
-            } else {
-                // Other errors
-                alert("An error occurred. Please try again later.");
-            }
+            alert(`An error occurred. Please try again later. ${res.status}`);
         }
     }
 
