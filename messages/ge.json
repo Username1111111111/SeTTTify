@@ -72,6 +72,11 @@
         "name_of_collection": "კოლექციის დასახელება",
         "select_topic": "აირჩიეთ თემა"
     },"Topic": {
-        "demo_topic": "დემო თემა"
+        "demo_topic": "დემო თემა",
+        "books": "წიგნები",
+        "cars": "მანქანები",
+        "coins": "მონეტები",
+        "post_stamps": "საფოსტო მარკები",
+        "films": "ფილმები"
     }
 }

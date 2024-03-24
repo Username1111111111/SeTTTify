@@ -73,6 +73,11 @@
         "name_of_collection": "Name of collection",
         "select_topic": "Select topic"
     }, "Topic": {
-        "demo_topic": "Demo topic"
+        "demo_topic": "Demo topic",
+        "books": "Books",
+        "cars": "Cars",
+        "coins": "Coins",
+        "post_stamps": "Post-stamps",
+        "films": "films"
     }
 }
