@@ -66,6 +66,45 @@ async function handler(req, res) {
 
                 return res;
             }
+        } else if (searchParams.has("email")) {
+            const email = searchParams.get("email");
+
+            const user = await prisma.user.findUnique({
+                where: {
+                    email: email,
+                },
+                select: {
+                    name: true,
+                    email: true,
+                    password: true,
+                    blocked: true,
+                    admin: true,
+                },
+            });
+
+            if (user) {
+                const resBody = JSON.stringify(user);
+
+                const res = new Response(resBody, {
+                    status: 200,
+                    statusText: "User by itemId have been fetched",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                return res;
+            } else {
+                const resBody = JSON.stringify("No user have been found");
+
+                const res = new Response(resBody, {
+                    status: 404,
+                    statusText: "No user have been found",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                return res;
+            }
         }
     } else if (req.method === "POST") {
         const data = await req.json();

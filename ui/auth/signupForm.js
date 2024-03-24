@@ -4,7 +4,6 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import getDomain from "@/lib/getDomain";
 import createUser from "@/lib/createUser";
-// import hashPassword from "@/lib/hashPassword";
 
 export default function SignupForm() {
     const [name, setName] = useState("");

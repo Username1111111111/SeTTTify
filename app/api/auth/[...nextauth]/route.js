@@ -1,6 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import updateTime from "../../../lib/updateTime";
+// import hashPassword from "@/lib/hashPassword";
+import getDomain from "@/lib/getDomain";
+import verifyPassword from "@/lib/verifyPassword";
+
+const domain = getDomain();
 
 const handler = NextAuth({
     providers: [
@@ -21,51 +25,45 @@ const handler = NextAuth({
             },
             async authorize(credentials, req) {
                 const { email, password } = credentials;
-                
 
                 try {
-                    const requestBody = {
-                        providedKey: "email",
-                        providedData : email,
-                    };
-
-                    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/findData`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(requestBody),
-                    });
+                    const res = await fetch(
+                        `${domain}/api/user?email=${email}`,
+                        {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        }
+                    );
 
                     if (res.status == 200) {
                         const user = await res.json();
-                        // console.log(`User found: ${user}`);
+                        const verified = await verifyPassword(password, user.password);
 
-                        if (
+                        console.log(user.password);
+                        console.log(password);
+                        console.log(verified);
+
+                        if (user.blocked) {
+                            return Promise.resolve(null);
+                        } else if (
                             user.email === email &&
-                            user.password === password
+                            user.password === hashedPassword
                         ) {
-                            if (user.status === "blocked") {
-                                throw new Error("The user has been blocked");
-                            } else {
-                                return Promise.resolve({
-                                    _id: user._id,
-                                    email: user.email,
-                                    password: user.password,
-                                    status: user.status,
-                                });
-                            }
+                            return Promise.resolve({
+                                id: user.id,
+                                name: user.name,
+                                email: user.email,
+                                blocked: user.blocked,
+                                admin: user.admin,
+                            });
                         } else {
                             throw new Error(
                                 `Email and password doesn't match: ${user.email} & ${user.password}`
                             );
-                            // return Promise.resolve(null);
                         }
                     } else if (res.status === 404) {
-                        // console.error(
-                        //     "Server response was not ok",
-                        //     await res.json()
-                        // );
                         return Promise.resolve(null);
                     }
                 } catch (error) {
@@ -95,7 +93,7 @@ const handler = NextAuth({
         async redirect({ url, baseUrl }) {
             // console.log(`baseUrl: -----> ${baseUrl}`);
             // console.log(`url: -----> ${url}`);
-            
+
             if (url.startsWith(baseUrl)) {
                 // console.log(`returned url: -----> ${url}`);
                 return url;
@@ -120,7 +118,7 @@ const handler = NextAuth({
     pages: {
         signOut: `${process.env.NEXTAUTH_URL}/api/auth/signin`,
     },
-    secret: process.env.NEXTAUTH_SECRET
+    secret: process.env.NEXTAUTH_SECRET,
 });
 
 export { handler as GET, handler as POST };
