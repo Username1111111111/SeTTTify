@@ -2,8 +2,9 @@ import prisma from "@/lib/prisma";
 import catchResponse from "@/lib/catchResponse";
 
 async function handler(req) {
+    const searchParams = req.nextUrl.searchParams;
+
     if (req.method === "GET") {
-        const searchParams = req.nextUrl.searchParams;
         const collectionId = searchParams.get("collectionId");
 
         try {
@@ -76,12 +77,70 @@ async function handler(req) {
 
             return res;
         }
-    } else if (req.method = "POST") {
+    } else if (req.method == "POST") {
+        const userId = searchParams.get("userId");
+        const collectionData = await req.json();
+        const { name, description, imageUrl, topicId, ...customFields } =
+            collectionData;
 
-    } else if (req.method = "DELETE") {
-        
-    } else if (req.method = "PUT") {
-        
+        try {
+            const collection = await prisma.collection.create({
+                data: {
+                    name: name,
+                    description: description,
+                    imageUrl: imageUrl,
+                    ...customFields,
+                    user: {
+                        connect: { id: userId },
+                    },
+                    topic: {
+                        connect: { id: topicId },
+                    },
+                },
+            });
+
+            const resBody = JSON.stringify(collection);
+            const res = new Response(resBody, {
+                status: 200,
+                statusText: `Created new collection by userId: ${userId}`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            return res;
+        } catch (error) {
+            const message = `Failed to create collection by userId: ${userId}`;
+            const res = catchResponse(error, message);
+
+            return res;
+        }
+    } else if (req.method == "DELETE") {
+        const collectionId = searchParams.get("collectionId");
+
+        try {
+            const deletedCollection = await prisma.collection.delete({
+                where: {
+                    id: collectionId,
+                },
+            });
+
+            const resBody = JSON.stringify(deletedCollection);
+            const res = new Response(resBody, {
+                status: 200,
+                statusText: `Collection has been deleted successfully: ${collectionId}`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            return res;
+        } catch (error) {
+            const message = `Failed to delete collection: ${collectionId}`;
+            const res = catchResponse(error, message);
+
+            return res;
+        }
+    } else if (req.method == "PUT") {
     }
 }
 

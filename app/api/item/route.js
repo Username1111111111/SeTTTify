@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import combFields from "@/lib/combFields";
+import combItemFields from "@/lib/combItemFields";
 import catchResponse from "@/lib/catchResponse";
 
 async function handler(req) {
@@ -69,21 +69,16 @@ async function handler(req) {
 
             return res;
         } catch (error) {
-            const resBody = JSON.stringify({ error: error.message });
-            const res = new Response(resBody, {
-                status: 500,
-                statusText: `Failed to fetch item by itemId: ${collectionId}`,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            const message = `Failed to fetch item by itemId: ${itemId}`;
+            const res = catchResponse(error, message);
+
             return res;
         }
     } else if (req.method === "POST") {
         const itemData = await req.json();
         let { tags, ...itemFields } = itemData;
 
-        combFields(itemFields);
+        combItemFields(itemFields);
 
         if (searchParams.has("collectionId")) {
             const collectionId = searchParams.get("collectionId");
@@ -99,8 +94,6 @@ async function handler(req) {
                 });
 
                 const userIdValue = userId.userId;
-                // console.log("userId:");
-                // console.log(userIdValue);
 
                 const result = await prisma.$transaction(async (prisma) => {
                     const tagRecords = await Promise.all(
@@ -122,9 +115,6 @@ async function handler(req) {
                         })
                     );
 
-                    // console.log("tagRecords:");
-                    // console.log(tagRecords);
-
                     const item = await prisma.item.create({
                         data: {
                             ...itemFields,
@@ -145,7 +135,6 @@ async function handler(req) {
                             },
                         },
                     });
-
                     return item;
                 });
 
@@ -157,32 +146,12 @@ async function handler(req) {
                         "Content-Type": "application/json",
                     },
                 });
-                return res;
-            } catch (error) {
-                const resBody = JSON.stringify({ error: error.message });
-                const res = new Response(resBody, {
-                    status: 500,
-                    statusText: `Failed to create item by collectionId: ${collectionId}`,
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
-                return res;
-            }
-        } else if (searchParams.has("itemId")) {
-            const itemId = searchParams.get("itemId");
-            // This is update
 
-            try {
+                return res;
             } catch (error) {
-                const resBody = JSON.stringify({ error: error.message });
-                const res = new Response(resBody, {
-                    status: 500,
-                    statusText: `Failed to update item by itemId: ${itemId}`,
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
+                const message = `Failed to create item by collectionId: ${collectionId}`;
+                const res = catchResponse(error, message);
+
                 return res;
             }
         }
@@ -206,14 +175,9 @@ async function handler(req) {
             });
             return res;
         } catch (error) {
-            const resBody = JSON.stringify({ error: error.message });
-            const res = new Response(resBody, {
-                status: 500,
-                statusText: `Failed to delete item with ID: ${itemId}`,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            const message = `Failed to delete item with ID: ${itemId}`;
+            const res = catchResponse(error, message);
+
             return res;
         }
     } else if (req.method === "PUT") {
@@ -221,10 +185,9 @@ async function handler(req) {
         const newItemData = await req.json();
         let { tags, ...itemFields } = newItemData;
 
-        combFields(itemFields);
+        combItemFields(itemFields);
 
         try {
-
             const userId = await prisma.item.findUnique({
                 where: {
                     id: itemId,
@@ -248,18 +211,12 @@ async function handler(req) {
                 .filter((tag) => !tags.includes(tag.name))
                 .map((tag) => ({ id: tag.id }));
 
-            // console.log("tagsToDisconnect");
-            // console.log(tagsToDisconnect);
-
             const tagsToConnect = tags
                 .filter(
                     (tagName) =>
                         !currentItem.tags.some((tag) => tag.name === tagName)
                 )
                 .map((tagName) => ({ name: tagName }));
-
-            // console.log("tagsToConnect");
-            // console.log(tagsToConnect);
 
             const updatedItem = await prisma.item.update({
                 where: { id: itemId },
@@ -268,8 +225,8 @@ async function handler(req) {
                     tags: {
                         disconnect: tagsToDisconnect,
                         connectOrCreate: tagsToConnect.map((tag) => ({
-                            where: { name: tag.name, userId: userIdValue, },
-                            create: { name: tag.name, userId: userIdValue, },
+                            where: { name: tag.name, userId: userIdValue },
+                            create: { name: tag.name, userId: userIdValue },
                         })),
                     },
                 },
@@ -286,14 +243,9 @@ async function handler(req) {
             });
             return res;
         } catch (error) {
-            const resBody = JSON.stringify({ error: error.message });
-            const res = new Response(resBody, {
-                status: 500,
-                statusText: `Failed to update item with ID: ${itemId}`,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            const message = `Failed to update item with ID: ${itemId}`;
+            const res = catchResponse(error, message);
+
             return res;
         }
     }

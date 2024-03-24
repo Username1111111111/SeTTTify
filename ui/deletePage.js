@@ -2,6 +2,7 @@
 import EditButtonGroup from "./editButtonGroup";
 import { useTranslations } from "next-intl";
 import deleteItem from "@/lib/deleteItem";
+import deleteCollection from "@/lib/deleteCollection";
 
 export default function DeletePage({ id, idType }) {
     const t = useTranslations("Sidebarplus");
@@ -10,9 +11,9 @@ export default function DeletePage({ id, idType }) {
         if (idType == 'item') {
             deleteItem(id);
         } 
-        // else if (idType == 'collection') {
-
-        // }
+        else if (idType == 'collection') {
+            deleteCollection(id);
+        }
     }
 
     return (
