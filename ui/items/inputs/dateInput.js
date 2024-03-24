@@ -5,10 +5,12 @@ import { useState } from "react";
 export default function DateInput({ itemId, name, value, onChange }) {
     const date = formatDate( value || new Date);
     const [inputValue, setInputValue] = useState(date);
+    // console.log(inputValue)
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
         onChange(event.target.value);
+        console.log(event.target.value)
     };
 
     const inputId = `date-${itemId ? itemId : "create"}-${generateUniqueId()}`;
@@ -28,8 +30,6 @@ export default function DateInput({ itemId, name, value, onChange }) {
                     type="date"
                     className="form-control border border-secondary flex-grow-1"
                     id={inputId}
-                    // placeholder={t("mdy")}
-                    // lang={t("lang")}
                     value={inputValue}
                     onChange={handleInputChange}
                 />

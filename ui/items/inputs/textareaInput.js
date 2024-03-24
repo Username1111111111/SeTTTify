@@ -24,7 +24,6 @@ export default function TextareaInput({ itemId, placeholder, name, value, onChan
                     name="opt"
                     rows={3}
                     className="form-control border border-secondary flex-grow-1 w-100 m-0"
-                    defaultValue=""
                     placeholder={placeholder}
                     value={inputValue}
                     onChange={handleInputChange}

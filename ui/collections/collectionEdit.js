@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import getCollectionById from "@/lib/getCollectionById";
 import getTopics from "@/lib/getTopics";
 import createCollection from "@/lib/createCollection";
+import updateCollection from "@/lib/updateCollection";
 
 export default function CollectionEdit({ collectionId, userId, mode }) {
     const t = useTranslations("Collection");

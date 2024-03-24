@@ -141,6 +141,38 @@ async function handler(req) {
             return res;
         }
     } else if (req.method == "PUT") {
+        const collectionId = searchParams.get("collectionId");
+        const collectionData = await req.json();
+        const {topicId, ...customFields } =
+            collectionData;
+
+        try {
+            
+            const updatedCollection = await prisma.collection.update({
+                where: {
+                    id: collectionId,
+                },
+                data: {
+                    ...customFields,
+                    ...(topicId ? { topicId: topicId } : {}),
+                },
+            });
+
+            const resBody = JSON.stringify(updatedCollection);
+            const res = new Response(resBody, {
+                status: 200,
+                statusText: `Collection has been updated successfully: ${collectionId}`,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            return res;
+        } catch (error) {
+            const message = `Failed to update collection: ${collectionId}`;
+            const res = catchResponse(error, message);
+
+            return res;
+        }
     }
 }
 
