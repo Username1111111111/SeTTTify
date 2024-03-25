@@ -1,7 +1,8 @@
 import generateUniqueId from "@/lib/generateUniqueId";
 
-export default function UserTableCheckbox({checked, onChange}) {
-    const id = `checkbox-usertable-${generateUniqueId()}`;
+export default function UserTableCheckbox({checked, onChange, index}) {
+    // const id = `checkbox-usertable-${generateUniqueId()}`;
+    const id = `checkbox-usertable-${index}`;
 
     return (
             <div className="form-check d-flex align-items-center justify-content-center m-0">

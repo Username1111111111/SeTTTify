@@ -5,6 +5,7 @@ import Link from "next/link";
 
 export default function UserTableRow({
     id,
+    index,
     name,
     email,
     signupDate,
@@ -38,7 +39,8 @@ export default function UserTableRow({
         return formattedDate
     }
 
-    const formattedDate = formatDate(signupDate);
+    const signupDateF = formatDate(signupDate);
+    const lastLoginDateF = formatDate(lastLoginDate);
 
     return (
         <tr>
@@ -46,6 +48,7 @@ export default function UserTableRow({
                 <UserTableCheckbox
                     checked={selectedRows.includes(id)}
                     onChange={() => handleChange(id)}
+                    index={index}
                 ></UserTableCheckbox>
             </td>
             <td scope="col" className="m-0 p-1 text-center text-break">
@@ -58,10 +61,10 @@ export default function UserTableRow({
                 {email}
             </td>
             <td scope="col" className="m-0 p-1 text-center text-break">
-                {formattedDate}
+                {signupDateF + ""}
             </td>
             <td scope="col" className="m-0 p-1 text-center text-break">
-                {lastLoginDate + ""}
+                {lastLoginDateF + ""}
             </td>
             <td scope="col" className="m-0 p-1 text-center text-break">
                 {blocked + ""}

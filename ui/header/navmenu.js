@@ -1,10 +1,17 @@
+"use client"
 import Image from "next/image";
 import styles from "./navmenu.module.css";
 import Link from "next/link";
 import {useTranslations} from 'next-intl';
+import { useSession } from "next-auth/react";
+// import { getServerSession } from "next-auth"
+// import { useEffect, useState } from "react";
 
 export default function NavMenu() {
     const t = useTranslations("Header");
+    const { data: session, status } = useSession();
+    // console.log(session);
+
 
     return (
         <nav className="row align-items-center justify-content-center w-100 ps-2">
@@ -22,27 +29,27 @@ export default function NavMenu() {
                         className={`${styles.magicHover} nav-link fs-5`}
                     >
                         {t("home")}
-                        {/* Home */}
                     </Link>
                 </li>
-                <li className="nav-item me-1 me-md-3 fs-6 py-2">
+                {session ? <li className="nav-item me-1 me-md-3 fs-6 py-2">
+                    
                     <Link
                         href="/collections"
                         className={`${styles.magicHover} nav-link fs-5`}
                     >
                         {t("collections")}
-                        {/* Collections */}
                     </Link>
-                </li>
-                <li className="nav-item me-1 me-md-3 fs-6 py-2">
+                </li> : null}
+                
+                {session?.user?.admin ? <li className="nav-item me-1 me-md-3 fs-6 py-2">
                     <Link
                         href="/users"
                         className={`${styles.magicHover} nav-link fs-5`}
                     >
                         {t("users")}
-                        {/* Users */}
                     </Link>
-                </li>
+                </li> : null}
+                
             </ul>
         </nav>
     );

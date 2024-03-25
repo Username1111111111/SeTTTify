@@ -1,16 +1,30 @@
+"use client";
 import Sidebar from "@/ui/collections/sidebar";
 import CollectionEdit from "@/ui/collections/collectionEdit";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-export default async function CollectionCreatePage({ params }) {
+export default function CollectionCreatePage({ params }) {
     const userId = params.userId;
     const mode = "create";
-    // let currentSessionUserId = '7a3162da-edee-4de8-a2c6-529397a16c4e';
+    const { data: session } = useSession();
+    const router = useRouter();
+
+    if (
+        (!session && session?.user?.id !== userId) ||
+        (!session && !session?.user?.admin)
+    ) {
+        router.back();
+    }
 
     return (
         <>
             <Sidebar userId={userId} />
             <div className="col-12 col-md-9 p-0 m-0 d-flex justify-content-center">
-            <CollectionEdit userId={userId} mode={mode} />
+                {(session && session?.user?.id == userId) ||
+                (session && session?.user?.admin) ? (
+                    <CollectionEdit userId={userId} mode={mode} />
+                ) : null}
             </div>
         </>
     );

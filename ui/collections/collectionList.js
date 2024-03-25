@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 import getDomain from "@/lib/getDomain";
 
-export function createCollectionItems(collections) {
+export function createCollectionItems(collections, userId) {
     return (
         <ul className="row w-100 m-0 p-0 p-2">
             {collections.map((collection) => (
@@ -12,6 +12,7 @@ export function createCollectionItems(collections) {
                     key={collection.id}
                     id={collection.id}
                     name={collection.name}
+                    userId={userId}
                 />
             ))}
         </ul>
@@ -22,7 +23,6 @@ export default function CollectionList({ userId }) {
     const t = useTranslations("Sidebarplus");
     const [collections, setCollections] = useState([]);
     const domain = getDomain();
-    // console.log(`Domain =====> ${domain}`)
 
     useEffect(() => {
         async function fetchCollections() {
@@ -39,7 +39,6 @@ export default function CollectionList({ userId }) {
                 });
 
                 const data = await res.json();
-                // return data;
                 setCollections(data);
             }
         }
@@ -49,9 +48,9 @@ export default function CollectionList({ userId }) {
     return (
         <div className="row w-100">
             <p className="text-center fs-5 mt-2 mb-0">
-                {t("your_collections")}:
+                {t("collections")}:
             </p>
-            {createCollectionItems(collections)}
+            {createCollectionItems(collections, userId)}
         </div>
     );
 }

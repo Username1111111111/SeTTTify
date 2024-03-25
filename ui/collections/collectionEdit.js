@@ -1,12 +1,14 @@
 "use client";
+import { useTranslations } from "next-intl";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import EditButtonGroup from "../editButtonGroup";
 import OptInput from "./inputs/optInput";
-import { useTranslations } from "next-intl";
 import FileInput from "./inputs/fileInput";
 import TopicInput from "./inputs/topicInput";
 import DescriptionInput from "./inputs/descriptionInput";
 import NameInput from "./inputs/nameInput";
-import { useState, useEffect } from "react";
 import getCollectionById from "@/lib/getCollectionById";
 import getTopics from "@/lib/getTopics";
 import createCollection from "@/lib/createCollection";
@@ -14,6 +16,8 @@ import updateCollection from "@/lib/updateCollection";
 
 export default function CollectionEdit({ collectionId, userId, mode }) {
     const t = useTranslations("Collection");
+    const router = useRouter();
+    const { data: session } = useSession();
     const i = "integer",
         s = "string",
         ta = "textarea",
@@ -59,7 +63,14 @@ export default function CollectionEdit({ collectionId, userId, mode }) {
         custom_date3_name: "",
     });
 
+    
+
     useEffect(() => {
+        if (!session || session?.user?.id !== userId) {
+            if (!session?.user?.admin) {
+                router.back();
+            }
+        }
         async function fetchItem() {
             const topics = await getTopics();
             setTopics(topics);
@@ -119,111 +130,116 @@ export default function CollectionEdit({ collectionId, userId, mode }) {
 
     return (
         <div className="col-12 col-md-10 col-lg-8 p-0 m-0 pt-2">
-            <div className="border border-secondary rounded m-2 mt-0 p-1 bg-body-secondary">
-                <ul className="w-100 p-0 m-0 p-1">
-                    <NameInput
-                        name={t("name")}
-                        placeholder={t("name_of_collection")}
-                        collectionName={inputValues.name}
-                        collectionId={collectionId}
-                        onChange={(newName) =>
-                            setInputValues({ ...inputValues, name: newName })
-                        }
-                    />
-                    <DescriptionInput
-                        name={t("description")}
-                        description={inputValues.description}
-                        collectionId={collectionId}
-                        onChange={(newDescription) =>
-                            setInputValues({
-                                ...inputValues,
-                                description: newDescription,
-                            })
-                        }
-                    />
-                    <TopicInput
-                        name={t("topic")}
-                        topics={topics}
-                        choosenTopic={inputValues.topicId}
-                        collectionId={collectionId}
-                        onChange={(newTopicId) =>
-                            setInputValues({
-                                ...inputValues,
-                                topicId: newTopicId,
-                            })
-                        }
-                    />
-                    <FileInput
-                        name={t("image")}
-                        imageUrl={inputValues.imageUrl}
-                        placeholder={t("choose_file")}
-                        collectionId={collectionId}
-                        onChange={(newImageUrl) =>
-                            setInputValues({
-                                ...inputValues,
-                                imageUrl: newImageUrl,
-                            })
-                        }
-                    />
+            {session?.user?.admin || session?.user?.id == userId ? (
+                <div className="border border-secondary rounded m-2 mt-0 p-1 bg-body-secondary">
+                    <ul className="w-100 p-0 m-0 p-1">
+                        <NameInput
+                            name={t("name")}
+                            placeholder={t("name_of_collection")}
+                            collectionName={inputValues.name}
+                            collectionId={collectionId}
+                            onChange={(newName) =>
+                                setInputValues({
+                                    ...inputValues,
+                                    name: newName,
+                                })
+                            }
+                        />
+                        <DescriptionInput
+                            name={t("description")}
+                            description={inputValues.description}
+                            collectionId={collectionId}
+                            onChange={(newDescription) =>
+                                setInputValues({
+                                    ...inputValues,
+                                    description: newDescription,
+                                })
+                            }
+                        />
+                        <TopicInput
+                            name={t("topic")}
+                            topics={topics}
+                            choosenTopic={inputValues.topicId}
+                            collectionId={collectionId}
+                            onChange={(newTopicId) =>
+                                setInputValues({
+                                    ...inputValues,
+                                    topicId: newTopicId,
+                                })
+                            }
+                        />
+                        <FileInput
+                            name={t("image")}
+                            imageUrl={inputValues.imageUrl}
+                            placeholder={t("choose_file")}
+                            collectionId={collectionId}
+                            onChange={(newImageUrl) =>
+                                setInputValues({
+                                    ...inputValues,
+                                    imageUrl: newImageUrl,
+                                })
+                            }
+                        />
 
-                    <hr></hr>
+                        <hr></hr>
 
-                    <OptInputList
-                        fieldType={i}
-                        fieldPrefix="custom_int"
-                        fieldCount={3}
-                        collectionId={collectionId}
-                        inputStates={inputStates}
-                        inputValues={inputValues}
-                        setInputStates={setInputStates}
-                        setInputValues={setInputValues}
-                    />
-                    <OptInputList
-                        fieldType={s}
-                        fieldPrefix="custom_string"
-                        fieldCount={3}
-                        collectionId={collectionId}
-                        inputStates={inputStates}
-                        inputValues={inputValues}
-                        setInputStates={setInputStates}
-                        setInputValues={setInputValues}
-                    />
-                    <OptInputList
-                        fieldType={ta}
-                        fieldPrefix="custom_text"
-                        fieldCount={3}
-                        collectionId={collectionId}
-                        inputStates={inputStates}
-                        inputValues={inputValues}
-                        setInputStates={setInputStates}
-                        setInputValues={setInputValues}
-                    />
-                    <OptInputList
-                        fieldType={c}
-                        fieldPrefix="custom_bool"
-                        fieldCount={3}
-                        collectionId={collectionId}
-                        inputStates={inputStates}
-                        inputValues={inputValues}
-                        setInputStates={setInputStates}
-                        setInputValues={setInputValues}
-                    />
-                    <OptInputList
-                        fieldType={d}
-                        fieldPrefix="custom_date"
-                        fieldCount={3}
-                        collectionId={collectionId}
-                        inputStates={inputStates}
-                        inputValues={inputValues}
-                        setInputStates={setInputStates}
-                        setInputValues={setInputValues}
-                    />
-                </ul>
+                        <OptInputList
+                            fieldType={i}
+                            fieldPrefix="custom_int"
+                            fieldCount={3}
+                            collectionId={collectionId}
+                            inputStates={inputStates}
+                            inputValues={inputValues}
+                            setInputStates={setInputStates}
+                            setInputValues={setInputValues}
+                        />
+                        <OptInputList
+                            fieldType={s}
+                            fieldPrefix="custom_string"
+                            fieldCount={3}
+                            collectionId={collectionId}
+                            inputStates={inputStates}
+                            inputValues={inputValues}
+                            setInputStates={setInputStates}
+                            setInputValues={setInputValues}
+                        />
+                        <OptInputList
+                            fieldType={ta}
+                            fieldPrefix="custom_text"
+                            fieldCount={3}
+                            collectionId={collectionId}
+                            inputStates={inputStates}
+                            inputValues={inputValues}
+                            setInputStates={setInputStates}
+                            setInputValues={setInputValues}
+                        />
+                        <OptInputList
+                            fieldType={c}
+                            fieldPrefix="custom_bool"
+                            fieldCount={3}
+                            collectionId={collectionId}
+                            inputStates={inputStates}
+                            inputValues={inputValues}
+                            setInputStates={setInputStates}
+                            setInputValues={setInputValues}
+                        />
+                        <OptInputList
+                            fieldType={d}
+                            fieldPrefix="custom_date"
+                            fieldCount={3}
+                            collectionId={collectionId}
+                            inputStates={inputStates}
+                            inputValues={inputValues}
+                            setInputStates={setInputStates}
+                            setInputValues={setInputValues}
+                        />
+                    </ul>
 
-                <div className="d-flex flex-row justify-content-center align-items-center m-0 p-0 mb-1">
-                    <EditButtonGroup onConfirm={handleSubmit} />
+                    <div className="d-flex flex-row justify-content-center align-items-center m-0 p-0 mb-1">
+                        <EditButtonGroup onConfirm={handleSubmit} />
+                    </div>
                 </div>
-            </div>
+            ) : null}
         </div>
     );
 }
@@ -236,7 +252,7 @@ const OptInputList = ({
     inputStates,
     inputValues,
     setInputStates,
-    setInputValues
+    setInputValues,
 }) => {
     const inputComponents = [];
 

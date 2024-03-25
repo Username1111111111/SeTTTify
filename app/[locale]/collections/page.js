@@ -1,9 +1,12 @@
+"use client";
 import Sidebar from "@/ui/collections/sidebar";
 import React from "react";
+import { useSession } from "next-auth/react";
 
-export default async function CollectionsLayout({ children }) {
+export default function CollectionsLayout({ children }) {
+    const { data: session, status } = useSession();
 
-    let currentSessionUserId = '7a3162da-edee-4de8-a2c6-529397a16c4e';
+    const currentSessionUserId = session?.user?.id;
 
     return (
         <>

@@ -5,7 +5,7 @@ import FilterSorter from "../filterSorter";
 import { useEffect, useState } from "react";
 import getItemsByCollectionId from "@/lib/getItemsByCollectionId";
 
-export default function ItemList({ collectionId }) {
+export default function ItemList({ collectionId, userId }) {
     const [items, setItems] = useState([]);
     const [initialItems, setInitialItems] = useState([]);
 
@@ -57,6 +57,7 @@ export default function ItemList({ collectionId }) {
             itemId={item.id}
             itemName={item.name}
             itemTags={itemTagsArr}
+            userId={userId}
         />)
         
         });
@@ -64,7 +65,7 @@ export default function ItemList({ collectionId }) {
     return (
         <div className="p-0 m-0 w-100">
             <div className="row w-100 p-0 m-0 d-flex flex-column justify-content-center align-items-center">
-                <CollectionCard collectionId={collectionId} />
+                <CollectionCard collectionId={collectionId} userId={userId}/>
             </div>
             <div className="row w-100 p-2 m-0 d-flex flex-column justify-content-center align-items-center">
                 <FilterSorter onFilter={handleFilter} onSort={handleSort} />

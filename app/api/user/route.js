@@ -74,6 +74,7 @@ async function handler(req, res) {
                     email: email,
                 },
                 select: {
+                    id: true,
                     name: true,
                     email: true,
                     password: true,

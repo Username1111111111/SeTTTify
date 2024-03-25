@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import hashPassword from "@/lib/hashPassword";
 import getDomain from "@/lib/getDomain";
 import verifyPassword from "@/lib/verifyPassword";
+import { updateLastLogin } from "@/lib/updateLastLogin";
 
 const domain = getDomain();
 
@@ -39,18 +39,14 @@ const handler = NextAuth({
 
                     if (res.status == 200) {
                         const user = await res.json();
-                        const verified = await verifyPassword(password, user.password);
-
-                        console.log(user.password);
-                        console.log(password);
-                        console.log(verified);
+                        const verifiedPassword = await verifyPassword(
+                            password,
+                            user.password
+                        );
 
                         if (user.blocked) {
                             return Promise.resolve(null);
-                        } else if (
-                            user.email === email &&
-                            user.password === hashedPassword
-                        ) {
+                        } else if (user.email === email && verifiedPassword) {
                             return Promise.resolve({
                                 id: user.id,
                                 name: user.name,
@@ -76,41 +72,36 @@ const handler = NextAuth({
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token._id = user._id;
-                token.status = user.status;
+                token.id = user.id;
+                token.name = user.name;
                 token.email = user.email;
+                token.blocked = user.blocked;
+                token.admin = user.admin;
             }
             return token;
         },
-        async session({ session, token }) {
+        async session({ session, token}) {
             session.user = {
-                _id: token._id,
-                status: token.status,
+                id: token.id,
+                name: token.name,
                 email: token.email,
+                blocked: token.blocked,
+                admin: token.admin,
             };
             return session;
         },
         async redirect({ url, baseUrl }) {
-            // console.log(`baseUrl: -----> ${baseUrl}`);
-            // console.log(`url: -----> ${url}`);
-
-            if (url.startsWith(baseUrl)) {
-                // console.log(`returned url: -----> ${url}`);
-                return url;
-            } else {
-                // console.log(`returned baseUrl: -----> ${baseUrl}`);
-                return baseUrl;
-            }
+            // Allows relative callback URLs
+            if (url.startsWith("/")) return `${baseUrl}${url}`;
+            // Allows callback URLs on the same origin
+            else if (new URL(url).origin === baseUrl) return url;
+            return baseUrl;
         },
         async signIn({ user }) {
-            if (user) {
-                try {
-                    await updateTime(user._id);
-                    return await true;
-                } catch (error) {
-                    console.error(`Error updating last login time: ${error}`);
-                    return await false;
-                }
+            try {
+                await updateLastLogin(user.id);
+            } catch (error) {
+                return error;
             }
             return true;
         },

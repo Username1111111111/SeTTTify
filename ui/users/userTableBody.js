@@ -4,10 +4,11 @@ export default function UserTableBody({ users, selectedRows, selectRow, deselect
     // console.log(users);
     // console.log(`TableBody user: -----> ${users}`);
     
-    const allRows = users.map((user) => (
+    const allRows = users.map((user, index) => (
         <UserTableRow
             key={user.id} 
             id={user.id}
+            index={index}
             name={user.name}
             email={user.email}
             signupDate={user.signupDate}

@@ -5,8 +5,9 @@ import TaglistField from "./fields/taglistField";
 import OptField from "./fields/optField";
 import getItemById from "@/lib/getItemById";
 import { useEffect, useState } from "react";
+import formatDate from "@/lib/formatDate";
 
-export default function ItemCard({ itemId }) {
+export default function ItemCard({ itemId, userId }) {
     const [item, setItem] = useState();
     const n = "number", s = "string", t = "textarea", c = "checkbox", d = "date";
 
@@ -39,7 +40,7 @@ export default function ItemCard({ itemId }) {
             <div className="border border-secondary rounded m-2 p-1 bg-body-secondary">
                 <table className="table w-100 p-0 m-0">
                     <tbody>
-                        <ItemIdField itemId={item.id} />
+                        <ItemIdField itemId={item.id} userId={userId} />
                         <ItemNameField itemName={item.name} />
                         <TaglistField itemTags={tagList} />
 
@@ -140,21 +141,21 @@ export default function ItemCard({ itemId }) {
                         {item.collection.custom_date1_state ? <OptField
                             type={d}
                             name={item.collection.custom_date1_name}
-                            value={item.custom_date1_value}
+                            value={formatDate(item.custom_date1_value)}
                             itemId={item.id}
                         />  : null}
 
                         {item.collection.custom_date2_state ? <OptField
                             type={d}
                             name={item.collection.custom_date2_name}
-                            value={item.custom_date2_value}
+                            value={formatDate(item.custom_date2_value)}
                             itemId={item.id}
                         />  : null}
                         
                         {item.collection.custom_date3_state ? <OptField
                             type={d}
                             name={item.collection.custom_date3_name}
-                            value={item.custom_date3_value}
+                            value={formatDate(item.custom_date3_value)}
                             itemId={item.id}
                         />  : null}
 
