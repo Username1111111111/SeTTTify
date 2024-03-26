@@ -7,9 +7,9 @@ export default function Users() {
     const { data: session } = useSession();
     const router = useRouter();
 
-    if (!session?.user?.admin) {
+    if (!session || !session?.user?.admin) {
         router.back();
     }
 
-    return <>{!session?.user?.admin ? null : <UserTable currentUser={session?.user?.id}/>}</>;
+    return <>{session && session?.user?.admin ? <UserTable currentUser={session?.user?.id}/> : <div></div>}</>;
 }

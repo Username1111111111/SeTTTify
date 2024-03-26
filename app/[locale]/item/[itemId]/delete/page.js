@@ -7,26 +7,34 @@ import { useEffect, useState } from "react";
 
 export default function ItemPage({ params }) {
     const itemId = params.itemId;
-    const [userId, setUserId] = useState();
     const idType = "item";
+    const [userId, setUserId] = useState();
     const { data: session } = useSession();
     const router = useRouter();
 
     useEffect(() => {
+        if (
+            (!session && session?.user?.id !== userId) ||
+            (!session && !session?.user?.admin)
+        ) {
+            router.back();
+        } else {
+            getUser();
+        }
         async function getUser() {
             const userId = await getUserByItemId(itemId);
             setUserId(userId);
         }
-        getUser();
     }, [itemId]);
 
-    if (
-        (!session && session?.user?.id !== userId) ||
-        (!session && !session?.user?.admin)
-    ) {
-        router.back();
-    }
-
-    return <DeletePage id={itemId} idType={idType} userId={userId}/>
-    
+    return (
+        <>
+            {(session && session?.user?.id == userId) ||
+            (session && session?.user?.admin) ? (
+                <DeletePage id={itemId} idType={idType} userId={userId} />
+            ) : (
+                <div></div>
+            )}
+        </>
+    );
 }

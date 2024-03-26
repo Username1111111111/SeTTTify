@@ -1,10 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import getDomain from "@/lib/getDomain";
 import createUser from "@/lib/createUser";
-import { useSession } from "next-auth/react";
 
 export default function SignupForm() {
     const [name, setName] = useState("");
@@ -12,7 +11,6 @@ export default function SignupForm() {
     const [password, setPassword] = useState("");
     const domain = getDomain();
     const router = useRouter();
-    const { data: session } = useSession();
 
     async function handleClick(e) {
         e.preventDefault();
@@ -39,15 +37,8 @@ export default function SignupForm() {
         }
     }
 
-    useEffect(() => {
-        if (session) {
-            router.back();
-        }
-    });
-
     return (
         <div className="col-12 d-flex flex-column justify-content-center align-items-center p-2 m-0">
-            {session ? null : (
                 <div className="col-12 col-md-6 col-lg-5 border border-secondary rounded p-3 bg-body-secondary">
                     <h2 className="text-center h2 w-100 p-0 m-0">Sign up</h2>
                     <hr></hr>
@@ -125,7 +116,6 @@ export default function SignupForm() {
                         </div>
                     </form>
                 </div>
-            )}
         </div>
     );
 }

@@ -3,6 +3,7 @@ import Sidebar from "@/ui/collections/sidebar";
 import CollectionEdit from "@/ui/collections/collectionEdit";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 export default function CollectionCreatePage({ params }) {
     const userId = params.userId;
@@ -10,12 +11,15 @@ export default function CollectionCreatePage({ params }) {
     const { data: session } = useSession();
     const router = useRouter();
 
-    if (
-        (!session && session?.user?.id !== userId) ||
-        (!session && !session?.user?.admin)
-    ) {
-        router.back();
-    }
+    useEffect(() => {
+        if (
+            (!session && session?.user?.id !== userId) ||
+            (!session && !session?.user?.admin)
+        ) {
+            router.back();
+        }
+    }, [userId]);
+
 
     return (
         <>
@@ -24,7 +28,7 @@ export default function CollectionCreatePage({ params }) {
                 {(session && session?.user?.id == userId) ||
                 (session && session?.user?.admin) ? (
                     <CollectionEdit userId={userId} mode={mode} />
-                ) : null}
+                ) : <div></div>}
             </div>
         </>
     );

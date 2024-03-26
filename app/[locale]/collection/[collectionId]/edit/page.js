@@ -12,20 +12,19 @@ export default function CollectionPage({ params }) {
     const { data: session } = useSession();
     const router = useRouter();
 
-    if (
-        (!session && session?.user?.id !== userId) ||
-        (!session && !session?.user?.admin)
-    ) {
-        router.back();
-    }
-
-    
     useEffect(() => {
+        if (
+            (!session && session?.user?.id !== userId) ||
+            (!session && !session?.user?.admin)
+        ) {
+            router.back();
+        } else {
+            getUser();
+        }
         async function getUser() {
             const userId = await getUserByCollectionId(collectionId);
             setUserId(userId);
         }
-        getUser();
     }, [collectionId]);
 
     return (
@@ -37,7 +36,7 @@ export default function CollectionPage({ params }) {
                     mode={mode}
                     userId={userId}
                 />
-            ) : null}
+            ) : <div></div>}
         </>
     );
 }

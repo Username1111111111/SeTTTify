@@ -14,16 +14,17 @@ export default function ItemCreatePage({ params }) {
     const router = useRouter();
 
     useEffect(() => {
-        async function getUser(id) {
-            const userId = await getUserByCollectionId(id);
-            setUserId(userId);
-        }
-        getUser(collectionId);
         if (
             (!session && session?.user?.id !== userId) ||
             (!session && !session?.user?.admin)
         ) {
             router.back();
+        } else {
+            getUser();
+        }
+        async function getUser() {
+            const userId = await getUserByCollectionId(collectionId);
+            setUserId(userId);
         }
     }, [collectionId]);
 
@@ -38,7 +39,7 @@ export default function ItemCreatePage({ params }) {
                         mode={mode}
                         userId={userId}
                     />
-                ) : null}
+                ) : <div></div>}
             </div>
         </>
     );

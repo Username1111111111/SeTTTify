@@ -10,6 +10,7 @@ export default function TagsCloud() {
     const [selectedTag, setSelectedTag] = useState("");
     const [tags, setTags] = useState([]);
     const t = useTranslations("Home");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchTags() {
@@ -22,6 +23,7 @@ export default function TagsCloud() {
                     count: +tag._count.items,
                 }))
             );
+            setLoading(false);
         }
         fetchTags();
     }, []);
@@ -35,10 +37,11 @@ export default function TagsCloud() {
                 fontSize: size,
                 display: "inline-block",
                 color: color,
+                border: `3px solid ${color}`,
                 margin: 2 + "px",
                 cursor: "pointer",
             }}
-            className="cursor-pointer"
+            className="cursor-pointer m-1 rounded p-1"
         >
             {tag.name}
         </span>
@@ -51,6 +54,7 @@ export default function TagsCloud() {
             tags={tags}
             onClick={(tag) => handleClick(tag)}
             renderer={customRenderer}
+            className="m-2"
         />
     );
 
@@ -58,25 +62,19 @@ export default function TagsCloud() {
         setSelectedTag(tag);
     }
 
-    // if (!tags) {
-    //     return (
-    //         <div className="border border-secondary rounded p-1 m-md-0 mt-4 mb-4 bg-body-secondary">
-    //             <h4 className="text-center mt-2">{t("tags")}</h4>
-    //             <hr />
-    //             <div className="d-flex justify-content-center align-content-center m-2 p-2">
-    //                 <div className="spinner-border" role="status">
-    //                     <span className="visually-hidden">Loading...</span>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     );
-    // }
+    const spinner = (
+        <div className="d-flex flex-grow-1 justify-content-center align-content-center m-2 p-2 minWidth100">
+            <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    );
 
     return (
         <div className="border border-secondary rounded p-1 m-md-0 mt-4 mb-4 bg-body-secondary">
             <h4 className="text-center mt-2 w-100">{t("tags")}</h4>
             <hr />
-            {SimpleCloud()}
+            {loading ? spinner : SimpleCloud()}
             {selectedTag ? createTagItems(selectedTag, tags) : null}
         </div>
     );
@@ -93,7 +91,6 @@ function createTagItems(selectedTag) {
 
     return (
         <>
-            {/* <span id="tagspan">{`${selectedTag.name}`}</span> */}
             <ul className="row w-100 p-0 m-0">{allItems}</ul>
         </>
     );
