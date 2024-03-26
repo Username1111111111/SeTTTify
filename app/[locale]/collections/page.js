@@ -2,11 +2,17 @@
 import Sidebar from "@/ui/collections/sidebar";
 import React from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function CollectionsLayout({ children }) {
     const { data: session, status } = useSession();
+    const router = useRouter();
 
     const currentSessionUserId = session?.user?.id;
+
+    if (!session) {
+        router.back();
+    }
 
     return (
         <>

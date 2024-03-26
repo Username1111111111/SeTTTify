@@ -27,7 +27,7 @@ export default function UserTableHead({ selectAllRows, deselectAllRows }) {
                 <th scope="col" className="m-0 p-1 text-center">ID</th>
                 <th scope="col" className="m-0 p-1 text-center">{t("name")}</th>
                 <th scope="col" className="m-0 p-1 text-center">{t("email")}</th>
-                <th scope="col" className="m-0 p-1 text-center">{t("signup_date")}</th>
+                {/* <th scope="col" className="m-0 p-1 text-center">{t("signup_date")}</th> */}
                 <th scope="col" className="m-0 p-1 text-center">{t("last_login")}</th>
                 <th scope="col" className="m-0 p-1 text-center">{t("block")}</th>
                 <th scope="col" className="m-0 p-1 text-center rounded">{t("admin")}</th>

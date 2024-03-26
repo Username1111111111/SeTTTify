@@ -38,6 +38,7 @@ export default function TagsCloud() {
                 display: "inline-block",
                 color: color,
                 border: `3px solid ${color}`,
+                // borderRadius: 10+"px",
                 margin: 2 + "px",
                 cursor: "pointer",
             }}

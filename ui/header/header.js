@@ -13,7 +13,7 @@ export default function Header() {
             <div className="col-12 col-md-5 d-flex justify-content-center justify-content-md-start p-0">
                 <NavMenu />
             </div>
-            <div className="col-12 col-md-7 d-flex flex-wrap justify-content-center justify-content-md-end align-items-center">
+            <div className="col-12 col-md-7 d-flex flex-wrap flex-md-nowrap justify-content-md-end align-items-center justify-content-around">
                 <SearchBar />
                 {/* <ThemeSwitch /> */}
                 <DynamicThemeSwitch />

@@ -31,4 +31,12 @@ textarea::-webkit-resizer {
     border-color: var(--bs-body-bg);
 }
 
+.profileIcon {
+    border-radius: 50%;
+    height:25px;
+    width:25px;
+    background-color: rgb(255, 127, 244);
+    color: white;
+}
+
 /* https://getbootstrap.com/docs/5.3/utilities/background/ */

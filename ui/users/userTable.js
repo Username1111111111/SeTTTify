@@ -1,21 +1,28 @@
 "use client";
 import { useState, useEffect } from "react";
-// import { useSession, signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import UserTableHead from "./userTableHead";
 import UserTableBody from "./userTableBody";
 import UserBlockButton from "./userBlockButton";
 import UserDeleteButton from "./userDeleteButton";
 import UserUnblockButton from "./userUnblockButton";
-import UserAdminButton from "./userAdminButton";
+import UserAdminPromoteButton from "./userAdminPromoteButton";
+import UserAdminRemoveButton from "./userAdminRemoveButton";
 import getDomain from "@/lib/getDomain";
+import usersBlock from "@/lib/usersBlock";
+import usersUnblock from "@/lib/usersUnblock";
+import usersToAdmin from "@/lib/usersToAdmin";
+import usersDeadmin from "@/lib/usersDeadmin";
+import usersDelete from "@/lib/usersDelete";
 
 export default function Table() {
-    // const { data: session, status } = useSession();
+    const { data: session } = useSession();
     const [users, setUsers] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
-    // const [currentUserId, setCurrentUserId] = useState(session?.user?._id);
+    const [currentUserId, setCurrentUserId] = useState(session?.user?.id);
     const domain = getDomain();
+    const router = useRouter();
 
     useEffect(() => {
         async function fetchUsers() {
@@ -28,113 +35,83 @@ export default function Table() {
         fetchUsers();
     }, [domain]);
 
-    // const isLoadingSession = status === "loading";
-    // // const isLoadingSession = currentUserId === undefined;
-
-    // if (isLoadingSession) {
-    //     return (
-    //         <div class="d-flex justify-content-center">
-    //             <div class="spinner-border" role="status">
-    //                 <span class="sr-only"></span>
-    //             </div>
-    //         </div>
-    //     );
-    // }
-
-    // console.log(`currentUserId: -----> ${currentUserId}`);
-
-    // useEffect(() => {
-    //     if(session) {
-    //         setCurrentUserId(session?.user?._id);
-    //     }
-    //     if (!session) {
-    //         signOutAndRedirect();
-    //     }
-    // }, [session, currentUserId]);
-
-    async function __deleteData(selectedRows) {
-        const req = new Request(`${domain}/api/deleteData`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(selectedRows),
-        });
-        await fetch(req);
-    }
-
-    async function __updateData(selectedRows, newStatus) {
-        const requestBody = {
-            ids: selectedRows,
-            newStatus,
-        };
-
-        const req = new Request(`${domain}/api/updateData`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestBody),
-        });
-        await fetch(req);
-    }
+    useEffect(() => {
+        if (session) {
+            setCurrentUserId(session?.user?._id);
+        }
+        if (!session) {
+            signOutAndRedirect();
+        }
+    }, [currentUserId]);
 
     function signOutAndRedirect() {
-        // signOut({ callbackUrl: `${domain}/api/auth/signin`, redirect: false });
         signOut();
-        redirect(`${domain}/api/auth/signin`);
+        router.push(`${domain}/`);
     }
 
     async function onToggleBlockButton() {
         if (selectedRows.length > 0) {
-            const newStatus = "blocked";
-            if (selectedRows.includes(currentUserId)) {
-                await __updateData(selectedRows, newStatus);
-                signOutAndRedirect();
-            } else {
-                await __updateData(selectedRows, newStatus);
-                refreshUsers();
+            if (session) {
+                if (selectedRows.includes(currentUserId)) {
+                    await usersBlock(selectedRows);
+                    signOutAndRedirect();
+                } else {
+                    await usersBlock(selectedRows);
+                    // refreshUsers();
+                }
             }
+            // console.log(selectedRows);
         } else {
-            console.log("No rows selected for deletion");
+            // console.log(selectedRows);
+            console.log("No rows selected for blocking");
         }
     }
 
     async function onToggleUnblockButton() {
         if (selectedRows.length > 0) {
-            const newStatus = "active";
             if (session) {
-                await __updateData(selectedRows, newStatus);
-                refreshUsers();
-            } else if (!session) {
-                signOutAndRedirect();
+                await usersUnblock(selectedRows);
+                // refreshUsers();
             }
         } else {
-            console.log("No rows selected for deletion");
+            console.log("No rows selected for unblocking");
+        }
+    }
+
+    async function onToggleAdminButton() {
+        if (selectedRows.length > 0) {
+            if (session) {
+                await usersToAdmin(selectedRows);
+                // refreshUsers();
+            }
+        } else {
+            console.log("No rows selected for unblocking");
+        }
+    }
+
+    async function onToggleDeAdminButton() {
+        if (selectedRows.length > 0) {
+            if (session) {
+                if (selectedRows.includes(currentUserId)) {
+                    await usersDeadmin(selectedRows);
+                    signOutAndRedirect();
+                } else {
+                    await usersDeadmin(selectedRows);
+                    // refreshUsers();
+                }
+            }
+        } else {
+            console.log("No rows selected for unblocking");
         }
     }
 
     async function onToggleDeleteButton() {
         if (selectedRows.length > 0) {
             if (selectedRows.includes(currentUserId)) {
-                await __deleteData(selectedRows);
+                await usersDelete(selectedRows);
                 signOutAndRedirect();
             } else {
-                await __deleteData(selectedRows);
-                refreshUsers();
-            }
-        } else {
-            console.log("No rows selected for deletion");
-        }
-    }
-
-    async function onToggleAdminButton() {
-        if (selectedRows.length > 0) {
-            if (selectedRows.includes(currentUserId)) {
-                // await __deleteData(selectedRows);
-                // signOutAndRedirect();
-            } else {
-                // await __deleteData(selectedRows);
+                await usersDelete(selectedRows);
                 // refreshUsers();
             }
         } else {
@@ -145,21 +122,25 @@ export default function Table() {
     function selectAllRows() {
         const allRowIDs = users.map((user) => user.id);
         setSelectedRows(allRowIDs);
+        // console.log(selectedRows);
     }
 
     function deselectAllRows() {
         const allRowIDs = [];
         setSelectedRows(allRowIDs);
+        // console.log(selectedRows);
     }
 
     function selectRow(rowID) {
         setSelectedRows((selectedRows) => [...selectedRows, rowID]);
+        // console.log(selectedRows);
     }
 
     function deselectRow(rowID) {
         setSelectedRows((selectedRows) =>
             selectedRows.filter((id) => id !== rowID)
         );
+        // console.log(selectedRows);
     }
 
     return (
@@ -177,9 +158,13 @@ export default function Table() {
                     selectedRows={selectedRows}
                     onClick={onToggleDeleteButton}
                 />
-                <UserAdminButton
+                <UserAdminPromoteButton
                     selectedRows={selectedRows}
                     onClick={onToggleAdminButton}
+                />
+                <UserAdminRemoveButton
+                    selectedRows={selectedRows}
+                    onClick={onToggleDeAdminButton}
                 />
             </div>
             <div className="border border-secondary rounded p-0 m-0 bg-body d-flex justify-content-center align-items-center table-responsive">

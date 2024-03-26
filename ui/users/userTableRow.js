@@ -60,9 +60,9 @@ export default function UserTableRow({
             <td scope="col" className="m-0 p-1 text-center text-break">
                 {email}
             </td>
-            <td scope="col" className="m-0 p-1 text-center text-break">
+            {/* <td scope="col" className="m-0 p-1 text-center text-break">
                 {signupDateF + ""}
-            </td>
+            </td> */}
             <td scope="col" className="m-0 p-1 text-center text-break">
                 {lastLoginDateF + ""}
             </td>

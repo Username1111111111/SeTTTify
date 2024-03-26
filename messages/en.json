@@ -54,7 +54,8 @@
         "block": "Block",
         "unblock": "Unblock",
         "delete": "Delete",
-        "toggle_admin": "Toggle admin"
+        "to_admin": "To Admin",
+        "de_admin": "De-admin"
     },
     "Collection": {
         "name": "Name",

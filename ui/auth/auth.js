@@ -13,7 +13,7 @@ export default function Auth() {
     }, [session])
 
     return (
-        <div className="d-flex flex-row m-1">
+        <div className="d-flex flex-row m-1 align-items-center justify-content-around justify-content-md-end">
             {session ? <UserProfile name={session?.user?.name}/> : <Login />}
             {session ? <Signout/> : <Signup/>}
         </div>

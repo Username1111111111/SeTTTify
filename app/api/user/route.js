@@ -3,9 +3,8 @@ import catchResponse from "@/lib/catchResponse";
 import hashPassword from "@/lib/hashPassword";
 
 async function handler(req, res) {
+    const searchParams = req.nextUrl.searchParams;
     if (req.method === "GET") {
-        const searchParams = req.nextUrl.searchParams;
-
         if (searchParams.has("collectionId")) {
             const collectionId = searchParams.get("collectionId");
 

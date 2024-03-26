@@ -54,7 +54,8 @@
         "block": "დაბლოკვა",
         "unblock": "ბლოკის მოხსნა",
         "delete": "წაშლა",
-        "toggle_admin": "გადართვა ადმინ"
+        "to_admin": "ადმინს",
+        "de_admin": "დე-ადმინ"
     },
     "Collection": {
         "name": "სახელი",

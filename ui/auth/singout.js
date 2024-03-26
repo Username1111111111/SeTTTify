@@ -14,5 +14,5 @@ export default function Signout() {
             router.push('/')
     }
 
-    return (<button className="btn btn-primary m-1" onClick={handleClick}>{`${t("signout")}`}</button>);
+    return (<button className="btn btn-secondary text-nowrap m-1" onClick={handleClick}>{`${t("signout")}`}</button>);
 }
