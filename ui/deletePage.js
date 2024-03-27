@@ -18,11 +18,19 @@ export default function DeletePage({ id, idType, userId }) {
         router.back();
     }
 
-    function handleDelete() {
+    async function handleDelete() {
         if (idType == "item") {
-            deleteItem(id);
+            const res = await deleteItem(id);
+            
+            if (res.status === 200) {
+                router.back();
+            }
         } else if (idType == "collection") {
-            deleteCollection(id);
+            const res = await deleteCollection(id);
+
+            if (res.status === 200) {
+                router.back();
+            }
         }
     }
 
