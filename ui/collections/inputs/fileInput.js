@@ -1,35 +1,21 @@
 import styles from "../collectionEdit.module.css";
-import { useEffect, useState } from "react";
-import uploadImage from "@/lib/uploadImage";
 
 export default function FileInput({
     name,
     placeholder,
     collectionId,
-    imageUrl,
+    setImage,
 }) {
-    const [inputValue, setInputValue] = useState("");
-
-    useEffect(() => {
-        setInputValue(imageUrl);
-    }, [imageUrl]);
-
-    const handleInputChange = (event) => {
-        setInputValue(event.target.value);
-    };
-
     async function handleFileChange(event) {
         const file = await event.target.files[0];
+        setImage(file);
         if (file) {
             previewFile(file);
-            console.log(file.name);
-            // await uploadImage(file);
+            // console.log(file.name);
         } else {
             const preview = document.querySelector("#imageThumbnail");
-            preview.classList.add("d-none")
+            preview.classList.add("d-none");
         }
-        
-        
     }
 
     function previewFile(file) {
@@ -60,11 +46,10 @@ export default function FileInput({
                     {name}:
                 </label>
             </div>
-            <div className="col-7 col-md-8 pe-0 d-flex flex-row">
-                {/* <img id="image-thumbnail" src={`${inputValue}`} /> */}
-                <img id="imageThumbnail" src={`https://picsum.photos/id/237/200/300`} className="rounded me-2"/>
+            <div className="col-7 col-md-8 pe-0 d-flex flex-row justify-content-between align-items-center">
+                <img id="imageThumbnail" className="imgPreview rounded p-0" />
                 <input
-                    className={`form-control border border-secondary d-none ${styles.customFileButton}`}
+                    className={`form-control border border-secondary m-0 ${styles.customFileButton} d-none`}
                     type="file"
                     name="file"
                     accept="image/*"
@@ -74,7 +59,7 @@ export default function FileInput({
                 />
                 <label
                     htmlFor={`image-${collectionId}`}
-                    className="btn btn-secondary rounded col-4 m-0 p-1"
+                    className="btn btn-secondary rounded col-4 m-0 p-1 text-nowrap flex-grow-1"
                 >
                     Choose image
                 </label>

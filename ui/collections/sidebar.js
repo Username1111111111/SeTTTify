@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 
 export default function Sidebar({ userId }) {
     const { data: session } = useSession();
+    
 
     return (
         <div className="p-2 p-md-0 m-0 mt-2 col-12 col-md-3 ">

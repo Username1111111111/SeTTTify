@@ -39,4 +39,8 @@ textarea::-webkit-resizer {
     color: white;
 }
 
+.imgPreview {
+    max-height: 50px;
+}
+
 /* https://getbootstrap.com/docs/5.3/utilities/background/ */

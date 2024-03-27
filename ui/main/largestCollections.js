@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 export default function LargestCollections() {
     const t = useTranslations("Home");
     const [loading, setLoading] = useState(true);
-    const [collections, setCollections] = useState([]);
+    const [collections, setCollections] = useState();
 
     useEffect(() => {
         async function fetchCollections() {
@@ -16,7 +16,7 @@ export default function LargestCollections() {
             setLoading(false);
         }
         fetchCollections();
-    }, [loading, collections]);
+    }, [loading]);
 
     const spinner = (
         <div className="d-flex flex-grow-1 justify-content-center align-content-center m-2 p-2 minWidth100">

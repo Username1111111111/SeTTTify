@@ -17,7 +17,7 @@ export default function LatestItemsList() {
             setLoading(false);
         }
         fetchItems();
-    }, [loading, items]);
+    }, [loading]);
 
     const spinner = (
         <div className="d-flex flex-grow-1 justify-content-center align-content-center m-2 p-2 minWidth100">

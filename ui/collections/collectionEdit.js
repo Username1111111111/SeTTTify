@@ -13,6 +13,7 @@ import getCollectionById from "@/lib/getCollectionById";
 import getTopics from "@/lib/getTopics";
 import createCollection from "@/lib/createCollection";
 import updateCollection from "@/lib/updateCollection";
+import uploadImage from "@/lib/uploadImage";
 
 export default function CollectionEdit({ collectionId, userId, mode }) {
     const t = useTranslations("Collection");
@@ -44,7 +45,6 @@ export default function CollectionEdit({ collectionId, userId, mode }) {
     const [inputValues, setInputValues] = useState({
         name: "",
         description: "",
-        imageUrl: "",
         topicId: "",
         custom_int1_name: "",
         custom_int2_name: "",
@@ -62,7 +62,7 @@ export default function CollectionEdit({ collectionId, userId, mode }) {
         custom_date2_name: "",
         custom_date3_name: "",
     });
-
+    const [image, setImage] = useState();
     
 
     useEffect(() => {
@@ -101,7 +101,6 @@ export default function CollectionEdit({ collectionId, userId, mode }) {
 
                 newValue["name"] = collection.name;
                 newValue["description"] = collection.description;
-                newValue["imageUrl"] = collection.imageUrl;
                 newValue["topicId"] = collection.topicId;
 
                 setInputValues(newValue);
@@ -111,18 +110,20 @@ export default function CollectionEdit({ collectionId, userId, mode }) {
         fetchItem();
     }, [userId, collectionId, mode]);
 
-    function handleSubmit() {
+    async function handleSubmit() {
         const data = { ...inputValues, ...inputStates };
         console.log(data);
 
         if (mode == "create") {
             async function postCollectionData() {
                 await createCollection(userId, data);
+                await uploadImage(image, collectionId);
             }
             postCollectionData();
         } else if (mode == "edit") {
             async function updateCollectionData() {
                 await updateCollection(collectionId, data);
+                await uploadImage(image, collectionId);
             }
             updateCollectionData();
         }
@@ -173,12 +174,13 @@ export default function CollectionEdit({ collectionId, userId, mode }) {
                             imageUrl={inputValues.imageUrl}
                             placeholder={t("choose_file")}
                             collectionId={collectionId}
-                            onChange={(newImageUrl) =>
-                                setInputValues({
-                                    ...inputValues,
-                                    imageUrl: newImageUrl,
-                                })
-                            }
+                            // onChange={(newImageUrl) =>
+                            //     setInputValues({
+                            //         ...inputValues,
+                            //         imageUrl: newImageUrl,
+                            //     })
+                            // }
+                            setImage={setImage}
                         />
 
                         <hr></hr>

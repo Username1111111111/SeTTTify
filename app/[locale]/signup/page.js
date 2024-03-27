@@ -7,9 +7,9 @@ export default function Page() {
     const { data: session } = useSession();
     const router = useRouter();
 
-    if (!session?.user?.admin || session) {
+    if (session) {
         router.back();
     }
 
-    return <>{session?.user?.admin || !session ? <SignupForm /> : <div></div>}</>
+    return <>{!session ? <SignupForm /> : <div></div>}</>
 }
