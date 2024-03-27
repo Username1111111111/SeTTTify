@@ -112,18 +112,28 @@ export default function CollectionEdit({ collectionId, userId, mode }) {
 
     async function handleSubmit() {
         const data = { ...inputValues, ...inputStates };
-        console.log(data);
+        // console.log(data);
 
         if (mode == "create") {
             async function postCollectionData() {
-                await createCollection(userId, data);
-                await uploadImage(image, collectionId);
+                const res = await createCollection(userId, data);
+                const res2 = await uploadImage(image, collectionId);
+                console.log(res);
+                // console.log(res2);
+                if (res.status === 200) {
+                    router.back();
+                }
             }
             postCollectionData();
         } else if (mode == "edit") {
             async function updateCollectionData() {
-                await updateCollection(collectionId, data);
-                await uploadImage(image, collectionId);
+                const res = await updateCollection(collectionId, data);
+                const res2 = await uploadImage(image, collectionId);
+                console.log(res);
+                // console.log(res2);
+                if (res.status === 200) {
+                    router.back();
+                }
             }
             updateCollectionData();
         }

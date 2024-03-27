@@ -39,7 +39,7 @@ async function handler(req) {
                 }
             })
 
-            const resBody = JSON.stringify(imageUrl);
+            const resBody = JSON.stringify( imageUrl ? newFilename : "No luck");
 
             const res = new Response(resBody, {
                 status: 200,

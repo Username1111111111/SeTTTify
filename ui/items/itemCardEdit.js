@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import getItemById from "@/lib/getItemById";
 import getCollectionItemsStateByCollectionId from "@/lib/getCollectionItemsStateByCollectionId";
-// import formatDate from "@/lib/formatDate";
+import { useRouter } from "next/navigation";
 import extractItemData from "@/lib/extractItemData";
 import createItem from "@/lib/createItem";
 import updateItem from "@/lib/updateItem";
@@ -71,6 +71,7 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
         custom_date2_value: "",
         custom_date3_value: "",
     });
+    const router = useRouter();
 
     useEffect(() => {
         async function fetchItem() {
@@ -143,12 +144,20 @@ export default function ItemCardEdit({ itemId, collectionId, mode }) {
 
         if (mode == "create") {
             async function postItemData() {
-                await createItem(collectionId, data);
+                const res = await createItem(collectionId, data);
+                // console.log(res);
+                if (res.status === 200) {
+                    router.back();
+                }
             }
             postItemData();
         } else if (mode == "edit") {
             async function updateItemData() {
-                await updateItem(itemId, data);
+                const res = await updateItem(itemId, data);
+                // console.log(res);
+                if (res.status === 200) {
+                    router.back();
+                }
             }
             updateItemData();
         }

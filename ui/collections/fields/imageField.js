@@ -22,7 +22,7 @@ export default function ImageField({ collectionImageUrl }) {
                     className={styles.roundedImage}
                     referrerPolicy="no-referrer"
                 />
-                {/* <img src={imageUrl} className="w-75"/> */}
+                {/* <img src={imageUrl} className="w-75" referrerPolicy="no-referrer"/> */}
             </div>
         </li>
     );
