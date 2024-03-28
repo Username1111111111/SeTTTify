@@ -37,18 +37,17 @@ export default function Table() {
 
     useEffect(() => {
         fetchUsers();
-    });
+    }, [loading]);
 
 
     useEffect(() => {
         if (!session || (session && !session.user.admin)) {
             router.push(`${domain}/`);
         }
-    }, [session, domain, router]);
+    }, [domain]);
 
     async function signOutAndRedirect() {
-        await signOut();
-        router.push(`${domain}/`);
+        await signOut({ callbackUrl: '/', redirect:true });
     }
 
     async function onToggleBlockButton() {
