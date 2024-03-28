@@ -29,6 +29,9 @@ async function handler(req) {
             // } else {
             //     keyFilename = '/etc/secrets/elated-strength-418414-b1a132f261a6.json';
             // }
+            
+            console.log("keyFilename");
+            console.log(keyFilename);
 
             const storage = new Storage({
                 projectId: projectId,
@@ -40,13 +43,14 @@ async function handler(req) {
                 .toLowerCase()
                 .replace(/ /g, "_")}`;
 
-            await storage
+            const storageRes = await storage
                 .bucket(bucketName)
                 .file(newFilename)
                 .save(Buffer.from(fileBuffer));
             // console.log(`${newFilename} uploaded to ${bucketName}`);
+            console.log(storageRes);
 
-            const imageUrl = await prisma.collection.update({
+            const image = await prisma.collection.update({
                 where: {
                     id: collectionId,
                 },
@@ -55,7 +59,7 @@ async function handler(req) {
                 },
             });
 
-            const resBody = JSON.stringify(imageUrl ? newFilename : "No luck");
+            const resBody = JSON.stringify(image);
 
             const res = new Response(resBody, {
                 status: 200,

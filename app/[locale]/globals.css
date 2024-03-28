@@ -41,6 +41,7 @@ textarea::-webkit-resizer {
 
 .imgPreview {
     max-height: 50px;
+    margin-right: 5px;
 }
 
 /* https://getbootstrap.com/docs/5.3/utilities/background/ */
