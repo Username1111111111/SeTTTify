@@ -18,16 +18,17 @@ async function handler(req) {
 
         try {
             // https://cloud.google.com/docs/authentication/application-default-credentials#GAC
+            // https://community.render.com/t/docker-secrets-file-runtime-access-woes/3423
+
             const projectId = process.env.PROJECT_ID;
             const bucketName = process.env.BUCKET_NAME;
-            let keyFilename;
-            if (process.env.NODE_ENV === "development") {
-                keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-            } else {
-                keyFilename = '/etc/secrets/elated-strength-418414-b1a132f261a6.json';
-            }
+            const keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
-            
+            // if (process.env.NODE_ENV === "development") {
+            //     keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+            // } else {
+            //     keyFilename = '/etc/secrets/elated-strength-418414-b1a132f261a6.json';
+            // }
 
             const storage = new Storage({
                 projectId: projectId,
