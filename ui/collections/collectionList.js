@@ -3,20 +3,13 @@ import CollectionListItem from "./collectionListItem";
 import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 import getDomain from "@/lib/getDomain";
+import Spinner from "@/ui/spinner";
 
 export default function CollectionList({ userId }) {
     const t = useTranslations("Sidebarplus");
     const [collections, setCollections] = useState([]);
     const domain = getDomain();
     const [loading, setLoading] = useState(true);
-
-    const spinner = (
-        <div className="d-flex flex-grow-1 justify-content-center align-content-center p-2 minWidth100">
-            <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    );
 
     useEffect(() => {
         async function fetchCollections() {
@@ -45,7 +38,7 @@ export default function CollectionList({ userId }) {
             <p className="text-center fs-5 mt-2 mb-0">
                 {t("collections")}:
             </p>
-            {loading ? spinner : createCollectionItems(collections, userId)}
+            {loading ? <Spinner/> : createCollectionItems(collections, userId)}
         </div>
     );
 }

@@ -3,6 +3,7 @@ import LargestCollection from "./largestCollection";
 import { useTranslations } from "next-intl";
 import getCollectionsLargest from "@/lib/getCollectionsLargest";
 import { useState, useEffect } from "react";
+import Spinner from "@/ui/spinner";
 
 export default function LargestCollections() {
     const t = useTranslations("Home");
@@ -18,19 +19,12 @@ export default function LargestCollections() {
         fetchCollections();
     }, [loading]);
 
-    const spinner = (
-        <div className="d-flex flex-grow-1 justify-content-center align-content-center m-2 p-2 minWidth100">
-            <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    );
     
     return (
         <div className="border border-secondary rounded p-1 m-md-0 mt-4 bg-body-secondary">
             <h4 className="text-center mt-2">{t("largest_collections")}</h4>
             <hr />
-            {loading ? spinner : createLargestCollections(collections)}
+            {loading ? <Spinner/> : createLargestCollections(collections)}
         </div>
     );
 }

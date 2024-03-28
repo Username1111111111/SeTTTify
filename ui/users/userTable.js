@@ -15,37 +15,39 @@ import usersUnblock from "@/lib/usersUnblock";
 import usersToAdmin from "@/lib/usersToAdmin";
 import usersDeadmin from "@/lib/usersDeadmin";
 import usersDelete from "@/lib/usersDelete";
+import Spinner from "@/ui/spinner";
 
 export default function Table() {
     const { data: session } = useSession();
     const [users, setUsers] = useState([]);
     const [selectedRows, setSelectedRows] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(session?.user?.id);
+    const [loading, setLoading] = useState(true);
     const domain = getDomain();
     const router = useRouter();
 
+    async function fetchUsers() {
+        const res = await fetch(`${domain}/api/users`, {
+            // next: { revalidate: 60 },
+        });
+        const data = await res.json();
+        setUsers(data);
+        setLoading(false);
+    }
+
     useEffect(() => {
-        async function fetchUsers() {
-            const res = await fetch(`${domain}/api/users`, {
-                next: { revalidate: 60 },
-            });
-            const data = await res.json();
-            setUsers(data);
-        }
         fetchUsers();
-    }, [domain]);
+    });
+
 
     useEffect(() => {
-        if (session) {
-            setCurrentUserId(session?.user?._id);
+        if (!session || (session && !session.user.admin)) {
+            router.push(`${domain}/`);
         }
-        if (!session) {
-            signOutAndRedirect();
-        }
-    }, [currentUserId]);
+    }, [session, domain, router]);
 
-    function signOutAndRedirect() {
-        signOut();
+    async function signOutAndRedirect() {
+        await signOut();
         router.push(`${domain}/`);
     }
 
@@ -57,12 +59,10 @@ export default function Table() {
                     signOutAndRedirect();
                 } else {
                     await usersBlock(selectedRows);
-                    // refreshUsers();
+                    await fetchUsers();
                 }
             }
-            // console.log(selectedRows);
         } else {
-            // console.log(selectedRows);
             console.log("No rows selected for blocking");
         }
     }
@@ -71,7 +71,7 @@ export default function Table() {
         if (selectedRows.length > 0) {
             if (session) {
                 await usersUnblock(selectedRows);
-                // refreshUsers();
+                await fetchUsers();
             }
         } else {
             console.log("No rows selected for unblocking");
@@ -82,7 +82,7 @@ export default function Table() {
         if (selectedRows.length > 0) {
             if (session) {
                 await usersToAdmin(selectedRows);
-                // refreshUsers();
+                await fetchUsers();
             }
         } else {
             console.log("No rows selected for unblocking");
@@ -97,7 +97,7 @@ export default function Table() {
                     signOutAndRedirect();
                 } else {
                     await usersDeadmin(selectedRows);
-                    // refreshUsers();
+                    await fetchUsers();
                 }
             }
         } else {
@@ -112,7 +112,7 @@ export default function Table() {
                 signOutAndRedirect();
             } else {
                 await usersDelete(selectedRows);
-                // refreshUsers();
+                await fetchUsers();
             }
         } else {
             console.log("No rows selected for deletion");
@@ -122,25 +122,21 @@ export default function Table() {
     function selectAllRows() {
         const allRowIDs = users.map((user) => user.id);
         setSelectedRows(allRowIDs);
-        // console.log(selectedRows);
     }
 
     function deselectAllRows() {
         const allRowIDs = [];
         setSelectedRows(allRowIDs);
-        // console.log(selectedRows);
     }
 
     function selectRow(rowID) {
         setSelectedRows((selectedRows) => [...selectedRows, rowID]);
-        // console.log(selectedRows);
     }
 
     function deselectRow(rowID) {
         setSelectedRows((selectedRows) =>
             selectedRows.filter((id) => id !== rowID)
         );
-        // console.log(selectedRows);
     }
 
     return (
@@ -168,19 +164,24 @@ export default function Table() {
                 />
             </div>
             <div className="border border-secondary rounded p-0 m-0 bg-body d-flex justify-content-center align-items-center table-responsive">
-                <table className="table table-striped rounded">
-                    <UserTableHead
-                        selectedRows={selectedRows}
-                        deselectAllRows={deselectAllRows}
-                        selectAllRows={selectAllRows}
-                    ></UserTableHead>
-                    <UserTableBody
-                        selectedRows={selectedRows}
-                        selectRow={selectRow}
-                        deselectRow={deselectRow}
-                        users={users}
-                    ></UserTableBody>
-                </table>
+                {loading ? (
+                    <Spinner />
+                ) : (
+                    <table className="table table-striped rounded">
+                        <UserTableHead
+                            selectedRows={selectedRows}
+                            deselectAllRows={deselectAllRows}
+                            selectAllRows={selectAllRows}
+                        ></UserTableHead>
+
+                        <UserTableBody
+                            selectedRows={selectedRows}
+                            selectRow={selectRow}
+                            deselectRow={deselectRow}
+                            users={users}
+                        ></UserTableBody>
+                    </table>
+                )}
             </div>
         </div>
     );

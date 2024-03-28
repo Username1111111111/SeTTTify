@@ -3,6 +3,7 @@ import LatestItem from "./latestItem";
 import { useTranslations } from "next-intl";
 import getItemsLatest from "@/lib/getItemsLatest";
 import { useState, useEffect } from "react";
+import Spinner from "@/ui/spinner";
 
 export default function LatestItemsList() {
     const t = useTranslations("Home");
@@ -19,19 +20,12 @@ export default function LatestItemsList() {
         fetchItems();
     }, [loading]);
 
-    const spinner = (
-        <div className="d-flex flex-grow-1 justify-content-center align-content-center m-2 p-2 minWidth100">
-            <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    );
 
     return (
         <div className="border border-secondary rounded p-1 m-0 bg-body-secondary minWidth100">
             <h4 className="text-center mt-2">{t("latest_items")}</h4>
             <hr />
-            <>{loading ? spinner : createLatestItems(items)}</>
+            <>{loading ? <Spinner/> : createLatestItems(items)}</>
         </div>
     );
 }

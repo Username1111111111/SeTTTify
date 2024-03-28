@@ -21,6 +21,7 @@ export default function ImageField({ collectionImageUrl }) {
                     }}
                     className={styles.roundedImage}
                     referrerPolicy="no-referrer"
+                    priority={true}
                 />
                 {/* <img src={imageUrl} className="w-75" referrerPolicy="no-referrer"/> */}
             </div>

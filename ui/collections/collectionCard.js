@@ -8,20 +8,24 @@ import DescriptionField from "./fields/descriptionField";
 import ImageField from "./fields/imageField";
 import TopicField from "./fields/topicField";
 import getCollectionById from "@/lib/getCollectionById";
+import Spinner from "@/ui/spinner";
 
 export default function CollectionCard({ collectionId, userId }) {
     const [collection, setCollection] = useState("");
     const { data: session } = useSession();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchCollection() {
             if (collectionId) {
                 const data = await getCollectionById(collectionId);
                 setCollection(data);
+                setLoading(false);
             }
         }
         fetchCollection();
     }, [collectionId]);
+
 
     return (
         <div className="col-12 col-md-8 col-lg-6 p-2 m-0">
@@ -31,14 +35,27 @@ export default function CollectionCard({ collectionId, userId }) {
                         collectionId={collectionId}
                         userId={userId}
                     />
-                    <ImageField collectionImageUrl={collection.imageUrl} />
-                    <CollectionNameField collectionName={collection.name} />
-                    {collection.topic && (
-                        <TopicField collectionTopic={collection.topic.name} />
+                    {loading ? (
+                        <Spinner/>
+                    ) : (
+                        <>
+                            {" "}
+                            <ImageField
+                                collectionImageUrl={collection.imageUrl}
+                            />
+                            <CollectionNameField
+                                collectionName={collection.name}
+                            />
+                            {collection.topic && (
+                                <TopicField
+                                    collectionTopic={collection.topic.name}
+                                />
+                            )}
+                            <DescriptionField
+                                collectionDescription={collection.description}
+                            />
+                        </>
                     )}
-                    <DescriptionField
-                        collectionDescription={collection.description}
-                    />
                 </ul>
                 {(session && session?.user?.id == userId) ||
                 (session && session?.user?.admin) ? (

@@ -4,10 +4,12 @@ import CollectionCard from "../collections/collectionCard";
 import FilterSorter from "../filterSorter";
 import { useEffect, useState } from "react";
 import getItemsByCollectionId from "@/lib/getItemsByCollectionId";
+import Spinner from "@/ui/spinner";
 
 export default function ItemList({ collectionId, userId }) {
     const [items, setItems] = useState([]);
     const [initialItems, setInitialItems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchItems() {
@@ -15,6 +17,7 @@ export default function ItemList({ collectionId, userId }) {
                 const data = await getItemsByCollectionId(collectionId);
                 setItems(data);
                 setInitialItems(data);
+                setLoading(false);
             }
         }
         fetchItems();
@@ -70,8 +73,8 @@ export default function ItemList({ collectionId, userId }) {
             <div className="row w-100 p-2 m-0 d-flex flex-column justify-content-center align-items-center">
                 <FilterSorter onFilter={handleFilter} onSort={handleSort} />
             </div>
-            {/* {createItemList()} */}
-            <ul className="row w-100 p-0 m-0">{itemList}</ul>
+            
+            <ul className="row w-100 p-0 m-0">{loading ? <Spinner/> : itemList}</ul>
         </div>
     );
 }

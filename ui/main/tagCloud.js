@@ -1,10 +1,11 @@
 "use client";
 import { TagCloud } from "react-tagcloud";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import TagItem from "./tagItem";
 import styles from "./tagCloud.module.css";
-import { useTranslations } from "next-intl";
 import getTags from "@/lib/getTags";
+import Spinner from "@/ui/spinner";
 
 export default function TagsCloud() {
     const [selectedTag, setSelectedTag] = useState("");
@@ -63,19 +64,11 @@ export default function TagsCloud() {
         setSelectedTag(tag);
     }
 
-    const spinner = (
-        <div className="d-flex flex-grow-1 justify-content-center align-content-center m-2 p-2 minWidth100">
-            <div className="spinner-border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    );
-
     return (
         <div className="border border-secondary rounded p-1 m-md-0 mt-4 mb-4 bg-body-secondary">
             <h4 className="text-center mt-2 w-100">{t("tags")}</h4>
             <hr />
-            {loading ? spinner : SimpleCloud()}
+            {loading ? <Spinner/> : SimpleCloud()}
             {selectedTag ? createTagItems(selectedTag, tags) : null}
         </div>
     );
