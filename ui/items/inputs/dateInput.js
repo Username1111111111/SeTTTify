@@ -10,7 +10,7 @@ export default function DateInput({ itemId, name, value, onChange }) {
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
         onChange(event.target.value);
-        console.log(event.target.value)
+        // console.log(event.target.value)
     };
 
     const inputId = `date-${itemId ? itemId : "create"}-${generateUniqueId()}`;

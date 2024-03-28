@@ -19,27 +19,42 @@ async function handler(req) {
         try {
             // https://cloud.google.com/docs/authentication/application-default-credentials#GAC
             const projectId = process.env.PROJECT_ID;
-            const keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS ;
             const bucketName = process.env.BUCKET_NAME;
+            let keyFilename;
+            if (process.env.NODE_ENV === "development") {
+                keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+            } else {
+                keyFilename = '/etc/secrets/elated-strength-418414-b1a132f261a6.json';
+            }
 
-            const storage = new Storage({ projectId: projectId, keyFilename: keyFilename });
+            
+
+            const storage = new Storage({
+                projectId: projectId,
+                keyFilename: keyFilename,
+            });
 
             const fileBuffer = await file.arrayBuffer();
-            const newFilename = `${generateUniqueId()}_${file.name.toLowerCase().replace(/ /g, '_')}`
+            const newFilename = `${generateUniqueId()}_${file.name
+                .toLowerCase()
+                .replace(/ /g, "_")}`;
 
-            await storage.bucket(bucketName).file(newFilename).save(Buffer.from(fileBuffer));
-            console.log(`${newFilename} uploaded to ${bucketName}`);
+            await storage
+                .bucket(bucketName)
+                .file(newFilename)
+                .save(Buffer.from(fileBuffer));
+            // console.log(`${newFilename} uploaded to ${bucketName}`);
 
             const imageUrl = await prisma.collection.update({
                 where: {
                     id: collectionId,
                 },
                 data: {
-                    imageUrl: newFilename
-                }
-            })
+                    imageUrl: newFilename,
+                },
+            });
 
-            const resBody = JSON.stringify( imageUrl ? newFilename : "No luck");
+            const resBody = JSON.stringify(imageUrl ? newFilename : "No luck");
 
             const res = new Response(resBody, {
                 status: 200,

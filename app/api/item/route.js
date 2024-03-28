@@ -199,8 +199,8 @@ async function handler(req) {
 
             const userIdValue = userId.userId;
 
-            console.log("userIdValue");
-            console.log(userIdValue);
+            // console.log("userIdValue");
+            // console.log(userIdValue);
 
             const currentItem = await prisma.item.findUnique({
                 where: { id: itemId },

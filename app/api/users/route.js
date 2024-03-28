@@ -26,7 +26,7 @@ async function handler(req, res) {
         }
     } else if (req.method === "PUT") {
         const userIds = await req.json();
-        console.log(userIds);
+        // console.log(userIds);
 
         // if (!Array.isArray(userIds) || userIds.length === 0) {
         //     return res.status(400).json({ error: "Invalid user IDs" });

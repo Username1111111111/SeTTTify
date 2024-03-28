@@ -7,7 +7,7 @@ export default async function Body({ children }) {
     const session = await getServerSession();
 
     return (
-        <SessionProvider session={session} refetchInterval={15}>
+        <SessionProvider session={session} refetchInterval={5}>
             <IntlProvider>
                 <body className="container-fluid bg-body-tertiary">
                     <div className="row">
