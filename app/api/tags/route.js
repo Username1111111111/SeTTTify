@@ -33,7 +33,7 @@ async function handler(req) {
         } else {
             try {
                 const tags = await prisma.tag.findMany({
-                    take: 10,
+                    take: 20,
                     select: {
                         id: true,
                         name: true,
